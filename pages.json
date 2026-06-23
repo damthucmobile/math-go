@@ -1,0 +1,61 @@
+{
+  "tables": [
+    {
+      "id": "homepage",
+      "name": "Homepage",
+      "singularName": "Homepage",
+      "description": "Homepage content (title, hero, body).",
+      "file": "homepage.json",
+      "single": true,
+      "fields": [
+        { "key": "title", "label": "Title", "type": "text", "required": true },
+        { "key": "body", "label": "Body", "type": "richtext", "required": false },
+        { "key": "heroComponentId", "label": "Hero component", "type": "number", "required": false },
+        { "key": "sectionData", "label": "Section data (JSON)", "type": "textarea", "required": false }
+      ]
+    },
+    {
+      "id": "components",
+      "name": "Components",
+      "singularName": "Component",
+      "description": "Template-only sections (Hero, CTA, Pricing, etc.). Data comes from the page or post that references them.",
+      "file": "components.json",
+      "single": false,
+      "fields": [
+        { "key": "slug", "label": "Slug", "type": "text", "required": false },
+        { "key": "type", "label": "Type", "type": "text", "required": true },
+        { "key": "label", "label": "Label", "type": "text", "required": true }
+      ]
+    },
+    {
+      "id": "pages",
+      "name": "Pages",
+      "singularName": "Page",
+      "description": "Static pages (About, Contact, etc.)",
+      "file": "pages-data.json",
+      "single": false,
+      "fields": [
+        { "key": "slug", "label": "Slug", "type": "text", "required": true },
+        { "key": "title", "label": "Title", "type": "text", "required": true },
+        { "key": "body", "label": "Body", "type": "richtext", "required": false },
+        { "key": "heroComponentId", "label": "Hero component", "type": "number", "required": false },
+        { "key": "sectionData", "label": "Section data (JSON)", "type": "textarea", "required": false }
+      ]
+    },
+    {
+      "id": "posts",
+      "name": "Posts",
+      "singularName": "Post",
+      "description": "Blog posts or news items",
+      "file": "posts.json",
+      "single": false,
+      "fields": [
+        { "key": "title", "label": "Title", "type": "text", "required": true },
+        { "key": "excerpt", "label": "Excerpt", "type": "text", "required": false },
+        { "key": "content", "label": "Content", "type": "richtext", "required": false },
+        { "key": "heroComponentId", "label": "Hero component", "type": "number", "required": false },
+        { "key": "sectionData", "label": "Section data (JSON)", "type": "textarea", "required": false }
+      ]
+    }
+  ]
+}

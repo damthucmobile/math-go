@@ -1,0 +1,44 @@
+import { clsx } from 'clsx'
+import type { ComponentProps, ReactNode } from 'react'
+import { Container } from '@/app/components/oatmeal/elements/container'
+import { Eyebrow } from '@/app/components/oatmeal/elements/eyebrow'
+import { Subheading } from '@/app/components/oatmeal/elements/subheading'
+import { Text } from '@/app/components/oatmeal/elements/text'
+
+/**
+ * Page section with optional eyebrow, headline, subheadline, and CTA. Wraps content in Container.
+ * @example
+ * <Section headline="About us" subheadline={<Text>...</Text>}><div>...</div></Section>
+ */
+export function Section({
+  eyebrow,
+  headline,
+  subheadline,
+  cta,
+  className,
+  children,
+  ...props
+}: {
+  eyebrow?: ReactNode
+  headline?: ReactNode
+  subheadline?: ReactNode
+  cta?: ReactNode
+} & ComponentProps<'section'>) {
+  return (
+    <section className={clsx('py-16', className)} {...props}>
+      <Container className="flex flex-col gap-10 sm:gap-16">
+        {headline != null && (
+          <div className="flex max-w-2xl flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              {eyebrow != null && <Eyebrow>{eyebrow}</Eyebrow>}
+              <Subheading>{headline}</Subheading>
+            </div>
+            {subheadline != null && <Text className="text-pretty">{subheadline}</Text>}
+            {cta}
+          </div>
+        )}
+        <div>{children}</div>
+      </Container>
+    </section>
+  )
+}
