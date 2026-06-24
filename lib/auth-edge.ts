@@ -4,11 +4,12 @@
 import * as jose from 'jose'
 
 const SESSION_COOKIE = 'admin_session'
+const DEFAULT_API_SECRET = 'dev-api-secret'
 
 function getSecret(): string {
-  const secret = process.env.API_SECRET
-  if (!secret) return ''
-  return secret
+  const secret = process.env.API_SECRET || process.env.SESSION_SECRET
+  if (secret) return secret
+  return process.env.NODE_ENV === 'production' ? '' : DEFAULT_API_SECRET
 }
 
 export async function verifySessionToken(token: string): Promise<{ username: string } | null> {

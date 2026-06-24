@@ -21,6 +21,13 @@ export interface DeployStatusFile {
 const DEPLOY_TIMEOUT_MS = 20 * 60 * 1000 // 20 min - consider "no deploy" if older
 const FALLBACK_DEPLOY_DURATION_MS = 5 * 60 * 1000 // 5 min - if no Vercel API, assume done after this
 
+function shouldSkipDeployLockInLocalDev(): boolean {
+  return process.env.NODE_ENV !== 'production' &&
+    !process.env.VERCEL_DEPLOY_HOOK_URL &&
+    !process.env.VERCEL_API_TOKEN &&
+    !process.env.VERCEL_PROJECT_ID
+}
+
 /** Read current deploy status (startedAt or null). */
 export async function getDeployStatusAsync(): Promise<DeployStatusFile | null> {
   if (useBlobStorage()) {
@@ -108,6 +115,12 @@ async function isVercelDeploymentStillBuilding(startedAt: number): Promise<boole
 export async function isDeployingAsync(): Promise<boolean> {
   const status = await getDeployStatusAsync()
   if (!status || status.startedAt <= 0) return false
+
+  if (shouldSkipDeployLockInLocalDev()) {
+    await clearDeployStatusAsync()
+    return false
+  }
+
   const age = Date.now() - status.startedAt
   if (age > DEPLOY_TIMEOUT_MS) return false
 

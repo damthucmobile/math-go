@@ -3,11 +3,17 @@ import * as jose from 'jose'
 
 const SESSION_COOKIE = 'admin_session'
 const SESSION_MAX_AGE = 60 * 60 * 24 // 24 hours
+const DEFAULT_API_SECRET = 'dev-api-secret'
+const DEFAULT_ADMIN_USERNAME = 'admin'
+const DEFAULT_ADMIN_PASSWORD = 'password'
 
 function getSecret(): string {
-  const secret = process.env.API_SECRET
-  if (!secret) throw new Error('API_SECRET is not set')
-  return secret
+  const secret = process.env.API_SECRET || process.env.SESSION_SECRET
+  if (secret) return secret
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('API_SECRET is not set')
+  }
+  return DEFAULT_API_SECRET
 }
 
 export async function createSessionToken(username: string): Promise<string> {
@@ -21,9 +27,8 @@ export async function createSessionToken(username: string): Promise<string> {
 export { SESSION_COOKIE }
 
 export function verifyAdminCredentials(username: string, password: string): boolean {
-  const expectedUser = process.env.ADMIN_USERNAME
-  const expectedPass = process.env.ADMIN_PASSWORD
-  if (!expectedUser || !expectedPass) return false
+  const expectedUser = process.env.ADMIN_USERNAME || DEFAULT_ADMIN_USERNAME
+  const expectedPass = process.env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD
   if (username !== expectedUser || password.length === 0) return false
   const secret = getSecret()
   const a = createHmac('sha256', secret).update(password).digest()
