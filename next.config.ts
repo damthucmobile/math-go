@@ -28,6 +28,10 @@ const nextConfig: NextConfig = {
       { protocol: 'http', hostname: '**', pathname: '/uploads/**' },
       { protocol: 'https', hostname: '**', pathname: '/uploads/**' },
       { protocol: 'https', hostname: '*.public.blob.vercel-storage.com', pathname: '/**' },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      }
     ],
   },
   async headers() {

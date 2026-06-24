@@ -2832,10 +2832,10 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lucide-react@^0.575.0:
-  version "0.575.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.575.0.tgz#90feaa4c140e9693e4ee9426d9927a6b833267ac"
-  integrity sha512-VuXgKZrk0uiDlWjGGXmKV6MSk9Yy4l10qgVvzGn2AWBx1Ylt0iBexKOAoA6I7JO3m+M9oeovJd3yYENfkUbOeg==
+lucide-react@^1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-1.21.0.tgz#ef99ccf355af9bf5aec74ac2f122f7da1a9ea608"
+  integrity sha512-reEZMXq8Qdd5jg5XYkQ5TR1fB/GiQ7ih4vcrthYDtgjSDwh0i6/YLiGjsWsIwgN49gpAnd4J2elSNzncMEEUUQ==
 
 magic-string@^0.30.21:
   version "0.30.21"
@@ -3178,6 +3178,11 @@ react-dom@19.2.3:
   integrity sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==
   dependencies:
     scheduler "^0.27.0"
+
+react-icons@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.6.0.tgz#27bcc4acbc836e762548d76041cf9b9fef4e3837"
+  integrity sha512-RH93p5ki6LfOiIt0UtDyNg/cee+HLVR6cHHtW3wALfo+eOHTp8RnU2kRkI6E+H19zMIs03DyxUG/GfZMOGvmiA==
 
 react-is@^16.13.1:
   version "16.13.1"
