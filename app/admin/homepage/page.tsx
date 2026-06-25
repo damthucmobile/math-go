@@ -2,17 +2,18 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Loader2, ChevronRight } from 'lucide-react'
+import { Loader2, ChevronRight, PlusCircle, Trash2 } from 'lucide-react'
 import { getApiUrl, getAdminPath, inputClasses, labelClasses, btnSecondary, linkMuted } from '@/lib/admin-utils'
 import { useDeployStatus } from '@/app/admin/DeployStatusContext'
 import { parseSectionData } from '@/app/admin/SectionDataFields'
+import { lucideIconOptions } from '@/lib/homepage-data'
 import type { JsonValue } from '@/types/json'
 
 type ProgramItem = {
   title: string
   description: string
   href: string
-  iconName: 'graduation' | 'book' | 'award' | 'globe'
+  iconName: string
 }
 
 type StatItem = {
@@ -62,6 +63,18 @@ type HomepageSectionData = {
 
 const HOMEPAGE_ID = '1'
 
+const legacyIconNameMap: Record<string, string> = {
+  graduation: 'GraduationCap',
+  book: 'BookOpen',
+  award: 'Award',
+  globe: 'Globe',
+}
+
+const normalizeProgramIconName = (iconName?: string): string => {
+  if (!iconName) return 'GraduationCap'
+  return legacyIconNameMap[iconName] ?? iconName
+}
+
 const defaultHomepageData: HomepageSectionData = {
   hero: {
     badge: 'HỌC TẬP TOÀN DIỆN',
@@ -79,10 +92,10 @@ const defaultHomepageData: HomepageSectionData = {
     { value: '95%', label: 'Học sinh tiến bộ rõ rệt' },
   ],
   programs: [
-    { title: 'Toán Tiểu Học', description: 'Xây dựng nền tảng vững chắc, kích thích tư duy logic và niềm yêu thích môn Toán từ nhỏ.', href: '/curriculum/tieu-hoc', iconName: 'graduation' },
-    { title: 'Toán THCS', description: 'Lấy lại gốc nhanh chóng, nâng cao kỹ năng giải quyết vấn đề và chuẩn bị thi vào 10.', href: '/curriculum/trung-hoc', iconName: 'book' },
-    { title: 'Toán THPT & Luyện Thi', description: 'Chiến thuật giải đề trắc nghiệm nhanh, bao quát kiến thức và tối ưu hoá điểm số thi Đại học.', href: '/curriculum/trung-hoc-pho-thong', iconName: 'award' },
-    { title: 'Toán Quốc Tế', description: 'Chuẩn bị cho các kỳ thi SAT, IGCSE, A-Level với giáo trình chuẩn quốc tế và tư duy chuyên sâu.', href: '/curriculum/toan-quoc-te', iconName: 'globe' },
+    { title: 'Toán Tiểu Học', description: 'Xây dựng nền tảng vững chắc, kích thích tư duy logic và niềm yêu thích môn Toán từ nhỏ.', href: '/curriculum/tieu-hoc', iconName: 'GraduationCap' },
+    { title: 'Toán THCS', description: 'Lấy lại gốc nhanh chóng, nâng cao kỹ năng giải quyết vấn đề và chuẩn bị thi vào 10.', href: '/curriculum/trung-hoc', iconName: 'BookOpen' },
+    { title: 'Toán THPT & Luyện Thi', description: 'Chiến thuật giải đề trắc nghiệm nhanh, bao quát kiến thức và tối ưu hoá điểm số thi Đại học.', href: '/curriculum/trung-hoc-pho-thong', iconName: 'Award' },
+    { title: 'Toán Quốc Tế', description: 'Chuẩn bị cho các kỳ thi SAT, IGCSE, A-Level với giáo trình chuẩn quốc tế và tư duy chuyên sâu.', href: '/curriculum/toan-quoc-te', iconName: 'Globe' },
   ],
   tutor: {
     name: 'Thầy Nguyễn Văn A',
@@ -111,7 +124,12 @@ function normalizeHomepageData(raw: Partial<HomepageSectionData> | undefined): H
   return {
     hero: { ...defaultHomepageData.hero, ...(raw?.hero ?? {}) },
     stats: Array.isArray(raw?.stats) && raw.stats.length > 0 ? raw.stats : defaultHomepageData.stats,
-    programs: Array.isArray(raw?.programs) && raw.programs.length > 0 ? raw.programs : defaultHomepageData.programs,
+    programs: Array.isArray(raw?.programs) && raw.programs.length > 0
+      ? raw.programs.map((program) => ({
+        ...program,
+        iconName: normalizeProgramIconName(program.iconName),
+      }))
+      : defaultHomepageData.programs,
     tutor: { ...defaultHomepageData.tutor, ...(raw?.tutor ?? {}) },
     testimonials: Array.isArray(raw?.testimonials) && raw.testimonials.length > 0 ? raw.testimonials : defaultHomepageData.testimonials,
     contact: { ...defaultHomepageData.contact, ...(raw?.contact ?? {}) },
@@ -143,6 +161,28 @@ export default function AdminHomepagePage() {
       })
       .finally(() => setLoading(false))
   }, [api])
+
+  const handleAddProgram = () => {
+    setHomepageData((d) => ({
+      ...d,
+      programs: [
+        ...d.programs,
+        {
+          title: '',
+          description: '',
+          href: '',
+          iconName: 'GraduationCap',
+        },
+      ],
+    }))
+  }
+
+  const handleRemoveProgram = (index: number) => {
+    setHomepageData((d) => ({
+      ...d,
+      programs: d.programs.filter((_, i) => i !== index),
+    }))
+  }
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
@@ -280,36 +320,69 @@ export default function AdminHomepagePage() {
                 </div>
 
                 <div className="rounded-xl border border-mist-200 p-5">
-                  <h2 className="text-lg font-semibold text-mist-950">Chương trình</h2>
-                  <div className="mt-4 grid gap-4 md:grid-cols-2">
-                    {homepageData.programs.map((item, index) => (
-                      <div key={index} className="rounded-lg border border-mist-200 p-4">
-                        <div className="grid gap-3">
-                          <div>
-                            <label className={labelClasses}>Title</label>
-                            <input value={item.title} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, title: e.target.value } : p) }))} className={inputClasses} />
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <h2 className="text-lg font-semibold text-mist-950">Chương trình</h2>
+                    <button
+                      type="button"
+                      onClick={handleAddProgram}
+                      className="inline-flex items-center gap-2 rounded-lg border border-mist-300 bg-white px-3 py-2 text-sm font-medium text-mist-700 transition hover:border-mist-400 hover:text-mist-900"
+                    >
+                      <PlusCircle className="h-4 w-4" />
+                      Thêm chương trình
+                    </button>
+                  </div>
+
+                  {homepageData.programs.length === 0 ? (
+                    <div className="mt-4 rounded-lg border border-dashed border-mist-300 bg-mist-50 p-4 text-sm text-mist-600">
+                      Chưa có chương trình nào. Nhấn nút “Thêm chương trình” để tạo mới.
+                    </div>
+                  ) : (
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      {homepageData.programs.map((item, index) => (
+                        <div key={`program-${index}`} className="rounded-lg border border-mist-200 p-4">
+                          <div className="mb-3 flex items-center justify-between">
+                            <span className="text-sm font-medium text-mist-700">Chương trình {index + 1}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveProgram(index)}
+                              className="inline-flex items-center gap-1 text-sm font-medium text-red-600 transition hover:text-red-700"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                              Xóa
+                            </button>
                           </div>
-                          <div>
-                            <label className={labelClasses}>Description</label>
-                            <textarea value={item.description} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, description: e.target.value } : p) }))} className={inputClasses} rows={3} />
-                          </div>
-                          <div>
-                            <label className={labelClasses}>Link</label>
-                            <input value={item.href} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, href: e.target.value } : p) }))} className={inputClasses} />
-                          </div>
-                          <div>
-                            <label className={labelClasses}>Icon</label>
-                            <select value={item.iconName} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, iconName: e.target.value as ProgramItem['iconName'] } : p) }))} className={inputClasses}>
-                              <option value="graduation">Graduation</option>
-                              <option value="book">Book</option>
-                              <option value="award">Award</option>
-                              <option value="globe">Globe</option>
-                            </select>
+                          <div className="grid gap-3">
+                            <div>
+                              <label className={labelClasses}>Title</label>
+                              <input value={item.title} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, title: e.target.value } : p) }))} className={inputClasses} />
+                            </div>
+                            <div>
+                              <label className={labelClasses}>Description</label>
+                              <textarea value={item.description} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, description: e.target.value } : p) }))} className={inputClasses} rows={3} />
+                            </div>
+                            <div>
+                              <label className={labelClasses}>Link</label>
+                              <input value={item.href} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, href: e.target.value } : p) }))} className={inputClasses} />
+                            </div>
+                            <div>
+                              <label className={labelClasses}>Icon</label>
+                              <select value={item.iconName} onChange={(e) => setHomepageData((d) => ({ ...d, programs: d.programs.map((p, i) => i === index ? { ...p, iconName: e.target.value } : p) }))} className={inputClasses}>
+                                <option value="graduation">Graduation</option>
+                                <option value="book">Book</option>
+                                <option value="award">Award</option>
+                                <option value="globe">Globe</option>
+                                {lucideIconOptions.map((option) => (
+                                  <option key={option.value} value={option.value}>
+                                    {option.label}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="rounded-xl border border-mist-200 p-5">

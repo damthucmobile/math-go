@@ -121,6 +121,7 @@ export default function CmsNewRecordPage() {
       const isBlockField = (key: string) =>
         (tableId === 'posts' && key === 'content') || (tableId === 'pages' && key === 'body')
       table.fields.forEach((f) => {
+        if (f.key === 'sectionData') return
         if (f.type === 'richtext' && !isBlockField(f.key)) {
           payload[f.key] = ourBlocksToHtml(richtextBlocks[f.key] ?? [])
         }

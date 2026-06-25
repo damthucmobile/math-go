@@ -3,7 +3,7 @@
 import { ButtonLink, PlainButtonLink } from '@/app/components/oatmeal/elements/button'
 import { Container } from '@/app/components/oatmeal/elements/container'
 import Image from 'next/image'
-import { Star, ChevronRight, BookOpen } from 'lucide-react'
+import { Star, ChevronRight, BookOpen, GraduationCap } from 'lucide-react'
 import TrialRegistrationDialog from '../components/dialog/TrialRegistrationDialog'
 import { useState } from 'react'
 import Link from 'next/link'
@@ -102,7 +102,7 @@ export default function HomePageClient({ homepageData }: HomePageClientProps) {
                     </div>
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {homepageData.programs.map((program) => {
-                            const IconComponent = iconMap[program.iconName]
+                            const IconComponent = iconMap[program.iconName] ?? GraduationCap
                             return (
                                 <div key={program.title} className="group relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
                                     <div>

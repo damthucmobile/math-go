@@ -1,10 +1,11 @@
-import { GraduationCap, BookOpen, Award, Globe, type LucideIcon } from 'lucide-react'
+import * as LucideIcons from 'lucide-react'
+import { GraduationCap, type LucideIcon } from 'lucide-react'
 
 export type ProgramItem = {
   title: string
   description: string
   href: string
-  iconName: 'graduation' | 'book' | 'award' | 'globe'
+  iconName: string
 }
 
 export type StatItem = {
@@ -69,10 +70,10 @@ export const defaultHomepageData: HomepageData = {
     { value: '95%', label: 'Học sinh tiến bộ rõ rệt' },
   ],
   programs: [
-    { title: 'Toán Tiểu Học', description: 'Xây dựng nền tảng vững chắc, kích thích tư duy logic và niềm yêu thích môn Toán từ nhỏ.', href: '/curriculum/tieu-hoc', iconName: 'graduation' },
-    { title: 'Toán THCS', description: 'Lấy lại gốc nhanh chóng, nâng cao kỹ năng giải quyết vấn đề và chuẩn bị thi vào 10.', href: '/curriculum/trung-hoc', iconName: 'book' },
-    { title: 'Toán THPT & Luyện Thi', description: 'Chiến thuật giải đề trắc nghiệm nhanh, bao quát kiến thức và tối ưu hoá điểm số thi Đại học.', href: '/curriculum/trung-hoc-pho-thong', iconName: 'award' },
-    { title: 'Toán Quốc Tế', description: 'Chuẩn bị cho các kỳ thi SAT, IGCSE, A-Level với giáo trình chuẩn quốc tế và tư duy chuyên sâu.', href: '/curriculum/toan-quoc-te', iconName: 'globe' },
+    { title: 'Toán Tiểu Học', description: 'Xây dựng nền tảng vững chắc, kích thích tư duy logic và niềm yêu thích môn Toán từ nhỏ.', href: '/curriculum/tieu-hoc', iconName: 'GraduationCap' },
+    { title: 'Toán THCS', description: 'Lấy lại gốc nhanh chóng, nâng cao kỹ năng giải quyết vấn đề và chuẩn bị thi vào 10.', href: '/curriculum/trung-hoc', iconName: 'BookOpen' },
+    { title: 'Toán THPT & Luyện Thi', description: 'Chiến thuật giải đề trắc nghiệm nhanh, bao quát kiến thức và tối ưu hoá điểm số thi Đại học.', href: '/curriculum/trung-hoc-pho-thong', iconName: 'Award' },
+    { title: 'Toán Quốc Tế', description: 'Chuẩn bị cho các kỳ thi SAT, IGCSE, A-Level với giáo trình chuẩn quốc tế và tư duy chuyên sâu.', href: '/curriculum/toan-quoc-te', iconName: 'Globe' },
   ],
   tutor: {
     name: 'Thầy Nguyễn Văn A',
@@ -97,6 +98,18 @@ export const defaultHomepageData: HomepageData = {
   },
 }
 
+const legacyIconNameMap: Record<string, string> = {
+  graduation: 'GraduationCap',
+  book: 'BookOpen',
+  award: 'Award',
+  globe: 'Globe',
+}
+
+export function normalizeProgramIconName(iconName?: string): string {
+  if (!iconName) return 'GraduationCap'
+  return legacyIconNameMap[iconName] ?? iconName
+}
+
 export function parseHomepageData(raw: unknown): Partial<HomepageData> | undefined {
   if (!raw) return undefined
   if (typeof raw === 'string') {
@@ -116,16 +129,24 @@ export function normalizeHomepageData(raw: Partial<HomepageData> | undefined): H
   return {
     hero: { ...defaultHomepageData.hero, ...(raw?.hero ?? {}) },
     stats: Array.isArray(raw?.stats) && raw.stats.length > 0 ? raw.stats : defaultHomepageData.stats,
-    programs: Array.isArray(raw?.programs) && raw.programs.length > 0 ? raw.programs : defaultHomepageData.programs,
+    programs: Array.isArray(raw?.programs) && raw.programs.length > 0
+      ? raw.programs.map((program) => ({
+          ...program,
+          iconName: normalizeProgramIconName(program.iconName),
+        }))
+      : defaultHomepageData.programs,
     tutor: { ...defaultHomepageData.tutor, ...(raw?.tutor ?? {}) },
     testimonials: Array.isArray(raw?.testimonials) && raw.testimonials.length > 0 ? raw.testimonials : defaultHomepageData.testimonials,
     contact: { ...defaultHomepageData.contact, ...(raw?.contact ?? {}) },
   }
 }
 
-export const iconMap: Record<ProgramItem['iconName'], LucideIcon> = {
-  graduation: GraduationCap,
-  book: BookOpen,
-  award: Award,
-  globe: Globe,
-}
+const lucideIconEntries = Object.entries(LucideIcons as Record<string, unknown>)
+  .filter(([name]) => name !== 'default' && name !== 'createLucideIcon')
+  .filter(([name]) => /^[A-Z]/.test(name))
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([name, component]) => [name, component as LucideIcon] as const)
+
+export const lucideIconOptions = lucideIconEntries.map(([name]) => ({ value: name, label: name }))
+
+export const iconMap: Record<string, LucideIcon> = Object.fromEntries(lucideIconEntries) as Record<string, LucideIcon>
