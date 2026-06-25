@@ -11,6 +11,7 @@ import {
   Loader2,
   Plus,
   Clock,
+  GraduationCap,
   type LucideIcon
 } from 'lucide-react'
 
@@ -54,7 +55,8 @@ const cardStyles: Record<string, { bg: string; border: string; icon: string; hov
 const cardIcons: Record<string, LucideIcon> = {
   components: LayoutGrid,
   pages: FileText,
-  posts: Newspaper
+  posts: Newspaper,
+  courses: GraduationCap
 }
 
 function getCardStyle(id: string) {
@@ -196,6 +198,13 @@ export default function AdminDashboardPage() {
                 >
                   <LayoutGrid className="h-4 w-4" />
                   Manage components
+                </Link>
+                <Link
+                  href={`${adminPath}/cms/components`}
+                  className="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 transition hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200 dark:hover:bg-blue-900/60"
+                >
+                  <GraduationCap className="h-4 w-4" />
+                  Configure dialog form
                 </Link>
               </div>
             </section>

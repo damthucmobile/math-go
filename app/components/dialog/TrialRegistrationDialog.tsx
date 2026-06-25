@@ -1,18 +1,17 @@
+
 'use client'
 
-import { useState, useEffect } from 'react'
-import { 
-  X, 
-  School, 
-  User, 
-  Phone, 
-  Mail, 
-  BookOpen, 
-  ChevronDown, 
+import { useEffect, useState, type FormEvent } from 'react'
+import {
+  X,
+  User,
+  Phone,
+  Mail,
+  ChevronDown,
   ArrowRight,
   CheckCircle2,
   Loader2,
-  GraduationCap
+  GraduationCap,
 } from 'lucide-react'
 
 interface TrialRegistrationDialogProps {
@@ -20,251 +19,379 @@ interface TrialRegistrationDialogProps {
   onClose: () => void
 }
 
-export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegistrationDialogProps) {
-  // Trạng thái Form
-  const [fullName, setFullName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
-  const [grade, setGrade] = useState('')
-  const [learningFormat, setLearningFormat] = useState<'1-on-1' | 'group' | ''>('')
-  
-  // Trạng thái Xử lý Gửi Form
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
+type DialogFieldType = 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'radio'
 
-  // Ngăn cuộn trang phía sau khi Dialog đang mở
+interface DialogFieldOption {
+  label: string
+  value: string
+}
+
+interface DialogFieldConfig {
+  key: string
+  label: string
+  type: DialogFieldType
+  placeholder?: string
+  required?: boolean
+  defaultValue?: string
+  options?: DialogFieldOption[]
+}
+
+interface DialogConfig {
+  title: string
+  description: string
+  submitButtonLabel: string
+  successMessage: string
+  errorMessage: string
+  submitUrl?: string
+  submitMethod?: string
+  fields: DialogFieldConfig[]
+}
+
+const DEFAULT_CONFIG: DialogConfig = {
+  title: 'Đăng ký Học thử Miễn phí',
+  description: 'Bắt đầu lộ trình chinh phục môn Toán cùng chuyên gia.',
+  submitButtonLabel: 'Xác nhận Đăng ký',
+  successMessage: 'Đăng ký thành công!',
+  errorMessage: 'Đã có lỗi xảy ra. Vui lòng thử lại sau.',
+  submitMethod: 'POST',
+  fields: [
+    { key: 'fullName', label: 'Họ và tên', type: 'text', placeholder: 'Nguyễn Văn A', required: true },
+    { key: 'phone', label: 'Số điện thoại', type: 'phone', placeholder: '09xx xxx xxx', required: true },
+    { key: 'email', label: 'Email (Gmail)', type: 'email', placeholder: 'example@gmail.com', required: true },
+    {
+      key: 'grade',
+      label: 'Toán lớp mấy?',
+      type: 'select',
+      required: true,
+      placeholder: 'Chọn lớp học',
+      options: Array.from({ length: 12 }, (_, i) => ({ label: `Lớp ${i + 1}`, value: String(i + 1) })),
+    },
+    {
+      key: 'learningFormat',
+      label: 'Hình thức học',
+      type: 'radio',
+      required: true,
+      options: [
+        { label: 'Học 1-kèm-1', value: '1-on-1' },
+        { label: 'Lớp nhóm nhỏ', value: 'group' },
+      ],
+    },
+  ],
+}
+
+function normalizeConfig(rawConfig: unknown): DialogConfig {
+  const source = (rawConfig && typeof rawConfig === 'object' ? rawConfig : {}) as Record<string, unknown>
+  const fields = Array.isArray(source.fields)
+    ? source.fields
+        .filter((field): field is Record<string, unknown> => Boolean(field) && typeof field === 'object')
+        .map((field, index) => {
+          const fieldType = typeof field.type === 'string' ? field.type : 'text'
+          const normalizedType: DialogFieldType = ['text', 'email', 'phone', 'textarea', 'select', 'radio'].includes(fieldType)
+            ? (fieldType as DialogFieldType)
+            : 'text'
+
+          const options = Array.isArray(field.options)
+            ? field.options.filter((option): option is Record<string, unknown> => Boolean(option) && typeof option === 'object').map((option) => ({
+                label: typeof option.label === 'string' ? option.label : '',
+                value: typeof option.value === 'string' ? option.value : '',
+              })).filter((option) => option.label && option.value)
+            : []
+
+          return {
+            key: typeof field.key === 'string' && field.key.trim() ? field.key : `field_${index + 1}`,
+            label: typeof field.label === 'string' && field.label.trim() ? field.label : `Field ${index + 1}`,
+            type: normalizedType,
+            placeholder: typeof field.placeholder === 'string' ? field.placeholder : undefined,
+            required: field.required === true,
+            defaultValue: typeof field.defaultValue === 'string' ? field.defaultValue : undefined,
+            options,
+          }
+        })
+    : []
+
+  return {
+    title: typeof source.title === 'string' && source.title.trim() ? source.title : DEFAULT_CONFIG.title,
+    description: typeof source.description === 'string' && source.description.trim() ? source.description : DEFAULT_CONFIG.description,
+    submitButtonLabel: typeof source.submitButtonLabel === 'string' && source.submitButtonLabel.trim() ? source.submitButtonLabel : DEFAULT_CONFIG.submitButtonLabel,
+    successMessage: typeof source.successMessage === 'string' && source.successMessage.trim() ? source.successMessage : DEFAULT_CONFIG.successMessage,
+    errorMessage: typeof source.errorMessage === 'string' && source.errorMessage.trim() ? source.errorMessage : DEFAULT_CONFIG.errorMessage,
+    submitUrl: typeof source.submitUrl === 'string' ? source.submitUrl : undefined,
+    submitMethod: typeof source.submitMethod === 'string' && source.submitMethod.trim() ? source.submitMethod : DEFAULT_CONFIG.submitMethod,
+    fields: fields.length > 0 ? fields : DEFAULT_CONFIG.fields,
+  }
+}
+
+export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegistrationDialogProps) {
+  const [config, setConfig] = useState<DialogConfig>(DEFAULT_CONFIG)
+  const [formValues, setFormValues] = useState<Record<string, string>>({})
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [message, setMessage] = useState('')
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
-      // Reset lại form khi đóng
       setTimeout(() => {
         setStatus('idle')
-        setFullName('')
-        setPhone('')
-        setEmail('')
-        setGrade('')
-        setLearningFormat('')
-      }, 300)
+        setMessage('')
+      }, 250)
     }
     return () => { document.body.style.overflow = 'unset' }
   }, [isOpen])
 
+  useEffect(() => {
+    let active = true
+    const loadConfig = async () => {
+      try {
+        const response = await fetch('/api/cms/components')
+        if (!response.ok) throw new Error('Unable to load dialog config')
+        const records = await response.json()
+        const record = Array.isArray(records)
+          ? records.find((item: Record<string, unknown>) => String(item?.slug ?? '') === 'trial-registration-dialog' || String(item?.type ?? '') === 'trial-registration-dialog')
+          : null
+
+        if (!active) return
+        setConfig(normalizeConfig(record?.config))
+      } catch {
+        if (active) setConfig(DEFAULT_CONFIG)
+      }
+    }
+    loadConfig()
+    return () => { active = false }
+  }, [])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const initialValues = Object.fromEntries(
+      config.fields.map((field) => [field.key, field.defaultValue ?? ''])
+    )
+    setFormValues(initialValues)
+    setStatus('idle')
+    setMessage('')
+  }, [config.fields, isOpen])
+
   if (!isOpen) return null
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!learningFormat) {
-      alert('Vui lòng chọn hình thức học!')
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+
+    const missing = config.fields.find((field) => field.required && !String(formValues[field.key] ?? '').trim())
+    if (missing) {
+      setStatus('error')
+      setMessage(`Vui lòng điền ${missing.label.toLowerCase()}.`)
       return
     }
 
     setStatus('loading')
-    
-    // Giả lập gửi API trong 1.5 giây giống logic nguyên bản
-    setTimeout(() => {
+    setMessage('')
+
+    const payload = { ...formValues, source: 'trial-registration-dialog' }
+
+    if (config.submitUrl) {
+      try {
+        const response = await fetch(config.submitUrl, {
+          method: config.submitMethod ?? 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+        if (!response.ok) throw new Error('Submission failed')
+        setStatus('success')
+        setMessage(config.successMessage)
+        window.setTimeout(() => onClose(), 1400)
+        return
+      } catch {
+        setStatus('error')
+        setMessage(config.errorMessage)
+        return
+      }
+    }
+
+    window.setTimeout(() => {
       setStatus('success')
-      setTimeout(() => {
-        onClose()
-      }, 1500)
-    }, 1500)
+      setMessage(config.successMessage)
+      window.setTimeout(() => onClose(), 1400)
+    }, 1000)
+  }
+
+  const renderField = (field: DialogFieldConfig) => {
+    const inputClassName = 'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-900 placeholder-slate-400 outline-none transition focus:border-[#00355f] focus:ring-2 focus:ring-blue-500/10 disabled:opacity-60 shadow-sm'
+    const currentValue = formValues[field.key] ?? ''
+    const isSubmitting = status === 'loading'
+
+    const commonProps = {
+      required: field.required,
+      disabled: isSubmitting,
+      placeholder: field.placeholder,
+      value: currentValue,
+      onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        setFormValues((prev) => ({ ...prev, [field.key]: event.target.value }))
+      },
+    }
+
+    switch (field.type) {
+      case 'textarea':
+        return (
+          <div className="space-y-1.5 md:col-span-2">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
+            <textarea {...commonProps} rows={3} className={`${inputClassName} min-h-[80px] resize-none`} />
+          </div>
+        )
+      case 'select':
+        return (
+          <div className="space-y-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
+            <div className="relative">
+              <select {...commonProps} className={`${inputClassName} appearance-none pr-10`}>
+                <option value="" disabled>{field.placeholder ?? 'Chọn giá trị'}</option>
+                {field.options?.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            </div>
+          </div>
+        )
+      case 'radio':
+        return (
+          <div className="space-y-1.5 md:col-span-2">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              {field.options?.map((option) => {
+                const active = currentValue === option.value
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={() => setFormValues((prev) => ({ ...prev, [field.key]: option.value }))}
+                    className={`flex-1 rounded-xl border px-4 py-3 text-xs font-semibold transition shadow-sm ${
+                      active ? 'border-[#00355f] bg-[#00355f] text-white' : 'border-slate-200 text-slate-700 bg-white hover:bg-slate-50'
+                    } disabled:opacity-50`}
+                  >
+                    {option.label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        )
+      case 'email':
+        return (
+          <div className="space-y-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
+            <div className="relative group">
+              <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-[#00355f]" />
+              <input {...commonProps} type="email" className={`${inputClassName} pl-10`} />
+            </div>
+          </div>
+        )
+      case 'phone':
+        return (
+          <div className="space-y-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
+            <div className="relative group">
+              <Phone className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-[#00355f]" />
+              <input {...commonProps} type="tel" className={`${inputClassName} pl-10`} />
+            </div>
+          </div>
+        )
+      default:
+        return (
+          <div className="space-y-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
+            <div className="relative group">
+              <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-[#00355f]" />
+              <input {...commonProps} type="text" className={`${inputClassName} pl-10`} />
+            </div>
+          </div>
+        )
+    }
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto">
-      
-      {/* Backdrop nền mờ đặc trưng */}
-      <div 
-        className="fixed inset-0 bg-[#00355f]/40 backdrop-blur-md transition-opacity duration-300"
-        onClick={status === 'loading' ? undefined : onClose}
-      />
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
+      {/* Background Overlay */}
+      <div className="fixed inset-0 bg-[#00355f]/40 backdrop-blur-md" onClick={status === 'loading' ? undefined : onClose} />
 
-      {/* Modal Surface Container */}
-      <div className="relative bg-white w-full max-w-[600px] rounded-2xl shadow-[0px_4px_40px_rgba(15,76,129,0.15)] overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-10 flex flex-col max-h-[90vh]">
-        
-        {/* Họa tiết lưới toán học nền mờ nhạt (Math Grid Background) */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-5"
-          style={{
-            backgroundImage: 'radial-gradient(#00355f 0.75px, transparent 0.75px)',
-            backgroundSize: '24px 24px'
-          }}
-        />
+      {/* Main Dialog Container */}
+      <div className="relative z-10 flex max-h-[85vh] md:max-h-[90vh] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0px_12px_60px_rgba(15,76,129,0.2)]">
+        <div className="pointer-events-none absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#00355f 0.75px, transparent 0.75px)', backgroundSize: '24px 24px' }} />
 
-        {/* Header Section */}
-        <div className="relative px-6 pt-10 pb-5 text-center border-b border-slate-100 shrink-0">
-          {/* Nút Đóng Modal */}
-          <button 
+        {/* Sticky Header */}
+        <div className="relative shrink-0 border-b border-slate-100 px-6 pb-4 pt-8 md:pt-10 text-center bg-white z-20">
+          <button
             disabled={status === 'loading'}
-            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition disabled:opacity-50"
+            className="absolute right-4 top-4 rounded-full p-2 text-slate-400 transition hover:bg-slate-50 hover:text-slate-600 disabled:opacity-50"
             onClick={onClose}
           >
             <X className="h-5 w-5" />
           </button>
 
-          {/* Biểu tượng Mũ cử nhân */}
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 text-[#0f4c81] mb-3.5 animate-bounce [animation-duration:3s]">
-            <GraduationCap className="h-6 w-6" />
+          <div className="mb-2.5 inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-[#0f4c81] animate-bounce [animation-duration:3s]">
+            <GraduationCap className="h-5 w-5" />
           </div>
 
-          <h2 className="text-xl font-bold text-[#00355f] tracking-tight sm:text-2xl">
-            Đăng ký Học thử Miễn phí
-          </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Bắt đầu lộ trình chinh phục môn Toán cùng chuyên gia.
-          </p>
+          <h2 className="text-lg md:text-2xl font-bold tracking-tight text-[#00355f]">{config.title}</h2>
+          <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">{config.description}</p>
         </div>
 
-        {/* Form Nội dung chính (Hỗ trợ scroll nội bộ nếu màn hình quá nhỏ) */}
-        <form onSubmit={handleSubmit} className="px-6 py-6 space-y-5 overflow-y-auto custom-scrollbar grow">
-          
-          <div className="grid gap-4 sm:grid-cols-2">
-            {/* Họ và tên */}
-            <div className="space-y-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Họ và tên</label>
-              <div className="relative group">
-                <User className="h-4 w-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#00355f] transition-colors" />
-                <input
-                  type="text"
-                  required
-                  disabled={status === 'loading'}
-                  placeholder="Nguyễn Văn A"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 outline-none focus:border-[#00355f] focus:ring-2 focus:ring-blue-500/10 transition disabled:opacity-60"
-                />
-              </div>
+        {/* Scrollable Form Body */}
+        <form onSubmit={handleSubmit} className="grow flex flex-col overflow-hidden bg-white">
+          <div className="grow overflow-y-auto px-6 py-4 space-y-4 custom-scrollbar">
+            {/* Grid layout: 1 column on mobile, 2 columns on tablet/PC */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {config.fields.map((field) => (
+                <div key={field.key} className="w-full">
+                  {renderField(field)}
+                </div>
+              ))}
             </div>
 
-            {/* Số điện thoại */}
-            <div className="space-y-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Số điện thoại</label>
-              <div className="relative group">
-                <Phone className="h-4 w-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#00355f] transition-colors" />
-                <input
-                  type="tel"
-                  required
-                  disabled={status === 'loading'}
-                  placeholder="09xx xxx xxx"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 outline-none focus:border-[#00355f] focus:ring-2 focus:ring-blue-500/10 transition disabled:opacity-60"
-                />
+            <p className="pt-2 text-center text-[10px] leading-relaxed text-slate-400">
+              Bằng việc nhấn “{config.submitButtonLabel}”, bạn đồng ý với các Điều khoản & Chính sách bảo mật của MathGo.
+            </p>
+
+            {message ? (
+              <div className={`rounded-xl border px-3 py-2.5 text-center text-xs font-medium ${status === 'error' ? 'border-red-200 bg-red-50 text-red-600' : 'border-emerald-200 bg-emerald-50 text-emerald-600'}`}>
+                {message}
               </div>
-            </div>
+            ) : null}
           </div>
 
-          {/* Email */}
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Email (Gmail)</label>
-            <div className="relative group">
-              <Mail className="h-4 w-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#00355f] transition-colors" />
-              <input
-                type="email"
-                required
-                disabled={status === 'loading'}
-                placeholder="example@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 outline-none focus:border-[#00355f] focus:ring-2 focus:ring-blue-500/10 transition disabled:opacity-60"
-              />
-            </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {/* Lớp Học */}
-            <div className="space-y-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Toán lớp mấy?</label>
-              <div className="relative">
-                <BookOpen className="h-4 w-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                <select
-                  required
-                  disabled={status === 'loading'}
-                  value={grade}
-                  onChange={(e) => setGrade(e.target.value)}
-                  className="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 outline-none focus:border-[#00355f] focus:ring-2 focus:ring-blue-500/10 transition appearance-none cursor-pointer disabled:opacity-60"
-                >
-                  <option value="" disabled>Chọn lớp học</option>
-                  {Array.from({ length: 12 }, (_, i) => (
-                    <option key={i + 1} value={i + 1}>{`Lớp ${i + 1}`}</option>
-                  ))}
-                </select>
-                <ChevronDown className="h-4 w-4 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Hình thức học */}
-            <div className="space-y-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Hình thức học</label>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  disabled={status === 'loading'}
-                  onClick={() => setLearningFormat('1-on-1')}
-                  className={`flex-1 py-3 px-2 text-center text-xs font-semibold rounded-xl border transition duration-200 active:scale-[0.97] ${
-                    learningFormat === '1-on-1'
-                      ? 'bg-[#00355f] text-white border-[#00355f]'
-                      : 'border-slate-200 text-slate-700 hover:bg-slate-50'
-                  } disabled:opacity-50`}
-                >
-                  Học 1-kèm-1
-                </button>
-                <button
-                  type="button"
-                  disabled={status === 'loading'}
-                  onClick={() => setLearningFormat('group')}
-                  className={`flex-1 py-3 px-2 text-center text-xs font-semibold rounded-xl border transition duration-200 active:scale-[0.97] ${
-                    learningFormat === 'group'
-                      ? 'bg-[#00355f] text-white border-[#00355f]'
-                      : 'border-slate-200 text-slate-700 hover:bg-slate-50'
-                  } disabled:opacity-50`}
-                >
-                  Lớp nhóm nhỏ
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Điều khoản chính sách */}
-          <p className="text-[10px] leading-relaxed text-slate-400 text-center px-4 pt-2">
-            Bằng việc nhấn "Xác nhận Đăng ký", bạn đồng ý với các Điều khoản & Chính sách bảo mật của MathGo.
-          </p>
-          
-          {/* Nút Submit cố định ở chân form có kèm các Micro-interactions */}
-          <div className="pt-3 border-t border-slate-50 shrink-0">
+          {/* Sticky Footer Action Button */}
+          <div className="shrink-0 border-t border-slate-100 p-6 bg-slate-50/50">
             {status === 'idle' && (
               <button
                 type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 active:scale-[0.99] transition duration-200"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-orange-500/20 transition duration-200 hover:bg-orange-600 active:scale-[0.99]"
               >
-                <span>Xác nhận Đăng ký</span>
+                <span>{config.submitButtonLabel}</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
             )}
 
             {status === 'loading' && (
-              <button
-                type="button"
-                disabled
-                className="w-full bg-[#00562a] text-white font-bold py-4 rounded-xl text-xs flex items-center justify-center gap-2 transition"
-              >
+              <button type="button" disabled className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#00562a] px-6 py-3.5 text-xs font-bold text-white transition">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 <span>Đang xử lý dữ liệu...</span>
               </button>
             )}
 
             {status === 'success' && (
-              <button
-                type="button"
-                disabled
-                className="w-full bg-[#52d17e] text-[#00210c] font-bold py-4 rounded-xl text-xs flex items-center justify-center gap-2 transition"
-              >
+              <button type="button" disabled className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#52d17e] px-6 py-3.5 text-xs font-bold text-[#00210c] transition">
                 <CheckCircle2 className="h-4 w-4" />
-                <span>Đăng ký thành công!</span>
+                <span>{config.successMessage}</span>
+              </button>
+            )}
+
+            {status === 'error' && (
+              <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 py-3.5 text-xs font-bold text-white transition hover:bg-orange-600">
+                <span>Thử lại</span>
+                <ArrowRight className="h-4 w-4" />
               </button>
             )}
           </div>
-
         </form>
       </div>
     </div>

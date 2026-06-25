@@ -248,7 +248,11 @@ function validateBody(
         out[field.key] = Number(raw) || 0
         break
       case 'text':
+        out[field.key] = typeof raw === 'string' ? raw : String(raw)
+        break
       case 'textarea':
+        out[field.key] = parseTextareaValue(raw)
+        break
       case 'richtext':
         out[field.key] = typeof raw === 'string' ? raw : String(raw)
         break
@@ -270,6 +274,20 @@ function validateBody(
 
 function normalizeSlug(s: string): string {
   return String(s).trim().toLowerCase()
+}
+
+function parseTextareaValue(raw: JsonValue): JsonValue {
+  if (typeof raw !== 'string') return raw
+  const value = raw.trim()
+  if (!value) return ''
+  try {
+    if ((value.startsWith('{') && value.endsWith('}')) || (value.startsWith('[') && value.endsWith(']'))) {
+      return JSON.parse(value)
+    }
+  } catch {
+    // Keep the original string if it is not valid JSON.
+  }
+  return raw
 }
 
 /** Ensure slug is unique among other records (for tables that have a slug field). */

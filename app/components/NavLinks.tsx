@@ -10,12 +10,18 @@ export default function NavLinks({ items }: any) {
   return (
     <>
       {items.map((item: any) => {
-        const isActive = pathname === item.url
+        const isActive =
+          pathname === item.url ||
+          pathname.startsWith(`${item.url}/`)
         return (
           <NavbarLink
             key={item.url}
             href={item.url}
-            className={isActive ? 'text-orange-500' : ''}
+            className={
+              isActive
+                ? 'text-[#00355f] font-semibold lg:after:!w-full'
+                : ''
+            }
           >
             {item.label}
           </NavbarLink>

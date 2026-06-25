@@ -34,6 +34,26 @@ function parseStatus(raw: JsonValue): DocumentStatus {
   return 'published'
 }
 
+function formatTextareaValue(raw: JsonValue | undefined): string {
+  if (raw == null) return ''
+  if (typeof raw === 'string') return raw
+  if (typeof raw === 'number' || typeof raw === 'boolean') return String(raw)
+  return JSON.stringify(raw, null, 2)
+}
+
+function parseTextareaValue(raw: string): JsonValue {
+  const trimmed = raw.trim()
+  if (!trimmed) return ''
+  try {
+    if ((trimmed.startsWith('{') && trimmed.endsWith('}')) || (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+      return JSON.parse(trimmed)
+    }
+  } catch {
+    // Keep the raw string if it is not valid JSON.
+  }
+  return raw
+}
+
 export default function CmsEditRecordPage() {
   const params = useParams()
   const router = useRouter()
@@ -112,7 +132,7 @@ export default function CmsEditRecordPage() {
         setTable(t)
         if (t && record) {
           setValues(
-            Object.fromEntries(t.fields.map((f) => [f.key, String(record[f.key] ?? '')]))
+            Object.fromEntries(t.fields.map((f) => [f.key, f.type === 'textarea' ? formatTextareaValue(record[f.key]) : String(record[f.key] ?? '')]))
           )
           const blocks = record.content_blocks as ContentBlock[] | undefined
           setContentBlocks(Array.isArray(blocks) ? blocks : [])
@@ -161,6 +181,8 @@ export default function CmsEditRecordPage() {
       table.fields.forEach((f) => {
         if (f.type === 'richtext' && !isBlockField(f.key)) {
           payload[f.key] = ourBlocksToHtml(richtextBlocks[f.key] ?? [])
+        } else if (f.type === 'textarea') {
+          payload[f.key] = parseTextareaValue(values[f.key] ?? '')
         }
       })
       const res = await fetch(`${api}/api/cms/${tableId}`, {
@@ -229,6 +251,19 @@ export default function CmsEditRecordPage() {
                 Edit {table.singularName}
               </h1>
               <p className="mt-1 text-mist-600 dark:text-mist-400">Update content below. Required fields are marked with *. Use the panel on the right to publish and set options.</p>
+              {tableId === 'courses' && (
+                <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
+                  <p className="font-semibold">Cấu hình khối bên phải cho chương trình split-columns</p>
+                  <p className="mt-1">Trong trường “Programs (JSON)”, bạn có thể thêm object sidebar với scheduleTitle, scheduleItems, personalizedTitle, personalizedDescription… để cấu hình phần lịch khai giảng và card tư vấn 1:1.</p>
+                </div>
+              )}
+              {tableId === 'components' && (values.type === 'trial-registration-dialog' || values.slug === 'trial-registration-dialog') && (
+                <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
+                  <p className="font-semibold">Cấu hình form đăng ký học thử</p>
+                  <p className="mt-1">Chỉnh tiêu đề, mô tả, nút gửi và các trường nhập ở ô “Configuration (JSON)”.</p>
+                  <pre className="mt-3 overflow-x-auto rounded-lg bg-white/80 p-3 text-xs text-blue-900 dark:bg-mist-900/60 dark:text-blue-100">{'{"title": "Đăng ký Học thử Miễn phí", "fields": [{"key": "fullName", "label": "Họ và tên", "type": "text"}]}'}</pre>
+                </div>
+              )}
               {error && (
                 <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
                   {error}

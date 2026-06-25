@@ -74,27 +74,6 @@ export default async function PageBySlug({ params }: Props) {
 
   return (
     <div className="bg-mist-100 dark:bg-mist-950">
-      <nav
-        className="border-b border-mist-200/60 bg-mist-50/80 py-3 dark:border-mist-800/60 dark:bg-mist-900/30"
-        aria-label="Breadcrumb"
-      >
-        <Container>
-          <ol className="flex items-center gap-2 text-sm list-none" itemScope itemType="https://schema.org/BreadcrumbList">
-            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <LinkEl href="/" itemProp="item">← Home</LinkEl>
-            </li>
-            <li aria-hidden className="text-mist-400 dark:text-mist-600">/</li>
-            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <LinkEl href="/pages" itemProp="item">Pages</LinkEl>
-            </li>
-            <li aria-hidden className="text-mist-400 dark:text-mist-600">/</li>
-            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" aria-current="page">
-              <span itemProp="name" className="text-mist-500 dark:text-mist-400">{page.title}</span>
-            </li>
-          </ol>
-        </Container>
-      </nav>
-
       {heroComponent && (
         <ComponentRenderer
           component={heroComponent}

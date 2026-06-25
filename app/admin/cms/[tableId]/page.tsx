@@ -33,6 +33,27 @@ const BlockEditor = dynamic(
 
 type SortDir = 'asc' | 'desc'
 
+function formatFieldValue(value: JsonValue | undefined): string {
+  if (value == null) return ''
+  if (typeof value === 'string') return value
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value)
+  return JSON.stringify(value, null, 2)
+}
+
+function parseFieldValue(value: string, fieldType?: string): JsonValue {
+  if (fieldType !== 'textarea') return value
+  const trimmed = value.trim()
+  if (!trimmed) return ''
+  try {
+    if ((trimmed.startsWith('{') && trimmed.endsWith('}')) || (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+      return JSON.parse(trimmed)
+    }
+  } catch {
+    // Fall back to the raw string value.
+  }
+  return value
+}
+
 export default function CmsTablePage() {
   const params = useParams()
   const tableId = params.tableId as string
@@ -585,7 +606,7 @@ function SingleRecordForm({
   const router = useRouter()
   const [values, setValues] = useState<Record<string, string>>(() => {
     const v: Record<string, string> = {}
-    table.fields.forEach((f) => (v[f.key] = String(initialRecord[f.key] ?? '')))
+    table.fields.forEach((f) => (v[f.key] = formatFieldValue(initialRecord[f.key])))
     return v
   })
   const [richtextBlocks, setRichtextBlocks] = useState<Record<string, ContentBlock[]>>(() => {
@@ -604,9 +625,13 @@ function SingleRecordForm({
     e.preventDefault()
     setSaving(true)
     try {
-      const payload: Record<string, string> = { ...values }
+      const payload: Record<string, JsonValue> = {}
       table.fields.forEach((f) => {
-        if (f.type === 'richtext') payload[f.key] = ourBlocksToHtml(richtextBlocks[f.key] ?? [])
+        if (f.type === 'richtext') {
+          payload[f.key] = ourBlocksToHtml(richtextBlocks[f.key] ?? [])
+        } else {
+          payload[f.key] = parseFieldValue(values[f.key] ?? '', f.type)
+        }
       })
       const res = await fetch(`${getApiUrl()}/api/cms/${tableId}`, {
         method: 'POST',

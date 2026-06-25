@@ -15,6 +15,8 @@ import {
   Images,
   Settings,
   Home,
+  Mail,
+  GraduationCap,
   type LucideIcon
 } from 'lucide-react'
 import { getApiUrl, getAdminPath } from '@/lib/admin-utils'
@@ -24,12 +26,13 @@ import type { TableConfig } from '@/lib/cms'
 const navIcons: Record<string, LucideIcon> = {
   components: LayoutGrid,
   pages: FileText,
-  posts: Newspaper
+  posts: Newspaper,
+  courses: GraduationCap
 }
 
 type TableWithCount = TableConfig & { count?: number }
 
-const CONTENT_TABLE_IDS = ['posts', 'pages']
+const CONTENT_TABLE_IDS = ['posts', 'pages', 'courses']
 const SITE_TABLE_IDS = ['components']
 
 export function AdminSidebar() {
@@ -175,6 +178,14 @@ export function AdminSidebar() {
             </p>
           )}
           <div className="flex flex-col gap-0.5">
+            <Link
+              href={`${adminPath}/contact-submissions`}
+              className={linkClass(isActive(`${adminPath}/contact-submissions`))}
+              title="Contact submissions"
+            >
+              <Mail className="h-4 w-4 shrink-0" />
+              {!sidebarCollapsed && <span>Contact submissions</span>}
+            </Link>
             <Link
               href={`${adminPath}/settings`}
               className={linkClass(isActive(`${adminPath}/settings`))}

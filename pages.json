@@ -24,7 +24,8 @@
       "fields": [
         { "key": "slug", "label": "Slug", "type": "text", "required": false },
         { "key": "type", "label": "Type", "type": "text", "required": true },
-        { "key": "label", "label": "Label", "type": "text", "required": true }
+        { "key": "label", "label": "Label", "type": "text", "required": true },
+        { "key": "config", "label": "Configuration (JSON)", "type": "textarea", "required": false }
       ]
     },
     {
@@ -43,6 +44,34 @@
       ]
     },
     {
+      "id": "contact",
+      "name": "Contact",
+      "singularName": "Contact",
+      "description": "Contact page content and contact details.",
+      "file": "contact.json",
+      "single": true,
+      "fields": [
+        { "key": "title", "label": "Hero title", "type": "text", "required": true },
+        { "key": "subtitle", "label": "Hero subtitle", "type": "textarea", "required": false },
+        { "key": "buttonLabel", "label": "Primary button label", "type": "text", "required": false },
+        { "key": "buttonHref", "label": "Primary button link", "type": "text", "required": false },
+        { "key": "formTitle", "label": "Form title", "type": "text", "required": false },
+        { "key": "formSubtitle", "label": "Form subtitle", "type": "textarea", "required": false },
+        { "key": "email", "label": "Email", "type": "text", "required": false },
+        { "key": "phone", "label": "Phone", "type": "text", "required": false },
+        { "key": "address", "label": "Address", "type": "text", "required": false },
+        { "key": "workingHours", "label": "Working hours", "type": "textarea", "required": false },
+        { "key": "ctaTitle", "label": "CTA title", "type": "text", "required": false },
+        { "key": "ctaDescription", "label": "CTA description", "type": "textarea", "required": false },
+        { "key": "ctaButtonLabel", "label": "CTA button label", "type": "text", "required": false },
+        { "key": "ctaButtonHref", "label": "CTA button link", "type": "text", "required": false },
+        { "key": "submitUrl", "label": "Submit destination URL", "type": "text", "required": false },
+        { "key": "submitMethod", "label": "Submit method", "type": "text", "required": false },
+        { "key": "successMessage", "label": "Success message", "type": "text", "required": false },
+        { "key": "errorMessage", "label": "Error message", "type": "text", "required": false }
+      ]
+    },
+    {
       "id": "posts",
       "name": "Posts",
       "singularName": "Post",
@@ -55,6 +84,26 @@
         { "key": "content", "label": "Content", "type": "richtext", "required": false },
         { "key": "heroComponentId", "label": "Hero component", "type": "number", "required": false },
         { "key": "sectionData", "label": "Section data (JSON)", "type": "textarea", "required": false }
+      ]
+    },
+    {
+      "id": "courses",
+      "name": "Courses",
+      "singularName": "Courses",
+      "description": "Programs and curriculum section for the courses page.",
+      "file": "courses.json",
+      "single": true,
+      "fields": [
+        { "key": "heroBadge", "label": "Hero badge", "type": "text", "required": false },
+        { "key": "heroTitle", "label": "Hero title", "type": "text", "required": false },
+        { "key": "heroSubtitle", "label": "Hero subtitle", "type": "textarea", "required": false },
+        { "key": "primaryButtonLabel", "label": "Primary button label", "type": "text", "required": false },
+        { "key": "primaryButtonHref", "label": "Primary button link", "type": "text", "required": false },
+        { "key": "secondaryButtonLabel", "label": "Secondary button label", "type": "text", "required": false },
+        { "key": "secondaryButtonHref", "label": "Secondary button link", "type": "text", "required": false },
+        { "key": "stats", "label": "Stats (JSON)", "type": "textarea", "required": false },
+        { "key": "tabs", "label": "Tabs (JSON)", "type": "textarea", "required": false },
+        { "key": "programs", "label": "Programs (JSON)", "type": "textarea", "required": false }
       ]
     }
   ]

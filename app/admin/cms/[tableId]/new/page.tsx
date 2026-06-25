@@ -179,6 +179,18 @@ export default function CmsNewRecordPage() {
                 New {table.singularName}
               </h1>
               <p className="mt-1 text-mist-600 dark:text-mist-400">Add content below. Required fields are marked with *. Use the panel on the right to publish and set options.</p>
+              {tableId === 'courses' && (
+                <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
+                  <p className="font-semibold">Cấu hình khối bên phải cho chương trình split-columns</p>
+                  <p className="mt-1">Trong trường “Programs (JSON)”, bạn có thể thêm object sidebar để điều chỉnh lịch khai giảng và khối tư vấn 1:1.</p>
+                </div>
+              )}
+              {tableId === 'components' && (
+                <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
+                  <p className="font-semibold">Cấu hình form đăng ký học thử</p>
+                  <p className="mt-1">Đối với component loại trial-registration-dialog, hãy điền cấu hình JSON ở ô “Configuration (JSON)” để điều chỉnh giao diện và các trường form.</p>
+                </div>
+              )}
               {error && (
                 <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
                   {error}

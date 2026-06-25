@@ -24,8 +24,12 @@ export type SectionData = {
   blocks?: Record<string, Record<string, JsonValue>>
 }
 
-export function parseSectionData(raw: string | undefined): SectionData | undefined {
-  if (!raw || typeof raw !== 'string') return undefined
+export function parseSectionData(raw: string | Record<string, unknown> | undefined): SectionData | undefined {
+  if (!raw) return undefined
+  if (typeof raw === 'object' && !Array.isArray(raw)) {
+    return raw as SectionData
+  }
+  if (typeof raw !== 'string') return undefined
   try {
     const parsed = JSON.parse(raw) as SectionData
     return parsed ?? undefined
