@@ -19,6 +19,7 @@ export type ComponentTypeOption = {
 export const COMPONENT_TYPE_OPTIONS: ComponentTypeOption[] = [
   { value: 'hero', label: 'Hero', description: 'Headline, image, CTA và intro.' },
   { value: 'featured', label: 'Featured', description: 'Mục nổi bật với tiêu đề và nội dung.' },
+  { value: 'featured-split', label: 'Featured Split', description: 'Block 2 cột với ảnh, quote, badges và stats.' },
   { value: 'cta', label: 'CTA', description: 'Khối gọi hành động đơn giản.' },
   { value: 'pricing', label: 'Pricing', description: 'Bảng giá với nhiều gói dịch vụ.' },
   { value: 'stats', label: 'Stats', description: 'Số liệu thống kê dạng card.' },
@@ -77,6 +78,16 @@ export function buildDefaultConfig(componentType: string): Record<string, JsonVa
         buttonLabel: '',
         buttonHref: '',
         variant: 'primary',
+      }
+    case 'featured-split':
+      return {
+        overline: '',
+        title: '',
+        quote: '',
+        description: '',
+        imageUrl: '',
+        badges: [{ label: '', iconName: 'sparkles' }],
+        stats: [{ value: '', label: '' }],
       }
     case 'pricing':
       return {

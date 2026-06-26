@@ -8,6 +8,7 @@ import {
   CTASection,
   FAQsSection,
   FeaturedSection,
+  FeaturedSplitSection,
   HeroSection,
   HomepageContactSection,
   HomepageHeroSection,
@@ -52,6 +53,8 @@ export function ComponentRenderer({
         return <HomepageContactSection context={contextData} />
       case 'featured':
         return <FeaturedSection context={contextData} blockData={blockData} />
+      case 'featured-split':
+        return <FeaturedSplitSection context={contextData} blockData={blockData} component={component} />
       case 'cta':
         return <CTASection context={contextData} blockData={blockData} />
       case 'pricing':

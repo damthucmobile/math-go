@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { forwardRef, useEffect, useRef, useCallback, useState, useImperativeHandle } from 'react'
 import type { ContentBlock } from '@/lib/cms'
 import {
   ourBlocksToEditorJs,
@@ -15,6 +15,10 @@ export interface ComponentOption {
   id: number
   label?: string
   type?: string
+}
+
+export interface BlockEditorHandle {
+  save: () => Promise<ContentBlock[]>
 }
 
 interface BlockEditorProps {
@@ -32,7 +36,7 @@ interface BlockEditorProps {
   componentOptions?: ComponentOption[]
 }
 
-export function BlockEditor({
+const BlockEditor = forwardRef<BlockEditorHandle, BlockEditorProps>(function BlockEditor({
   value,
   onChange,
   holderId,
@@ -41,7 +45,7 @@ export function BlockEditor({
   minHeight = '320px',
   className = '',
   componentOptions
-}: BlockEditorProps) {
+}: BlockEditorProps, ref) {
   const editorRef = useRef<{ save: () => Promise<EditorJsOutput> } | null>(null)
   const holderRef = useRef<HTMLDivElement>(null)
   const mountCountRef = useRef(0)
@@ -56,6 +60,17 @@ export function BlockEditor({
   const onChangeRef = useRef(onChange)
   onChangeRef.current = onChange
 
+  const saveCurrentBlocks = useCallback(async () => {
+    const editor = editorRef.current
+    if (!editor) return valueRef.current
+    const output = await editor.save()
+    const blocks = editorJsToOurBlocks(output)
+    onChangeRef.current(blocks)
+    return blocks
+  }, [])
+
+  useImperativeHandle(ref, () => ({ save: saveCurrentBlocks }), [saveCurrentBlocks])
+
   // Delay rendering holder so React Strict Mode doesn't create two Editor.js instances
   useEffect(() => {
     const id = requestAnimationFrame(() => setHolderMounted(true))
@@ -64,17 +79,13 @@ export function BlockEditor({
 
   const handleChange = useCallback(async () => {
     try {
-      const editor = editorRef.current
-      if (!editor) return
-      const output = await editor.save()
-      const blocks = editorJsToOurBlocks(output)
-      onChangeRef.current(blocks)
+      await saveCurrentBlocks()
     } catch (err) {
       if (process.env.NODE_ENV === 'development') {
         console.warn('[BlockEditor] save failed:', err)
       }
     }
-  }, [])
+  }, [saveCurrentBlocks])
 
   useEffect(() => {
     if (!holderMounted) return
@@ -237,4 +248,6 @@ export function BlockEditor({
       <div id={holderId} ref={holderRef} className="min-h-[280px] w-full px-4 py-3 text-mist-950 dark:text-white" />
     </div>
   )
-}
+})
+
+export { BlockEditor }

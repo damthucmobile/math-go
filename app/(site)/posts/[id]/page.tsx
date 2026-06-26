@@ -120,7 +120,7 @@ export default async function PostPage({ params }: Props) {
 
       {hasBlocks && !heroComponent && (
         <Section className="border-b border-mist-200/60 bg-mist-50 dark:border-mist-800/60 dark:bg-mist-900/30 py-10 sm:py-12" aria-labelledby="post-title">
-          <Container className="max-w-3xl">
+          <Container className="max-w-3xl !px-0">
             <Heading id="post-title" className="text-3xl sm:text-4xl">{post.title}</Heading>
             {post.excerpt && (
               <Text size="lg" className="mt-3 text-pretty leading-relaxed">

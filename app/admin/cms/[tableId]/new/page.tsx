@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -13,6 +13,7 @@ import { htmlToSingleBlock, ourBlocksToHtml } from '@/lib/block-editor-adapter'
 import { DocumentSidebar, type DocumentStatus, type FeaturedImageValue } from '@/app/admin/DocumentSidebar'
 import { SectionDataFields, type SectionDataShape } from '@/app/admin/SectionDataFields'
 import { BlockEditorPlaceholder } from '@/app/components/BlockEditorPlaceholder'
+import type { BlockEditorHandle } from '@/app/components/BlockEditor'
 import ComponentConfigEditor, { buildDefaultConfig, COMPONENT_TYPE_OPTIONS } from '@/app/admin/ComponentConfigEditor'
 import { CmsImageField } from '@/app/admin/cms/ImageField'
 
@@ -54,6 +55,7 @@ export default function CmsNewRecordPage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [copySourceLabel, setCopySourceLabel] = useState<string | null>(null)
+  const blockEditorRefs = useRef<Record<string, BlockEditorHandle | null>>({})
 
   const adminPath = getAdminPath()
   const api = getApiUrl()
@@ -172,6 +174,22 @@ export default function CmsNewRecordPage() {
     setError(null)
     setSaving(true)
     try {
+      const nextContentBlocks = [...contentBlocks]
+      const nextRichtextBlocks = { ...richtextBlocks }
+      const isBlockField = (key: string) =>
+        (tableId === 'posts' && key === 'content') || (tableId === 'pages' && key === 'body')
+
+      for (const field of table.fields.filter((f) => f.type === 'richtext')) {
+        const editorRef = blockEditorRefs.current[field.key]
+        if (!editorRef) continue
+        const blocks = await editorRef.save()
+        if (isBlockField(field.key)) {
+          nextContentBlocks.splice(0, nextContentBlocks.length, ...blocks)
+        } else {
+          nextRichtextBlocks[field.key] = blocks
+        }
+      }
+
       const payload: Record<string, JsonValue> = {
         ...values,
         status,
@@ -180,20 +198,18 @@ export default function CmsNewRecordPage() {
       if (tableId === 'components') {
         payload.config = componentConfig.trim() ? componentConfig : '{}'
       }
-      if (contentBlocks.length > 0) {
-        payload.content_blocks = contentBlocks
+      if (nextContentBlocks.length > 0) {
+        payload.content_blocks = nextContentBlocks
         if (tableId === 'pages') payload.body = ''
         if (tableId === 'posts') payload.content = ''
       }
       if (tableId === 'posts' || tableId === 'pages') {
         payload.sectionData = Object.keys(sectionData).length > 0 ? JSON.stringify(sectionData) : ''
       }
-      const isBlockField = (key: string) =>
-        (tableId === 'posts' && key === 'content') || (tableId === 'pages' && key === 'body')
       table.fields.forEach((f) => {
         if (f.key === 'sectionData') return
         if (f.type === 'richtext' && !isBlockField(f.key)) {
-          payload[f.key] = ourBlocksToHtml(richtextBlocks[f.key] ?? [])
+          payload[f.key] = ourBlocksToHtml(nextRichtextBlocks[f.key] ?? [])
         }
       })
       const res = await fetch(`${api}/api/cms/${tableId}`, {
@@ -293,6 +309,9 @@ export default function CmsNewRecordPage() {
                         )}
                         <BlockEditor
                           key={`block-new-${tableId}-${field.key}`}
+                          ref={(ref) => {
+                            blockEditorRefs.current[field.key] = ref
+                          }}
                           holderId={`block-editor-new-${tableId}-${field.key}`}
                           value={blocks}
                           onChange={setBlocks}

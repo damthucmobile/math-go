@@ -5,7 +5,8 @@ export type ComponentRecord = {
   type: string
   label?: string
   slug?: string
-  [key: string]: string | number | undefined
+  config?: JsonValue | string
+  [key: string]: JsonValue | string | number | undefined
 }
 
 /** Data passed from the page or post when a component is referenced */
@@ -37,6 +38,15 @@ export type ComponentContextData = {
       ctaUrl?: string
     }[]
     featured?: { headline?: string; description?: string; imageUrl?: string }
+    featuredSplit?: {
+      overline?: string
+      title?: string
+      quote?: string
+      description?: string
+      imageUrl?: string
+      badges?: Array<{ label?: string; iconName?: string }>
+      stats?: Array<{ value?: string; label?: string }>
+    }
     cta?: { headline?: string; subtext?: string; buttonText?: string; buttonUrl?: string }
     banner?: { text?: string; linkText?: string; linkUrl?: string; style?: 'info' | 'success' | 'warning' }
     /** Per-block data when page has multiple of same type (e.g. 2 CTAs). Key = block id. */
