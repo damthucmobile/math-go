@@ -94,13 +94,13 @@ export default async function PageBySlug({ params }: Props) {
         </div>
       )}
 
-      {hasBlocks && !heroComponent && (
+      {/* {hasBlocks && !heroComponent && (
         <Section className="border-b border-mist-200/60 bg-mist-50 dark:border-mist-800/60 dark:bg-mist-900/30 py-10 sm:py-12" aria-labelledby="page-title">
           <Container>
             <Subheading id="page-title">{page.title}</Subheading>
           </Container>
         </Section>
-      )}
+      )} */}
 
       {hasBlocks ? (
         <BlockRenderer

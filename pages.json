@@ -105,6 +105,30 @@
         { "key": "tabs", "label": "Tabs (JSON)", "type": "textarea", "required": false },
         { "key": "programs", "label": "Programs (JSON)", "type": "textarea", "required": false }
       ]
+    },
+    {
+      "id": "tutors",
+      "name": "Tutors",
+      "singularName": "Tutor",
+      "description": "Teacher profiles for homepage tutor section and other pages.",
+      "file": "tutors.json",
+      "single": false,
+      "fields": [
+        { "key": "name", "label": "Name", "type": "text", "required": true },
+        { "key": "title", "label": "Title", "type": "text", "required": false },
+        { "key": "role", "label": "Role", "type": "text", "required": false },
+        { "key": "experience", "label": "Experience", "type": "text", "required": false },
+        { "key": "quote", "label": "Quote", "type": "textarea", "required": false },
+        { "key": "description", "label": "Description", "type": "textarea", "required": false },
+        { "key": "imageUrl", "label": "Image URL", "type": "text", "required": false },
+        { "key": "levels", "label": "Levels (JSON or comma separated)", "type": "textarea", "required": false },
+        { "key": "tags", "label": "Tags (JSON or comma separated)", "type": "textarea", "required": false },
+        { "key": "stat1Value", "label": "Statistic 1 value", "type": "text", "required": false },
+        { "key": "stat1Label", "label": "Statistic 1 label", "type": "text", "required": false },
+        { "key": "stat2Value", "label": "Statistic 2 value", "type": "text", "required": false },
+        { "key": "stat2Label", "label": "Statistic 2 label", "type": "text", "required": false },
+        { "key": "badges", "label": "Badges (JSON)", "type": "textarea", "required": false }
+      ]
     }
   ]
 }

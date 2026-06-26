@@ -69,7 +69,7 @@ export function getCmsConfig(): CmsConfig {
 
 /** Cached config for API; revalidates every 60s to reduce disk reads. */
 export function getCmsConfigCached(): Promise<CmsConfig> {
-  return unstable_cache(async () => getCmsConfig(), ['cms-config'], { revalidate: 60 })()
+  return unstable_cache(async () => getCmsConfig(), ['cms-config'], { revalidate: 60, tags: ['cms-config'] })()
 }
 
 /** Async read: from Blob when on Vercel (no fs fallback); local = fs. */
@@ -93,7 +93,7 @@ export async function getTableDataAsync(tableId: string): Promise<Record<string,
 
 /** Cached table data for API; revalidates every 30s. Uses Blob when on Vercel. */
 export function getTableDataCached(tableId: string): Promise<Record<string, JsonValue>[] | Record<string, JsonValue> | null> {
-  return unstable_cache(async () => getTableDataAsync(tableId), ['cms-table', tableId], { revalidate: 30 })()
+  return unstable_cache(async () => getTableDataAsync(tableId), ['cms-table', tableId], { revalidate: 30, tags: ['cms-data', `cms-table:${tableId}`] })()
 }
 
 export function getTableConfig(tableId: string): TableConfig | null {

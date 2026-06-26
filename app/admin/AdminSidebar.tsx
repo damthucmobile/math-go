@@ -106,7 +106,7 @@ export function AdminSidebar() {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-mist-200 dark:bg-mist-700">
               <LayoutGrid className="h-4 w-4 text-mist-600 dark:text-mist-300" />
             </span>
-            <span className="text-sm font-semibold tracking-tight">CMS</span>
+            <span className="text-sm font-semibold tracking-normal">CMS</span>
           </Link>
         )}
         <button

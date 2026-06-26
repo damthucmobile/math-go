@@ -42,7 +42,7 @@ function MobileMenuPanel({ children, onClose }: { children: ReactNode; onClose: 
     <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Main menu">
       {/* Thêm nền mờ đặc trưng giống thiết kế */}
       <div
-        className="absolute inset-0 bg-[#00355f]/20 backdrop-blur-sm"
+        className="absolute inset-0 bg-primary/20 backdrop-blur-sm"
         aria-hidden
         onClick={onClose}
       />
@@ -74,8 +74,8 @@ export function NavbarLink({
       href={href}
       onClick={handleClick}
       className={clsx(
-        // Cập nhật CSS: màu chữ #00355f đặc trưng, hover gạch chân mờ, thanh mảnh theo ảnh
-        'group inline-flex items-center justify-between gap-2 text-base font-medium text-slate-600 hover:text-[#00355f] lg:text-sm transition-colors relative lg:after:absolute lg:after:bottom-[-4px] lg:after:left-0 lg:after:h-[2px] lg:after:w-0 lg:after:bg-[#00355f] lg:hover:after:w-full lg:after:transition-all max-lg:py-3 max-lg:w-full dark:text-slate-300 dark:hover:text-white',
+        // Cập nhật CSS: màu chữ primary đặc trưng, hover gạch chân mờ, thanh mảnh theo ảnh
+        'group inline-flex items-center justify-between gap-2 text-base font-medium text-slate-600 hover:text-primary lg:text-sm transition-colors relative lg:after:absolute lg:after:bottom-[-4px] lg:after:left-0 lg:after:h-[2px] lg:after:w-0 lg:after:bg-primary lg:hover:after:w-full lg:after:transition-all max-lg:py-3 max-lg:w-full dark:text-slate-300 dark:hover:text-white',
         className,
       )}
       {...props}
@@ -95,7 +95,7 @@ export function NavbarLogo({ className, href, ...props }: { href: string } & Omi
     <Link 
       href={href} 
       {...props} 
-      className={clsx('inline-flex items-center text-xl font-bold text-[#00355f] tracking-tight dark:text-white', className)} 
+      className={clsx('inline-flex items-center text-xl font-bold text-primary tracking-normal dark:text-white', className)} 
     />
   )
 }

@@ -112,7 +112,7 @@ function BlockContent({ block }: { block: ContentBlock }) {
     case 'heading': {
       const level = Math.min(6, Math.max(1, block.level ?? 2))
       const content = block.content ?? ''
-      const sharedClass = 'mt-8 first:mt-0 font-display tracking-tight text-mist-950 dark:text-white'
+      const sharedClass = 'mt-8 first:mt-0 font-display tracking-normal text-mist-950 dark:text-white'
       if (level === 1) return <Heading className={sharedClass}>{content}</Heading>
       if (level === 2) return <Subheading className={sharedClass}>{content}</Subheading>
       const Tag = `h${level}` as 'h3' | 'h4' | 'h5' | 'h6'

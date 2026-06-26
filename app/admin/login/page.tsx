@@ -50,7 +50,7 @@ export default function AdminLoginPage() {
           </span>
         </div>
         <div className="rounded-2xl border border-mist-200/80 bg-white p-8 shadow-xl shadow-mist-200/20 ring-1 ring-mist-200/50 dark:border-mist-700 dark:bg-mist-900/30 dark:ring-mist-700">
-          <h1 className="text-center text-2xl font-bold tracking-tight text-mist-950 dark:text-white">
+          <h1 className="text-center text-2xl font-bold tracking-normal text-mist-950 dark:text-white">
             Admin Login
           </h1>
           <p className="mt-2 text-center text-sm text-mist-600 dark:text-mist-400">

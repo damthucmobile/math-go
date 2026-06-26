@@ -60,12 +60,12 @@ export default async function ContactPage() {
 
   return (
     <main className="bg-slate-50 text-slate-900">
-      <section className="bg-[#0b2f5d] py-24 text-white">
+      <section className="bg-primary py-24 text-white">
         <Container className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-orange-300">
             Liên hệ MathGo
           </p>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="mt-6 text-4xl font-bold tracking-normal sm:text-5xl">
             {title}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
@@ -96,7 +96,7 @@ export default async function ContactPage() {
                 <p className="text-sm font-medium uppercase tracking-[0.25em] text-orange-500">
                   Form liên hệ
                 </p>
-                <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900">
+                <h2 className="mt-4 text-3xl font-bold tracking-normal text-slate-900">
                   {formTitle}
                 </h2>
                 <p className="mt-3 text-sm leading-7 text-slate-600">
@@ -147,7 +147,7 @@ export default async function ContactPage() {
               ))}
             </div>
 
-            <div className="space-y-3 rounded-2xl bg-[#0b2f5d] p-5 text-white">
+            <div className="space-y-3 rounded-2xl bg-primary p-5 text-white">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-orange-300">{ctaTitle}</p>
               <p className="text-sm leading-6 text-slate-100">
                 {ctaDescription}

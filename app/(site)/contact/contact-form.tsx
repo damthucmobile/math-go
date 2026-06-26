@@ -121,7 +121,7 @@ export function ContactForm({
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="inline-flex items-center justify-center rounded-full bg-[#0b2f5d] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:bg-[#0a294f] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:bg-[#0a294f] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {status === 'loading' ? 'Đang gửi...' : 'Gửi yêu cầu'}
           </button>

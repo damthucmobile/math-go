@@ -28,7 +28,7 @@ export function AdminTopBar({ showViewSite = true, saveStatus }: AdminTopBarProp
           <span className="flex h-8 w-8 items-center justify-center rounded-md bg-white/10">
             <LayoutGrid className="h-4 w-4 text-mist-200" />
           </span>
-          <span className="hidden text-sm font-semibold tracking-tight sm:inline">
+          <span className="hidden text-sm font-semibold tracking-normal sm:inline">
             Site Admin
           </span>
         </Link>

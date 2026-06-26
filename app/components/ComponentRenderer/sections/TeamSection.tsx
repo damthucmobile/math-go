@@ -31,7 +31,7 @@ export function TeamSection({
                   {m.name.charAt(0)}
                 </div>
               )}
-              <h3 className="mt-4 font-display text-xl font-semibold tracking-tight text-mist-950 dark:text-white">{m.name}</h3>
+              <h3 className="mt-4 font-display text-xl font-semibold tracking-normal text-mist-950 dark:text-white">{m.name}</h3>
               <Text size="md" className="text-mist-600 dark:text-mist-500">{m.role}</Text>
               {m.bio && <Text size="md" className="mt-2 text-pretty">{m.bio}</Text>}
             </div>

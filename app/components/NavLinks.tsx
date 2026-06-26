@@ -19,7 +19,7 @@ export default function NavLinks({ items }: any) {
             href={item.url}
             className={
               isActive
-                ? 'text-[#00355f] font-semibold lg:after:!w-full'
+                ? 'text-primary font-semibold lg:after:!w-full'
                 : ''
             }
           >

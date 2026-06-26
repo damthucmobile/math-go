@@ -136,7 +136,7 @@ export default function AdminSettingsPage() {
 
         <div className="rounded-2xl border border-mist-200 bg-white shadow-sm overflow-hidden dark:border-mist-700 dark:bg-mist-900/30">
           <div className="border-b border-mist-100 bg-gradient-to-b from-mist-50 to-white px-6 py-8 dark:border-mist-800 dark:from-mist-900/50 dark:to-mist-900/30">
-            <h1 className="text-2xl font-bold tracking-tight text-mist-950 dark:text-white">Site settings</h1>
+            <h1 className="text-2xl font-bold tracking-normal text-mist-950 dark:text-white">Site settings</h1>
             <p className="mt-1 text-mist-600 dark:text-mist-400">
               Configure header, footer, and navigation for your site. Required fields are marked with *.
             </p>

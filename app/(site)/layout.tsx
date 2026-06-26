@@ -71,7 +71,7 @@ export default async function SiteLayout({
                 />
               ) : (
                 <span
-                  className="text-3xl font-bold tracking-tight light:text-[#00355f] text-mist-950 dark:text-white"
+                  className="text-3xl font-bold tracking-normal light:text-primary text-mist-950 dark:text-white"
                   style={{ fontFamily: "'Instrument Serif', serif", color: 'var(--primary)' }}
                 >
                   {siteTitle}

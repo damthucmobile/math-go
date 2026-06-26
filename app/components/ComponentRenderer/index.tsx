@@ -9,6 +9,12 @@ import {
   FAQsSection,
   FeaturedSection,
   HeroSection,
+  HomepageContactSection,
+  HomepageHeroSection,
+  HomepageProgramsSection,
+  HomepageStatsSection,
+  HomepageTestimonialsSection,
+  HomepageTutorSection,
   PricingSection,
   StatsSection,
   TeamSection,
@@ -32,6 +38,18 @@ export function ComponentRenderer({
     switch (component.type) {
       case 'hero':
         return <HeroSection context={contextData} variant={variant} />
+      case 'homepage-hero':
+        return <HomepageHeroSection context={contextData} />
+      case 'homepage-stats':
+        return <HomepageStatsSection context={contextData} />
+      case 'homepage-programs':
+        return <HomepageProgramsSection context={contextData} />
+      case 'homepage-tutor':
+        return <HomepageTutorSection context={contextData} />
+      case 'homepage-testimonials':
+        return <HomepageTestimonialsSection context={contextData} />
+      case 'homepage-contact':
+        return <HomepageContactSection context={contextData} />
       case 'featured':
         return <FeaturedSection context={contextData} blockData={blockData} />
       case 'cta':

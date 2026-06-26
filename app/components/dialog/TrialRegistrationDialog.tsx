@@ -215,7 +215,7 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
   }
 
   const renderField = (field: DialogFieldConfig) => {
-    const inputClassName = 'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-900 placeholder-slate-400 outline-none transition focus:border-[#00355f] focus:ring-2 focus:ring-blue-500/10 disabled:opacity-60 shadow-sm'
+    const inputClassName = 'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-900 placeholder-slate-400 outline-none transition focus:border-primary focus:ring-2 focus:ring-blue-500/10 disabled:opacity-60 shadow-sm'
     const currentValue = formValues[field.key] ?? ''
     const isSubmitting = status === 'loading'
 
@@ -266,7 +266,7 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
                     disabled={isSubmitting}
                     onClick={() => setFormValues((prev) => ({ ...prev, [field.key]: option.value }))}
                     className={`flex-1 rounded-xl border px-4 py-3 text-xs font-semibold transition shadow-sm ${
-                      active ? 'border-[#00355f] bg-[#00355f] text-white' : 'border-slate-200 text-slate-700 bg-white hover:bg-slate-50'
+                      active ? 'border-primary bg-primary text-white' : 'border-slate-200 text-slate-700 bg-white hover:bg-slate-50'
                     } disabled:opacity-50`}
                   >
                     {option.label}
@@ -281,7 +281,7 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
           <div className="space-y-1.5">
             <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
             <div className="relative group">
-              <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-[#00355f]" />
+              <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-primary" />
               <input {...commonProps} type="email" className={`${inputClassName} pl-10`} />
             </div>
           </div>
@@ -291,7 +291,7 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
           <div className="space-y-1.5">
             <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
             <div className="relative group">
-              <Phone className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-[#00355f]" />
+              <Phone className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-primary" />
               <input {...commonProps} type="tel" className={`${inputClassName} pl-10`} />
             </div>
           </div>
@@ -301,7 +301,7 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
           <div className="space-y-1.5">
             <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">{field.label}</label>
             <div className="relative group">
-              <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-[#00355f]" />
+              <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-primary" />
               <input {...commonProps} type="text" className={`${inputClassName} pl-10`} />
             </div>
           </div>
@@ -312,11 +312,11 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
       {/* Background Overlay */}
-      <div className="fixed inset-0 bg-[#00355f]/40 backdrop-blur-md" onClick={status === 'loading' ? undefined : onClose} />
+      <div className="fixed inset-0 bg-primary/40 backdrop-blur-md" onClick={status === 'loading' ? undefined : onClose} />
 
       {/* Main Dialog Container */}
       <div className="relative z-10 flex max-h-[85vh] md:max-h-[90vh] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0px_12px_60px_rgba(15,76,129,0.2)]">
-        <div className="pointer-events-none absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#00355f 0.75px, transparent 0.75px)', backgroundSize: '24px 24px' }} />
+        <div className="pointer-events-none absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(primary 0.75px, transparent 0.75px)', backgroundSize: '24px 24px' }} />
 
         {/* Sticky Header */}
         <div className="relative shrink-0 border-b border-slate-100 px-6 pb-4 pt-8 md:pt-10 text-center bg-white z-20">
@@ -328,11 +328,11 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
             <X className="h-5 w-5" />
           </button>
 
-          <div className="mb-2.5 inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-[#0f4c81] animate-bounce [animation-duration:3s]">
+          <div className="mb-2.5 inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-primary-container animate-bounce [animation-duration:3s]">
             <GraduationCap className="h-5 w-5" />
           </div>
 
-          <h2 className="text-lg md:text-2xl font-bold tracking-tight text-[#00355f]">{config.title}</h2>
+          <h2 className="text-lg md:text-2xl font-bold tracking-normal text-primary">{config.title}</h2>
           <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">{config.description}</p>
         </div>
 
@@ -372,14 +372,14 @@ export default function TrialRegistrationDialog({ isOpen, onClose }: TrialRegist
             )}
 
             {status === 'loading' && (
-              <button type="button" disabled className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#00562a] px-6 py-3.5 text-xs font-bold text-white transition">
+              <button type="button" disabled className="flex w-full items-center justify-center gap-2 rounded-xl bg-tertiary-container px-6 py-3.5 text-xs font-bold text-white transition">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 <span>Đang xử lý dữ liệu...</span>
               </button>
             )}
 
             {status === 'success' && (
-              <button type="button" disabled className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#52d17e] px-6 py-3.5 text-xs font-bold text-[#00210c] transition">
+              <button type="button" disabled className="flex w-full items-center justify-center gap-2 rounded-xl bg-tertiary-container px-6 py-3.5 text-xs font-bold text-[#00210c] transition">
                 <CheckCircle2 className="h-4 w-4" />
                 <span>{config.successMessage}</span>
               </button>

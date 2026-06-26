@@ -12,7 +12,16 @@ import { htmlToSingleBlock, ourBlocksToHtml } from '@/lib/block-editor-adapter'
 import { DocumentSidebar, type DocumentStatus, type FeaturedImageValue } from '@/app/admin/DocumentSidebar'
 import { SectionDataFields, parseSectionData, type SectionDataShape } from '@/app/admin/SectionDataFields'
 import { BlockEditorPlaceholder } from '@/app/components/BlockEditorPlaceholder'
+import ComponentConfigEditor, { buildDefaultConfig, COMPONENT_TYPE_OPTIONS } from '@/app/admin/ComponentConfigEditor'
+import { CmsImageField } from '@/app/admin/cms/ImageField'
 import type { JsonValue } from '@/types/json'
+
+function stringifyComponentConfig(value: unknown): string {
+  if (typeof value === 'string') return value.trim() ? value : '{}'
+  if (value == null) return '{}'
+  if (typeof value === 'object') return JSON.stringify(value, null, 2)
+  return '{}'
+}
 
 const BlockEditor = dynamic(
   () => import('@/app/components/BlockEditor').then((m) => m.BlockEditor),
@@ -67,6 +76,7 @@ export default function CmsEditRecordPage() {
   const [featuredImage, setFeaturedImage] = useState<FeaturedImageValue>(null)
   const [components, setComponents] = useState<Record<string, JsonValue>[]>([])
   const [sectionData, setSectionData] = useState<SectionDataShape>({})
+  const [componentConfig, setComponentConfig] = useState('{}')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -148,6 +158,10 @@ export default function CmsEditRecordPage() {
           setRichtextBlocks(nextRichtext)
           setStatus(parseStatus(record.status))
           setFeaturedImage(parseFeaturedImage(record.featuredImage))
+          if (tableId === 'components') {
+            const nextConfig = stringifyComponentConfig(record.config)
+            setComponentConfig(nextConfig.trim() ? nextConfig : JSON.stringify(buildDefaultConfig(String(record.type ?? '')), null, 2))
+          }
           if (tableId === 'posts' || tableId === 'pages') {
             setSectionData(parseSectionData(record.sectionData as string | undefined))
           }
@@ -167,6 +181,9 @@ export default function CmsEditRecordPage() {
         id,
         status,
         featuredImage: featuredImage ?? null
+      }
+      if (tableId === 'components') {
+        payload.config = componentConfig.trim() ? componentConfig : '{}'
       }
       if (contentBlocks.length > 0) {
         payload.content_blocks = contentBlocks
@@ -248,7 +265,7 @@ export default function CmsEditRecordPage() {
           {/* Main content */}
           <div className="min-w-0 flex-1">
             <div className="rounded-2xl border border-mist-200 bg-white p-6 shadow-sm lg:p-8 dark:border-mist-700 dark:bg-mist-900/30">
-              <h1 className="text-2xl font-bold tracking-tight text-mist-950 dark:text-white">
+              <h1 className="text-2xl font-bold tracking-normal text-mist-950 dark:text-white">
                 Edit {table.singularName}
               </h1>
               <p className="mt-1 text-mist-600 dark:text-mist-400">Update content below. Required fields are marked with *. Use the panel on the right to publish and set options.</p>
@@ -258,11 +275,10 @@ export default function CmsEditRecordPage() {
                   <p className="mt-1">Trong trường “Programs (JSON)”, bạn có thể thêm object sidebar với scheduleTitle, scheduleItems, personalizedTitle, personalizedDescription… để cấu hình phần lịch khai giảng và card tư vấn 1:1.</p>
                 </div>
               )}
-              {tableId === 'components' && (values.type === 'trial-registration-dialog' || values.slug === 'trial-registration-dialog') && (
+              {tableId === 'components' && (
                 <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
-                  <p className="font-semibold">Cấu hình form đăng ký học thử</p>
-                  <p className="mt-1">Chỉnh tiêu đề, mô tả, nút gửi và các trường nhập ở ô “Configuration (JSON)”.</p>
-                  <pre className="mt-3 overflow-x-auto rounded-lg bg-white/80 p-3 text-xs text-blue-900 dark:bg-mist-900/60 dark:text-blue-100">{'{"title": "Đăng ký Học thử Miễn phí", "fields": [{"key": "fullName", "label": "Họ và tên", "type": "text"}]}'}</pre>
+                  <p className="font-semibold">Cấu hình component pro</p>
+                  <p className="mt-1">Bộ chọn loại component ở trên sẽ điều khiển form bên dưới, giúp bạn chỉnh cấu hình nhanh và đúng schema.</p>
                 </div>
               )}
               {error && (
@@ -325,6 +341,63 @@ export default function CmsEditRecordPage() {
                       </div>
                     )
                   }
+                  if (tableId === 'components' && field.key === 'type') {
+                    return (
+                      <div key={field.key}>
+                        <label htmlFor={inputId} className={labelClasses}>
+                          {field.label}
+                          {field.required && ' *'}
+                        </label>
+                        <select
+                          id={inputId}
+                          value={values[field.key] ?? ''}
+                          onChange={(e) => {
+                            const nextValue = e.target.value
+                            setValues((v) => ({ ...v, [field.key]: nextValue }))
+                            setComponentConfig(JSON.stringify(buildDefaultConfig(nextValue), null, 2))
+                          }}
+                          className={inputClasses}
+                          required={field.required}
+                          aria-required={field.required}
+                        >
+                          <option value="">Select a component type</option>
+                          {COMPONENT_TYPE_OPTIONS.map((option) => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                          ))}
+                        </select>
+                      </div>
+                    )
+                  }
+
+                  if (tableId === 'components' && field.key === 'config') {
+                    return (
+                      <div key={field.key}>
+                        <label htmlFor={inputId} className={labelClasses}>
+                          {field.label}
+                          {field.required && ' *'}
+                        </label>
+                        <ComponentConfigEditor
+                          componentType={values.type ?? ''}
+                          configValue={componentConfig}
+                          onChange={setComponentConfig}
+                        />
+                      </div>
+                    )
+                  }
+
+                  if (field.key === 'imageUrl' || field.key === 'avatar') {
+                    return (
+                      <CmsImageField
+                        key={field.key}
+                        id={inputId}
+                        label={field.label}
+                        value={values[field.key] ?? ''}
+                        required={field.required}
+                        onChange={(nextValue) => setValues((v) => ({ ...v, [field.key]: nextValue }))}
+                      />
+                    )
+                  }
+
                   return (
                     <div key={field.key}>
                       <label htmlFor={inputId} className={labelClasses}>

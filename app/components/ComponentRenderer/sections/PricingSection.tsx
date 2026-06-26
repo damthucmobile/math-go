@@ -25,8 +25,8 @@ export function PricingSection({
               key={i}
               className="flex flex-col rounded-2xl border border-mist-200 dark:border-mist-700 bg-mist-50 dark:bg-mist-900/30 p-8"
             >
-              <h3 className="font-display text-xl font-semibold tracking-tight text-mist-950 dark:text-white">{plan.name}</h3>
-              <p className="mt-4 font-display text-4xl font-semibold tracking-tight text-mist-950 dark:text-white">{plan.price}</p>
+              <h3 className="font-display text-xl font-semibold tracking-normal text-mist-950 dark:text-white">{plan.name}</h3>
+              <p className="mt-4 font-display text-4xl font-semibold tracking-normal text-mist-950 dark:text-white">{plan.price}</p>
               {plan.description && (
                 <Text size="md" className="mt-2">{plan.description}</Text>
               )}

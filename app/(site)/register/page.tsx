@@ -19,10 +19,10 @@ export default function RegisterPage() {
         {/* Left Column: Marketing & Testimonial */}
         <div className="lg:col-span-5 space-y-8">
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold tracking-wide text-[#0f4c81] border border-blue-100">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold tracking-wide text-primary-container border border-blue-100">
               <GraduationCap className="h-3.5 w-3.5" /> Tuyển sinh 2024
             </span>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-[#0b2f5d] leading-none sm:text-5xl">
+            <h1 className="mt-4 text-4xl font-extrabold tracking-normal text-primary leading-none sm:text-5xl">
               Làm chủ<br />Môn Toán với<br />
               <span className="text-[#9a5103]">Sự tự tin.</span>
             </h1>
@@ -35,11 +35,11 @@ export default function RegisterPage() {
           <div className="space-y-5">
             {/* Feature 1 */}
             <div className="flex gap-4">
-              <div className="h-10 w-10 inline-flex items-center justify-center rounded-xl bg-[#0f4c81] text-white shrink-0 shadow-sm shadow-[#0f4c81]/20">
+              <div className="h-10 w-10 inline-flex items-center justify-center rounded-xl bg-primary-container text-white shrink-0 shadow-sm shadow-primary-container/20">
                 <User className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-[#0b2f5d]">Gia sư Cá nhân hóa 1-kèm-1</h3>
+                <h3 className="text-sm font-bold text-primary">Gia sư Cá nhân hóa 1-kèm-1</h3>
                 <p className="text-[11px] leading-relaxed text-slate-400 mt-1">
                   Giáo án được thiết kế riêng biệt, phù hợp với tốc độ học và học lực hiện tại của từng học sinh.
                 </p>
@@ -52,7 +52,7 @@ export default function RegisterPage() {
                 <GraduationCap className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-[#0b2f5d]">Đội ngũ Giáo viên Chuyên gia</h3>
+                <h3 className="text-sm font-bold text-primary">Đội ngũ Giáo viên Chuyên gia</h3>
                 <p className="text-[11px] leading-relaxed text-slate-400 mt-1">
                   Học hỏi từ các giáo viên giàu kinh nghiệm và có chuyên môn sâu về toán học nâng cao.
                 </p>
@@ -65,7 +65,7 @@ export default function RegisterPage() {
                 <LineChart className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-[#0b2f5d]">Theo dõi Tiến độ sát sao</h3>
+                <h3 className="text-sm font-bold text-primary">Theo dõi Tiến độ sát sao</h3>
                 <p className="text-[11px] leading-relaxed text-slate-400 mt-1">
                   Bảng điều khiển thời gian thực hiển thị sự tiến bộ, điểm số bài kiểm tra và mức độ làm chủ kiến thức.
                 </p>
@@ -97,53 +97,53 @@ export default function RegisterPage() {
 
         {/* Right Column: Registration Form */}
         <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200/60 p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-[#0b2f5d] mb-6">Đăng ký Nhập học</h2>
+          <h2 className="text-2xl font-bold text-primary mb-6">Đăng ký Nhập học</h2>
           
           <form className="space-y-6">
             
             {/* Section 1: Student Information */}
             <div className="relative border-t border-slate-200/80 pt-4">
-              <span className="absolute -top-2.5 left-4 bg-white px-2 text-[10px] font-bold text-[#0f4c81] tracking-wider uppercase">
+              <span className="absolute -top-2.5 left-4 bg-white px-2 text-[10px] font-bold text-primary-container tracking-wider uppercase">
                 Thông tin học sinh
               </span>
               <div className="grid gap-4 sm:grid-cols-3">
                 <div className="sm:col-span-2 space-y-1">
                   <label className="text-[11px] font-bold text-slate-600">Họ và tên</label>
-                  <input type="text" placeholder="Nhập họ và tên học sinh" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-[#0f4c81] focus:ring-1 focus:ring-[#0f4c81] outline-none transition" />
+                  <input type="text" placeholder="Nhập họ và tên học sinh" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-slate-600">Tuổi</label>
-                  <input type="text" placeholder="Tuổi của học sinh" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-[#0f4c81] focus:ring-1 focus:ring-[#0f4c81] outline-none transition" />
+                  <input type="text" placeholder="Tuổi của học sinh" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition" />
                 </div>
               </div>
             </div>
 
             {/* Section 2: Parent Contact */}
             <div className="relative border-t border-slate-200/80 pt-4 mt-8">
-              <span className="absolute -top-2.5 left-4 bg-white px-2 text-[10px] font-bold text-[#0f4c81] tracking-wider uppercase">
+              <span className="absolute -top-2.5 left-4 bg-white px-2 text-[10px] font-bold text-primary-container tracking-wider uppercase">
                 Liên hệ Phụ huynh / Người giám hộ
               </span>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-slate-600">Người liên hệ</label>
-                  <input type="text" placeholder="Họ và tên phụ huynh" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-[#0f4c81] focus:ring-1 focus:ring-[#0f4c81] outline-none transition" />
+                  <input type="text" placeholder="Họ và tên phụ huynh" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-slate-600">Địa chỉ Email</label>
-                  <input type="email" placeholder="email@viethong.com" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-[#0f4c81] focus:ring-1 focus:ring-[#0f4c81] outline-none transition" />
+                  <input type="email" placeholder="email@viethong.com" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition" />
                 </div>
               </div>
             </div>
 
             {/* Section 3: Academic Details */}
             <div className="relative border-t border-slate-200/80 pt-4 mt-8">
-              <span className="absolute -top-2.5 left-4 bg-white px-2 text-[10px] font-bold text-[#0f4c81] tracking-wider uppercase">
+              <span className="absolute -top-2.5 left-4 bg-white px-2 text-[10px] font-bold text-primary-container tracking-wider uppercase">
                 Thông tin học tập
               </span>
               <div className="grid gap-4 sm:grid-cols-12 items-end">
                 <div className="sm:col-span-7 space-y-1">
                   <label className="text-[11px] font-bold text-slate-600">Khóa học mong muốn</label>
-                  <select className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 outline-none focus:border-[#0f4c81] focus:ring-1 focus:ring-[#0f4c81] transition appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_auto] bg-[right_16px_center] bg-no-repeat">
+                  <select className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_auto] bg-[right_16px_center] bg-no-repeat">
                     <option>Chọn một khóa học</option>
                     <option>Toán Tư Duy Tiểu Học</option>
                     <option>Toán Trung Học Cơ Sở</option>
@@ -156,7 +156,7 @@ export default function RegisterPage() {
                 <div className="sm:col-span-5 space-y-1">
                   <label className="text-[11px] font-bold text-slate-600 block">Hình thức học</label>
                   <div className="grid grid-cols-2 gap-2">
-                    <label className="flex items-center justify-center p-3 rounded-xl border border-blue-600 bg-blue-50/20 text-xs font-semibold text-[#0f4c81] cursor-pointer transition select-none">
+                    <label className="flex items-center justify-center p-3 rounded-xl border border-blue-600 bg-blue-50/20 text-xs font-semibold text-primary-container cursor-pointer transition select-none">
                       <input type="radio" name="format" value="1-on-1" defaultChecked className="sr-only" />
                       Lớp 1-kèm-1
                     </label>
@@ -171,7 +171,7 @@ export default function RegisterPage() {
 
             {/* Terms Consent Checklist */}
             <div className="pt-2 flex items-start gap-3">
-              <input type="checkbox" id="terms" className="mt-0.5 rounded border-slate-300 text-[#0f4c81] focus:ring-[#0f4c81] h-3.5 w-3.5 cursor-pointer" />
+              <input type="checkbox" id="terms" className="mt-0.5 rounded border-slate-300 text-primary-container focus:ring-primary-container h-3.5 w-3.5 cursor-pointer" />
               <label htmlFor="terms" className="text-[10px] text-slate-500 leading-relaxed cursor-pointer select-none">
                 Tôi đồng ý với Điều khoản Dịch vụ và Chính sách Bảo mật, đồng thời hiểu rằng cuộc gọi tư vấn sẽ được lên lịch trong vòng 24 giờ.
               </label>

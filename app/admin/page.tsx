@@ -125,7 +125,7 @@ export default function AdminDashboardPage() {
     <div className="p-6 lg:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold tracking-tight text-mist-950 dark:text-white md:text-3xl">
+          <h1 className="text-2xl font-bold tracking-normal text-mist-950 dark:text-white md:text-3xl">
             Dashboard
           </h1>
           <p className="mt-1 text-mist-500 dark:text-mist-400">

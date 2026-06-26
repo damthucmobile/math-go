@@ -20,6 +20,31 @@ export type TestimonialItem = {
   avatarUrl: string
 }
 
+export type HomepageSectionType = 'homepage-hero' | 'homepage-stats' | 'homepage-programs' | 'homepage-tutor' | 'homepage-testimonials' | 'homepage-contact'
+
+export type HomepageSection = {
+  id: string
+  type: HomepageSectionType
+}
+
+export type HomepageTutorBadge = {
+  label: string
+  iconName?: string
+}
+
+export type HomepageTutorProfile = {
+  name: string
+  title: string
+  quote: string
+  description: string
+  imageUrl: string
+  stat1Value: string
+  stat1Label: string
+  stat2Value: string
+  stat2Label: string
+  badges: HomepageTutorBadge[]
+}
+
 export type HomepageData = {
   hero: {
     badge: string
@@ -33,17 +58,7 @@ export type HomepageData = {
   }
   stats: StatItem[]
   programs: ProgramItem[]
-  tutor: {
-    name: string
-    title: string
-    quote: string
-    description: string
-    imageUrl: string
-    stat1Value: string
-    stat1Label: string
-    stat2Value: string
-    stat2Label: string
-  }
+  tutor: HomepageTutorProfile[]
   testimonials: TestimonialItem[]
   contact: {
     eyebrow: string
@@ -51,6 +66,7 @@ export type HomepageData = {
     subtitle: string
     buttonLabel: string
   }
+  sections: HomepageSection[]
 }
 
 export const defaultHomepageData: HomepageData = {
@@ -75,7 +91,7 @@ export const defaultHomepageData: HomepageData = {
     { title: 'Toán THPT & Luyện Thi', description: 'Chiến thuật giải đề trắc nghiệm nhanh, bao quát kiến thức và tối ưu hoá điểm số thi Đại học.', href: '/curriculum/trung-hoc-pho-thong', iconName: 'Award' },
     { title: 'Toán Quốc Tế', description: 'Chuẩn bị cho các kỳ thi SAT, IGCSE, A-Level với giáo trình chuẩn quốc tế và tư duy chuyên sâu.', href: '/curriculum/toan-quoc-te', iconName: 'Globe' },
   ],
-  tutor: {
+  tutor: [{
     name: 'Thầy Nguyễn Văn A',
     title: 'Đội Ngũ Giảng Viên',
     quote: 'Môn Toán không khó, cái khó là chưa tìm được chìa khoá để mở cánh cửa tư duy.',
@@ -85,7 +101,11 @@ export const defaultHomepageData: HomepageData = {
     stat1Label: 'Năm kinh nghiệm',
     stat2Value: '5000+',
     stat2Label: 'Học sinh đỗ đạt',
-  },
+    badges: [
+      { label: 'Học kèm 1-1', iconName: 'User' },
+      { label: 'Lớp học nhỏ (3-5 học sinh)', iconName: 'Users' },
+    ],
+  }],
   testimonials: [
     { quote: 'Trước đây em rất sợ môn Toán và luôn bị điểm kém. Nhờ sự tận tình của các thầy cô tại MathGo, em đã lấy lại được căn bản và đạt điểm 9.0 trong kỳ thi học kỳ vừa qua.', author: 'Bạn Minh Anh', role: 'Học sinh lớp 12', avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80' },
     { quote: 'Lộ trình học tập cá nhân hoá là điều tôi ưng nhất. Con tôi từ chỗ lười học đã trở nên chủ động và yêu thích việc giải các bài toán khó hơn mỗi ngày.', author: 'Chị Thu Trang', role: 'Phụ huynh học sinh', avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80' },
@@ -96,6 +116,14 @@ export const defaultHomepageData: HomepageData = {
     subtitle: 'Để lại thông tin, chuyên gia của chúng tôi sẽ liên hệ và hỗ trợ kiểm tra năng lực trong vòng 24h.',
     buttonLabel: 'Gửi Yêu Cầu Tư Vấn',
   },
+  sections: [
+    { id: 'hero', type: 'homepage-hero' },
+    { id: 'stats', type: 'homepage-stats' },
+    { id: 'programs', type: 'homepage-programs' },
+    { id: 'tutor', type: 'homepage-tutor' },
+    { id: 'testimonials', type: 'homepage-testimonials' },
+    { id: 'contact', type: 'homepage-contact' },
+  ],
 }
 
 const legacyIconNameMap: Record<string, string> = {
@@ -125,7 +153,46 @@ export function parseHomepageData(raw: unknown): Partial<HomepageData> | undefin
   return undefined
 }
 
+function normalizeTutorBadges(rawBadges: unknown): HomepageTutorBadge[] {
+  if (Array.isArray(rawBadges)) {
+    return rawBadges
+      .filter((badge): badge is Record<string, unknown> => Boolean(badge) && typeof badge === 'object' && !Array.isArray(badge))
+      .map((badge) => ({
+        label: typeof badge.label === 'string' ? badge.label : '',
+        iconName: typeof badge.iconName === 'string' ? badge.iconName : undefined,
+      }))
+      .filter((badge) => badge.label)
+  }
+  return []
+}
+
 export function normalizeHomepageData(raw: Partial<HomepageData> | undefined): HomepageData {
+  const normalizedSections = Array.isArray(raw?.sections) && raw.sections.length > 0
+    ? raw.sections.map((section) => ({
+        id: section.id || `${section.type}-${Math.random().toString(36).slice(2, 8)}`,
+        type: section.type,
+      }))
+    : defaultHomepageData.sections
+
+  const normalizedTutor = (() => {
+    const rawTutor = raw?.tutor
+    if (Array.isArray(rawTutor) && rawTutor.length > 0) {
+      return rawTutor.map((item) => ({
+        ...defaultHomepageData.tutor[0],
+        ...(item ?? {}),
+        badges: normalizeTutorBadges((item as Partial<HomepageTutorProfile> | undefined)?.badges),
+      }))
+    }
+    if (rawTutor && typeof rawTutor === 'object' && !Array.isArray(rawTutor)) {
+      return [{
+        ...defaultHomepageData.tutor[0],
+        ...(rawTutor as Partial<HomepageTutorProfile>),
+        badges: normalizeTutorBadges((rawTutor as Partial<HomepageTutorProfile> | undefined)?.badges),
+      }]
+    }
+    return defaultHomepageData.tutor
+  })()
+
   return {
     hero: { ...defaultHomepageData.hero, ...(raw?.hero ?? {}) },
     stats: Array.isArray(raw?.stats) && raw.stats.length > 0 ? raw.stats : defaultHomepageData.stats,
@@ -135,9 +202,10 @@ export function normalizeHomepageData(raw: Partial<HomepageData> | undefined): H
           iconName: normalizeProgramIconName(program.iconName),
         }))
       : defaultHomepageData.programs,
-    tutor: { ...defaultHomepageData.tutor, ...(raw?.tutor ?? {}) },
+    tutor: normalizedTutor,
     testimonials: Array.isArray(raw?.testimonials) && raw.testimonials.length > 0 ? raw.testimonials : defaultHomepageData.testimonials,
     contact: { ...defaultHomepageData.contact, ...(raw?.contact ?? {}) },
+    sections: normalizedSections,
   }
 }
 

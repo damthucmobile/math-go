@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { getTableConfig, getCmsConfigCached, getTableDataAsync, saveRecord, deleteRecord } from '@/lib/cms'
 import { triggerVercelDeploy } from '@/lib/deploy-hook'
 
@@ -30,6 +31,9 @@ export async function POST(req: NextRequest, { params }: Params) {
     const body = await req.json()
     const id = body.id != null ? String(body.id) : undefined
     const record = await saveRecord(tableId, body, id)
+    revalidateTag('cms-config', 'default')
+    revalidateTag('cms-data', 'default')
+    revalidatePath('/')
     await triggerVercelDeploy()
     return NextResponse.json(record)
   } catch (e) {
@@ -45,6 +49,9 @@ export async function DELETE(req: NextRequest, { params }: Params) {
   const id = req.nextUrl.searchParams.get('id')
   try {
     await deleteRecord(tableId, id ?? undefined)
+    revalidateTag('cms-config', 'default')
+    revalidateTag('cms-data', 'default')
+    revalidatePath('/')
     await triggerVercelDeploy()
     return NextResponse.json({ success: true })
   } catch (e) {

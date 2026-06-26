@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type MouseEvent as ReactMouseEvent } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -10,13 +10,16 @@ import {
   Table2,
   Pencil,
   Trash2,
+  Copy,
   Save,
   Eraser,
   Search,
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
-  ExternalLink
+  ExternalLink,
+  Eye,
+  MoreHorizontal
 } from 'lucide-react'
 import { getApiUrl, getAdminPath, inputClasses, labelClasses, btnPrimary, btnSecondary, btnDanger } from '@/lib/admin-utils'
 import { useDeployStatus } from '@/app/admin/DeployStatusContext'
@@ -37,19 +40,21 @@ function formatFieldValue(value: JsonValue | undefined): string {
   if (value == null) return ''
   if (typeof value === 'string') return value
   if (typeof value === 'number' || typeof value === 'boolean') return String(value)
-  return JSON.stringify(value, null, 2)
+  if (typeof value === 'object') return JSON.stringify(value, null, 2)
+  return String(value)
 }
 
 function parseFieldValue(value: string, fieldType?: string): JsonValue {
-  if (fieldType !== 'textarea') return value
   const trimmed = value.trim()
   if (!trimmed) return ''
-  try {
-    if ((trimmed.startsWith('{') && trimmed.endsWith('}')) || (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
-      return JSON.parse(trimmed)
+  if (fieldType === 'textarea') {
+    try {
+      if ((trimmed.startsWith('{') && trimmed.endsWith('}')) || (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+        return JSON.parse(trimmed)
+      }
+    } catch {
+      // Fall back to the raw string value.
     }
-  } catch {
-    // Fall back to the raw string value.
   }
   return value
 }
@@ -67,6 +72,9 @@ export default function CmsTablePage() {
   const [bulkDeleting, setBulkDeleting] = useState(false)
   const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false)
   const [message, setMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(null)
+  const [openActionMenuId, setOpenActionMenuId] = useState<string | null>(null)
+  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({})
+  const [resizingColumn, setResizingColumn] = useState<{ key: string; startX: number; startWidth: number } | null>(null)
 
   const adminPath = getAdminPath()
   const api = getApiUrl()
@@ -84,6 +92,44 @@ export default function CmsTablePage() {
       })
       .finally(() => setLoading(false))
   }, [tableId, api])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!(event.target instanceof HTMLElement)) return
+      if (event.target.closest('[data-action-menu]')) return
+      setOpenActionMenuId(null)
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  useEffect(() => {
+    if (!resizingColumn) return
+
+    const handleMouseMove = (event: MouseEvent) => {
+      const nextWidth = Math.max(90, resizingColumn.startWidth + event.clientX - resizingColumn.startX)
+      setColumnWidths((prev) => ({ ...prev, [resizingColumn.key]: nextWidth }))
+    }
+
+    const handleMouseUp = () => {
+      setResizingColumn(null)
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+
+    document.body.style.cursor = 'col-resize'
+    document.body.style.userSelect = 'none'
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseup', handleMouseUp)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleMouseUp)
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+  }, [resizingColumn])
 
   const handleDelete = async (id: string | number) => {
     if (!confirm('Delete this record?')) return
@@ -166,6 +212,21 @@ export default function CmsTablePage() {
     setShowBulkDeleteModal(true)
   }
 
+  const getColumnWidth = (key: string) => {
+    if (key === 'checkbox') return columnWidths[key] ?? 48
+    if (key === 'actions') return columnWidths[key] ?? 96
+    return columnWidths[key] ?? 180
+  }
+
+  const startResize = (key: string, event: ReactMouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setResizingColumn({
+      key,
+      startX: event.clientX,
+      startWidth: getColumnWidth(key)
+    })
+  }
+
   const handleBulkDeleteConfirm = async () => {
     if (selectedIds.size === 0) return
     setMessage(null)
@@ -219,7 +280,7 @@ export default function CmsTablePage() {
     return (
       <div className="p-6 lg:p-8">
         <div className="mx-auto max-w-2xl">
-          <h1 className="text-2xl font-bold tracking-tight text-mist-950">{table.name}</h1>
+          <h1 className="text-2xl font-bold tracking-normal text-mist-950">{table.name}</h1>
           <p className="mt-1 text-mist-500">Edit the single record for this section.</p>
           {message && (
             <div
@@ -255,6 +316,10 @@ export default function CmsTablePage() {
       : tableId === 'pages' && record.slug
         ? `/pages/${encodeURIComponent(String(record.slug))}`
         : null
+  const detailUrl = (record: Record<string, JsonValue>) =>
+    tableId === 'tutors'
+      ? `/tutors/${encodeURIComponent(String(record.id ?? ''))}`
+      : null
   const hasUpdatedAt = table.fields.some((f) => f.key === 'updatedAt') ||
     records.some((r) => r.updatedAt != null)
   const hasCreatedAt = (tableId === 'posts' || tableId === 'pages' || tableId === 'components') &&
@@ -269,7 +334,7 @@ export default function CmsTablePage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-mist-950">{table.name}</h1>
+            <h1 className="text-2xl font-bold tracking-normal text-mist-950">{table.name}</h1>
             <p className="mt-1 text-mist-500">
               {filteredAndSortedRecords.length} {filteredAndSortedRecords.length === 1 ? 'item' : 'items'}
               {search.trim() && ` (filtered from ${records.length})`}
@@ -351,13 +416,13 @@ export default function CmsTablePage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full" role="table" aria-label={`${table.name} records`}>
+              <table className="w-full table-fixed" role="table" aria-label={`${table.name} records`}>
                 <caption className="sr-only">
                   {table.name}: {filteredAndSortedRecords.length} items
                 </caption>
                 <thead>
                   <tr className="border-b border-mist-200 bg-mist-50 dark:border-mist-700 dark:bg-mist-800/50">
-                    <th scope="col" className="w-12 px-4 py-3">
+                    <th scope="col" className="relative px-4 py-3" style={{ width: getColumnWidth('checkbox') }}>
                       <input
                         type="checkbox"
                         checked={
@@ -376,82 +441,123 @@ export default function CmsTablePage() {
                         <th
                           key={key}
                           scope="col"
-                          className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500"
+                          className="relative px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500"
+                          style={{ width: getColumnWidth(key) }}
                         >
-                          {isSortable ? (
+                          <div className="flex items-center justify-between gap-2 pr-3">
+                            {isSortable ? (
+                              <button
+                                type="button"
+                                onClick={() => toggleSort(key)}
+                                className="inline-flex items-center gap-1 font-semibold uppercase tracking-wider text-mist-600 hover:text-mist-950 dark:hover:text-white dark:text-mist-400 dark:hover:text-white"
+                              >
+                                {table.fields.find((f) => f.key === key)?.label ?? key}
+                                {isActive ? (
+                                  sortDir === 'asc' ? (
+                                    <ArrowUp className="h-3.5 w-3.5" />
+                                  ) : (
+                                    <ArrowDown className="h-3.5 w-3.5" />
+                                  )
+                                ) : (
+                                  <ArrowUpDown className="h-3.5 w-3.5 opacity-50" />
+                                )}
+                              </button>
+                            ) : (
+                              <span>{table.fields.find((f) => f.key === key)?.label ?? key}</span>
+                            )}
                             <button
                               type="button"
-                              onClick={() => toggleSort(key)}
-                              className="inline-flex items-center gap-1 font-semibold uppercase tracking-wider text-mist-600 hover:text-mist-950 dark:hover:text-white dark:text-mist-400 dark:hover:text-white"
-                            >
-                              {table.fields.find((f) => f.key === key)?.label ?? key}
-                              {isActive ? (
-                                sortDir === 'asc' ? (
-                                  <ArrowUp className="h-3.5 w-3.5" />
-                                ) : (
-                                  <ArrowDown className="h-3.5 w-3.5" />
-                                )
-                              ) : (
-                                <ArrowUpDown className="h-3.5 w-3.5 opacity-50" />
-                              )}
-                            </button>
-                          ) : (
-                            table.fields.find((f) => f.key === key)?.label ?? key
-                          )}
+                              onMouseDown={(event) => startResize(key, event)}
+                              className="absolute inset-y-0 right-0 w-3 cursor-col-resize"
+                              aria-label={`Resize ${table.fields.find((f) => f.key === key)?.label ?? key}`}
+                            />
+                          </div>
                         </th>
                       )
                     })}
                     {hasCreatedAt && (
-                      <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500">
-                        <button
-                          type="button"
-                          onClick={() => toggleSort('createdAt')}
-                          className={`inline-flex items-center gap-1 font-semibold uppercase tracking-wider hover:text-mist-950 dark:hover:text-white ${
-                            sortKey === 'createdAt' ? 'text-mist-950 dark:text-white' : 'text-mist-600 dark:text-mist-400'
-                          }`}
-                        >
-                          Created
-                          {sortKey === 'createdAt' ? (
-                            sortDir === 'asc' ? (
-                              <ArrowUp className="h-3.5 w-3.5" />
+                      <th scope="col" className="relative px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500" style={{ width: getColumnWidth('createdAt') }}>
+                        <div className="flex items-center justify-between gap-2 pr-3">
+                          <button
+                            type="button"
+                            onClick={() => toggleSort('createdAt')}
+                            className={`inline-flex items-center gap-1 font-semibold uppercase tracking-wider hover:text-mist-950 dark:hover:text-white ${
+                              sortKey === 'createdAt' ? 'text-mist-950 dark:text-white' : 'text-mist-600 dark:text-mist-400'
+                            }`}
+                          >
+                            Created
+                            {sortKey === 'createdAt' ? (
+                              sortDir === 'asc' ? (
+                                <ArrowUp className="h-3.5 w-3.5" />
+                              ) : (
+                                <ArrowDown className="h-3.5 w-3.5" />
+                              )
                             ) : (
-                              <ArrowDown className="h-3.5 w-3.5" />
-                            )
-                          ) : (
-                            <ArrowUpDown className="h-3.5 w-3.5 opacity-50" />
-                          )}
-                        </button>
+                              <ArrowUpDown className="h-3.5 w-3.5 opacity-50" />
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onMouseDown={(event) => startResize('createdAt', event)}
+                            className="absolute inset-y-0 right-0 w-3 cursor-col-resize"
+                            aria-label="Resize Created"
+                          />
+                        </div>
                       </th>
                     )}
                     {hasUpdatedAt && (
-                      <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500">
-                        <button
-                          type="button"
-                          onClick={() => toggleSort('updatedAt')}
-                          className={`inline-flex items-center gap-1 font-semibold uppercase tracking-wider hover:text-mist-950 dark:hover:text-white ${
-                            sortKey === 'updatedAt' ? 'text-mist-950 dark:text-white' : 'text-mist-600 dark:text-mist-400'
-                          }`}
-                        >
-                          Updated
-                          {sortKey === 'updatedAt' ? (
-                            sortDir === 'asc' ? (
-                              <ArrowUp className="h-3.5 w-3.5" />
+                      <th scope="col" className="relative px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500" style={{ width: getColumnWidth('updatedAt') }}>
+                        <div className="flex items-center justify-between gap-2 pr-3">
+                          <button
+                            type="button"
+                            onClick={() => toggleSort('updatedAt')}
+                            className={`inline-flex items-center gap-1 font-semibold uppercase tracking-wider hover:text-mist-950 dark:hover:text-white ${
+                              sortKey === 'updatedAt' ? 'text-mist-950 dark:text-white' : 'text-mist-600 dark:text-mist-400'
+                            }`}
+                          >
+                            Updated
+                            {sortKey === 'updatedAt' ? (
+                              sortDir === 'asc' ? (
+                                <ArrowUp className="h-3.5 w-3.5" />
+                              ) : (
+                                <ArrowDown className="h-3.5 w-3.5" />
+                              )
                             ) : (
-                              <ArrowDown className="h-3.5 w-3.5" />
-                            )
-                          ) : (
-                            <ArrowUpDown className="h-3.5 w-3.5 opacity-50" />
-                          )}
-                        </button>
+                              <ArrowUpDown className="h-3.5 w-3.5 opacity-50" />
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onMouseDown={(event) => startResize('updatedAt', event)}
+                            className="absolute inset-y-0 right-0 w-3 cursor-col-resize"
+                            aria-label="Resize Updated"
+                          />
+                        </div>
                       </th>
                     )}
                     {hasStatus && (
-                      <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500">
-                        Status
+                      <th scope="col" className="relative px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-mist-500" style={{ width: getColumnWidth('status') }}>
+                        <div className="flex items-center justify-between gap-2 pr-3">
+                          <span>Status</span>
+                          <button
+                            type="button"
+                            onMouseDown={(event) => startResize('status', event)}
+                            className="absolute inset-y-0 right-0 w-3 cursor-col-resize"
+                            aria-label="Resize Status"
+                          />
+                        </div>
                       </th>
                     )}
-                    <th scope="col" className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-mist-500">
-                      Actions
+                    <th scope="col" className="relative px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-mist-500" style={{ width: getColumnWidth('actions') }}>
+                      <div className="flex items-center justify-end gap-2 pr-3">
+                        <span>Actions</span>
+                        <button
+                          type="button"
+                          onMouseDown={(event) => startResize('actions', event)}
+                          className="absolute inset-y-0 right-0 w-3 cursor-col-resize"
+                          aria-label="Resize Actions"
+                        />
+                      </div>
                     </th>
                   </tr>
                 </thead>
@@ -475,7 +581,7 @@ export default function CmsTablePage() {
                           />
                         </td>
                         {displayKeys.map((key) => (
-                          <td key={key} className="px-4 py-3 text-sm text-mist-700">
+                          <td key={key} className="px-4 py-3 text-sm text-mist-700" style={{ width: getColumnWidth(key) }}>
                             <span className="line-clamp-2">{String(record[key] ?? '—')}</span>
                           </td>
                         ))}
@@ -494,7 +600,7 @@ export default function CmsTablePage() {
                           </td>
                         )}
                         {hasStatus && (
-                          <td className="px-4 py-3">
+                          <td className="px-4 py-3" style={{ width: getColumnWidth('status') }}>
                             <span
                               className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
                                 record.status === 'draft'
@@ -506,35 +612,75 @@ export default function CmsTablePage() {
                             </span>
                           </td>
                         )}
-                        <td className="whitespace-nowrap px-4 py-3 text-right">
-                          {viewUrl(record) && (
-                            <Link
-                              href={viewUrl(record)!}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="mr-2 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-mist-600 hover:bg-mist-100"
-                              aria-label={`View ${record.title ?? sid}`}
+                        <td className="relative whitespace-nowrap px-4 py-3 text-right" style={{ width: getColumnWidth('actions') }}>
+                          <div className="relative inline-block" data-action-menu>
+                            <button
+                              type="button"
+                              onClick={() => setOpenActionMenuId((current) => (current === sid ? null : sid))}
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-mist-200 text-mist-600 transition hover:bg-mist-100 hover:text-mist-900"
+                              aria-label={`Open actions for ${table.singularName} ${sid}`}
                             >
-                              <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-                              View
-                            </Link>
-                          )}
-                          <Link
-                            href={`${adminPath}/cms/${tableId}/${id}`}
-                            className="mr-2 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-mist-600 hover:bg-mist-100"
-                          >
-                            <Pencil className="h-3.5 w-3.5" aria-hidden />
-                            Edit
-                          </Link>
-                          <button
-                            type="button"
-                            onClick={() => handleDelete(id)}
-                            className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
-                            aria-label={`Delete ${table.singularName} ${sid}`}
-                          >
-                            <Trash2 className="h-3.5 w-3.5" aria-hidden />
-                            Delete
-                          </button>
+                              <MoreHorizontal className="h-4 w-4" aria-hidden />
+                            </button>
+
+                            {openActionMenuId === sid && (
+                              <div className="absolute right-0 top-full z-20 mt-2 w-44 rounded-xl border border-mist-200 bg-white p-1 shadow-xl">
+                                {viewUrl(record) && (
+                                  <Link
+                                    href={viewUrl(record)!}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => setOpenActionMenuId(null)}
+                                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-mist-700 transition hover:bg-mist-100"
+                                  >
+                                    <ExternalLink className="h-4 w-4" aria-hidden />
+                                    View
+                                  </Link>
+                                )}
+                                {detailUrl(record) && (
+                                  <Link
+                                    href={detailUrl(record)!}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => setOpenActionMenuId(null)}
+                                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-mist-700 transition hover:bg-mist-100"
+                                  >
+                                    <Eye className="h-4 w-4" aria-hidden />
+                                    Thông tin chi tiết
+                                  </Link>
+                                )}
+                                <Link
+                                  href={`${adminPath}/cms/${tableId}/${id}`}
+                                  onClick={() => setOpenActionMenuId(null)}
+                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-mist-700 transition hover:bg-mist-100"
+                                >
+                                  <Pencil className="h-4 w-4" aria-hidden />
+                                  Edit
+                                </Link>
+                                {tableId === 'tutors' && (
+                                  <Link
+                                    href={`${adminPath}/cms/${tableId}/new?copyFrom=${encodeURIComponent(String(id))}`}
+                                    onClick={() => setOpenActionMenuId(null)}
+                                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-mist-700 transition hover:bg-mist-100"
+                                  >
+                                    <Copy className="h-4 w-4" aria-hidden />
+                                    Copy
+                                  </Link>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setOpenActionMenuId(null)
+                                    handleDelete(id)
+                                  }}
+                                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50"
+                                >
+                                  <Trash2 className="h-4 w-4" aria-hidden />
+                                  Delete
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     )

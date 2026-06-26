@@ -24,7 +24,7 @@ export function StatsSection({
         >
           {stats.map((stat, i) => (
             <div key={i} className="text-center">
-              <p className="font-display text-4xl font-semibold tracking-tight text-mist-950 dark:text-white">{stat.value}</p>
+              <p className="font-display text-4xl font-semibold tracking-normal text-mist-950 dark:text-white">{stat.value}</p>
               <Text size="md" className="mt-1">{stat.label}</Text>
             </div>
           ))}

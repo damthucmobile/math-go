@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { Loader2, ChevronRight, X } from 'lucide-react'
@@ -9,20 +9,38 @@ import { getApiUrl, getAdminPath, inputClasses, labelClasses, btnSecondary, link
 import { useDeployStatus } from '@/app/admin/DeployStatusContext'
 import type { TableConfig, FieldConfig, ContentBlock } from '@/lib/cms'
 import type { JsonValue } from '@/types/json'
-import { ourBlocksToHtml } from '@/lib/block-editor-adapter'
+import { htmlToSingleBlock, ourBlocksToHtml } from '@/lib/block-editor-adapter'
 import { DocumentSidebar, type DocumentStatus, type FeaturedImageValue } from '@/app/admin/DocumentSidebar'
 import { SectionDataFields, type SectionDataShape } from '@/app/admin/SectionDataFields'
 import { BlockEditorPlaceholder } from '@/app/components/BlockEditorPlaceholder'
+import ComponentConfigEditor, { buildDefaultConfig, COMPONENT_TYPE_OPTIONS } from '@/app/admin/ComponentConfigEditor'
+import { CmsImageField } from '@/app/admin/cms/ImageField'
+
+function stringifyComponentConfig(value: unknown): string {
+  if (typeof value === 'string') return value.trim() ? value : '{}'
+  if (value == null) return '{}'
+  if (typeof value === 'object') return JSON.stringify(value, null, 2)
+  return '{}'
+}
 
 const BlockEditor = dynamic(
   () => import('@/app/components/BlockEditor').then((m) => m.BlockEditor),
   { ssr: false, loading: BlockEditorPlaceholder }
 )
 
+function formatTextareaValue(raw: JsonValue | undefined): string {
+  if (raw == null) return ''
+  if (typeof raw === 'string') return raw
+  if (typeof raw === 'number' || typeof raw === 'boolean') return String(raw)
+  return JSON.stringify(raw, null, 2)
+}
+
 export default function CmsNewRecordPage() {
   const params = useParams()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const tableId = params.tableId as string
+  const copyFromId = searchParams.get('copyFrom')
   const [table, setTable] = useState<TableConfig | null>(null)
   const [values, setValues] = useState<Record<string, string>>({})
   const [contentBlocks, setContentBlocks] = useState<ContentBlock[]>([])
@@ -31,9 +49,11 @@ export default function CmsNewRecordPage() {
   const [featuredImage, setFeaturedImage] = useState<FeaturedImageValue>(null)
   const [components, setComponents] = useState<Record<string, JsonValue>[]>([])
   const [sectionData, setSectionData] = useState<SectionDataShape>({})
+  const [componentConfig, setComponentConfig] = useState('{}')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [copySourceLabel, setCopySourceLabel] = useState<string | null>(null)
 
   const adminPath = getAdminPath()
   const api = getApiUrl()
@@ -88,6 +108,53 @@ export default function CmsNewRecordPage() {
           initial[f.key] = f.key === 'heroComponentId' ? '0' : ''
         })
         setValues(initial)
+        setContentBlocks([])
+        setRichtextBlocks({})
+        setSectionData({})
+        setComponentConfig('{}')
+        setCopySourceLabel(null)
+
+        if (copyFromId) {
+          try {
+            const recordRes = await fetch(`${api}/api/cms/${tableId}?id=${copyFromId}`, { credentials: 'include' })
+            const record = await recordRes.json()
+            if (!cancelled && record && typeof record === 'object') {
+              const nextValues: Record<string, string> = { ...initial }
+              const isBlockField = (key: string) =>
+                (tableId === 'posts' && key === 'content') || (tableId === 'pages' && key === 'body')
+              t.fields.forEach((f: FieldConfig) => {
+                if (f.key === 'heroComponentId') {
+                  nextValues[f.key] = String((record as Record<string, JsonValue>)[f.key] ?? '0')
+                } else if (f.type === 'textarea') {
+                  nextValues[f.key] = formatTextareaValue((record as Record<string, JsonValue>)[f.key])
+                } else if (f.type === 'richtext' && !isBlockField(f.key)) {
+                  nextValues[f.key] = ''
+                } else {
+                  nextValues[f.key] = String((record as Record<string, JsonValue>)[f.key] ?? '')
+                }
+              })
+              setValues(nextValues)
+
+              const rawContentBlocks = (record as Record<string, JsonValue>).content_blocks
+              if (Array.isArray(rawContentBlocks)) {
+                setContentBlocks(rawContentBlocks as ContentBlock[])
+              }
+
+              const nextRichtext: Record<string, ContentBlock[]> = {}
+              t.fields.forEach((f: FieldConfig) => {
+                if (f.type === 'richtext' && !isBlockField(f.key)) {
+                  const html = String((record as Record<string, JsonValue>)[f.key] ?? '')
+                  nextRichtext[f.key] = html ? htmlToSingleBlock(html) : []
+                }
+              })
+              setRichtextBlocks(nextRichtext)
+              const sourceName = String((record as Record<string, JsonValue>).name ?? (record as Record<string, JsonValue>).title ?? copyFromId)
+              setCopySourceLabel(sourceName)
+            }
+          } catch {
+            // Ignore copy prefill errors and keep the blank form.
+          }
+        }
       }
       if (tableId === 'posts' || tableId === 'pages') {
         const compRes = await fetch(`${api}/api/cms/components`, { credentials: 'include' })
@@ -97,7 +164,7 @@ export default function CmsNewRecordPage() {
     }
     load().finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [tableId, api])
+  }, [tableId, api, copyFromId])
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
@@ -109,6 +176,9 @@ export default function CmsNewRecordPage() {
         ...values,
         status,
         featuredImage: featuredImage ?? null
+      }
+      if (tableId === 'components') {
+        payload.config = componentConfig.trim() ? componentConfig : '{}'
       }
       if (contentBlocks.length > 0) {
         payload.content_blocks = contentBlocks
@@ -176,10 +246,15 @@ export default function CmsNewRecordPage() {
           {/* Main content */}
           <div className="min-w-0 flex-1">
             <div className="rounded-2xl border border-mist-200 bg-white p-6 shadow-sm lg:p-8 dark:border-mist-700 dark:bg-mist-900/30">
-              <h1 className="text-2xl font-bold tracking-tight text-mist-950 dark:text-white">
+              <h1 className="text-2xl font-bold tracking-normal text-mist-950 dark:text-white">
                 New {table.singularName}
               </h1>
               <p className="mt-1 text-mist-600 dark:text-mist-400">Add content below. Required fields are marked with *. Use the panel on the right to publish and set options.</p>
+              {copySourceLabel && (
+                <div className="mt-4 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
+                  Form đã được điền sẵn từ <span className="font-semibold">{copySourceLabel}</span>. Bạn có thể chỉnh sửa ngay và lưu thành bản mới.
+                </div>
+              )}
               {tableId === 'courses' && (
                 <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
                   <p className="font-semibold">Cấu hình khối bên phải cho chương trình split-columns</p>
@@ -188,8 +263,8 @@ export default function CmsNewRecordPage() {
               )}
               {tableId === 'components' && (
                 <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
-                  <p className="font-semibold">Cấu hình form đăng ký học thử</p>
-                  <p className="mt-1">Đối với component loại trial-registration-dialog, hãy điền cấu hình JSON ở ô “Configuration (JSON)” để điều chỉnh giao diện và các trường form.</p>
+                  <p className="font-semibold">Cấu hình component pro</p>
+                  <p className="mt-1">Chọn loại component ở trên, sau đó chỉnh cấu hình bằng form chuyên biệt. Hệ thống sẽ tự động sinh JSON phù hợp với từng type.</p>
                 </div>
               )}
               {error && (
@@ -251,6 +326,63 @@ export default function CmsNewRecordPage() {
                       </div>
                     )
                   }
+                  if (tableId === 'components' && field.key === 'type') {
+                    return (
+                      <div key={field.key}>
+                        <label htmlFor={inputId} className={labelClasses}>
+                          {field.label}
+                          {field.required && ' *'}
+                        </label>
+                        <select
+                          id={inputId}
+                          value={values[field.key] ?? ''}
+                          onChange={(e) => {
+                            const nextValue = e.target.value
+                            setValues((v) => ({ ...v, [field.key]: nextValue }))
+                            setComponentConfig(JSON.stringify(buildDefaultConfig(nextValue), null, 2))
+                          }}
+                          className={inputClasses}
+                          required={field.required}
+                          aria-required={field.required}
+                        >
+                          <option value="">Select a component type</option>
+                          {COMPONENT_TYPE_OPTIONS.map((option) => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                          ))}
+                        </select>
+                      </div>
+                    )
+                  }
+
+                  if (tableId === 'components' && field.key === 'config') {
+                    return (
+                      <div key={field.key}>
+                        <label htmlFor={inputId} className={labelClasses}>
+                          {field.label}
+                          {field.required && ' *'}
+                        </label>
+                        <ComponentConfigEditor
+                          componentType={values.type ?? ''}
+                          configValue={componentConfig}
+                          onChange={setComponentConfig}
+                        />
+                      </div>
+                    )
+                  }
+
+                  if (field.key === 'imageUrl' || field.key === 'avatar') {
+                    return (
+                      <CmsImageField
+                        key={field.key}
+                        id={inputId}
+                        label={field.label}
+                        value={values[field.key] ?? ''}
+                        required={field.required}
+                        onChange={(nextValue) => setValues((v) => ({ ...v, [field.key]: nextValue }))}
+                      />
+                    )
+                  }
+
                   return (
                     <div key={field.key}>
                       <label htmlFor={inputId} className={labelClasses}>

@@ -25,7 +25,7 @@ export function SiteFooter({ settings }: SiteFooterProps) {
         <Container className="max-w-5xl grid gap-8 sm:grid-cols-2 lg:grid-cols-12">
           
           <div className="space-y-3 lg:col-span-5">
-            <p className="text-base font-bold text-[#0b2f5d] tracking-tight">MathGo</p>
+            <p className="text-base font-bold text-primary tracking-normal">MathGo</p>
             <p className="leading-relaxed max-w-sm text-slate-400 text-[11px]">
               {subText}
             </p>

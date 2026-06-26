@@ -100,7 +100,7 @@ export default function ContactSubmissionsPage() {
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-orange-500">Contact submissions</p>
-            <h1 className="mt-2 text-2xl font-bold tracking-tight text-mist-950 dark:text-white">Quản lý khách hàng liên hệ</h1>
+            <h1 className="mt-2 text-2xl font-bold tracking-normal text-mist-950 dark:text-white">Quản lý khách hàng liên hệ</h1>
             <p className="mt-2 text-sm text-mist-500 dark:text-mist-400">
               Xem toàn bộ người gửi form liên hệ và cập nhật trạng thái phản hồi nhanh chóng.
             </p>

@@ -48,7 +48,7 @@ export default function AdminMediaPage() {
       <div className="mx-auto max-w-5xl">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-mist-950">Media library</h1>
+            <h1 className="text-2xl font-bold tracking-normal text-mist-950">Media library</h1>
             <p className="mt-1 text-mist-500">
               {items.length} {items.length === 1 ? 'item' : 'items'}
             </p>
