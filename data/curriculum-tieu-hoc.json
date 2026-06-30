@@ -1,0 +1,94 @@
+{
+  "title": "LỘ TRÌNH ĐÀO TẠO TOÁN TIỂU HỌC",
+  "subtitle": "Khung định hướng phân tách năng lực và giải pháp vận hành đồng bộ",
+  "blocks": [
+    {
+      "id": "lop-1-2",
+      "gradeName": "Khối Lớp 1 & 2",
+      "tagline": "Rèn Ý Thức – Tạo Nền Tảng",
+      "duration": "1 buổi / tuần (90 phút / buổi)",
+      "coreGoal": "Không đặt nặng nhồi nhét kiến thức phức tạp. Tập trung tối đa vào việc hình thành thói quen ngồi vào bàn học, xây dựng tư duy logic chớm nở và phản xạ tính nhẩm căn bản.",
+      "strategies": [
+        "Bám sát chương trình chuẩn: Thành thạo cộng, trừ (không nhớ và có nhớ) phạm vi 100; nhận diện hình khối cơ bản; giải toán có lời văn ngắn.",
+        "Phương pháp tiếp cận: Đan xen các trò chơi toán học tư duy trực quan (5-10 phút) đầu hoặc giữa giờ để giải tỏa áp lực, nuôi dưỡng đam mê tự nhiên.",
+        "Phối hợp phụ huynh: Hướng dẫn phụ huynh thiết lập 'thời gian biểu cố định' tại nhà (30-40 phút mỗi tối học cùng con) tạo nếp kỷ luật."
+      ]
+    },
+    {
+      "id": "lop-3",
+      "gradeName": "Khối Lớp 3",
+      "tagline": "Đầu Tư Đúng Lúc – Phát Hiện Năng Lực",
+      "duration": "1 buổi / tuần (120 phút / buổi)",
+      "coreGoal": "Giai đoạn bản lề để nhận diện rõ rệt thiên hướng và năng lực của từng học sinh. Từ đây, trung tâm bắt đầu tiến hành phân tách lộ trình đào tạo rõ ràng.",
+      "systems": [
+        {
+          "name": "Nhánh Cơ bản (Vững gốc)",
+          "content": "Tập trung sâu vào kỹ năng tính toán nhân, chia (bảng cửu chương); đặc biệt rèn thục luyện phương pháp tóm tắt bài toán và vẽ sơ đồ đoạn thẳng. Khắc phục triệt để lỗ hổng 'học sinh toàn diện trên trường nhưng kỹ năng thực tế yếu'."
+        },
+        {
+          "name": "Nhánh Nâng cao (Bồi dưỡng sớm)",
+          "content": "Giới thiệu các dạng toán tư duy lý thú (tìm quy luật, toán logic, bài toán giải ngược...). Giảng dạy với tinh thần khơi gợi đam mê, nhẹ nhàng và tôn trọng tiến trình phát triển tự nhiên của học sinh."
+        }
+      ]
+    },
+    {
+      "id": "lop-4",
+      "gradeName": "Khối Lớp 4",
+      "tagline": "Năm Bản Lề Quyết Định – Tăng Tốc Kỷ Luật",
+      "duration": "1 buổi / tuần (120 - 150 phút)",
+      "coreGoal": "Khối lượng kiến thức lớp 4 chiếm đến trên 60% cấu trúc đề thi tuyển sinh vào lớp 6 của các trường chuyên, CLC. Đây là giai đoạn trung tâm cần siết chặt tính kỷ luật.",
+      "systems": [
+        {
+          "name": "Nhánh Cơ bản",
+          "content": "Đảm bảo học sinh hiểu sâu và vận dụng thuần thục các dạng toán kinh điển: Tìm hai số khi biết Tổng - Hiệu, Tổng - Tỉ, Hiệu - Tỉ, bài toán Trung bình cộng, các phép tính và bài toán phân số nâng cao. Giáo viên thực hiện 'khoán' lượng bài tập tự học tại nhà một cách rõ ràng."
+        },
+        {
+          "name": "Nhánh Nâng cao (Mục tiêu Chuyên/CLC)",
+          "content": "Đi sâu vào các dạng biến tướng phức tạp, đa bước tư duy của các chủ đề trọng điểm. Từ học kỳ 2, bắt đầu tích hợp cọ xát với các câu hỏi trích từ đề thi thật vào lớp 6 của các trường tầm trung (Lương Thế Vinh, Marie Curie...) để rèn kỹ năng tối ưu hóa thời gian."
+        }
+      ]
+    },
+    {
+      "id": "lop-5",
+      "gradeName": "Khối Lớp 5",
+      "tagline": "Chặng Nước Rút – Bản Lĩnh Phòng Thi",
+      "duration": "1 - 2 buổi / tuần (Tăng cường theo giai đoạn)",
+      "coreGoal": "Hoàn thiện nhanh các chuyên đề trọng điểm lớp 5 (Số thập phân, Tỉ số phần trăm, Toán chuyển động đều) và tập trung toàn lực vào chiến thuật luyện đề thực chiến tùy theo năng lực.",
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Mục tiêu TOP đầu (Ams, Cầu Giấy, Archimedes...)",
+          "action": "Luyện đề thực chiến bấm giờ nghiêm ngặt hàng tuần. Lộ trình từ dễ đến khó (Luyện chắc đề Lương Thế Vinh trước, tiệm cận đề Ams sau). Học sinh nghỉ học bắt buộc phải làm bài bù và xem video bài giảng đầy đủ.",
+          "psycho": "Giáo viên phối hợp chặt chẽ với phụ huynh để giữ vững tâm lý cho học sinh; tuyệt đối không trách mắng khi con bị điểm kém ở các bài thi thử."
+        },
+        {
+          "group": "Nhóm 2: Mục tiêu Tầm trung (Trường Công CLC, Lớp chọn)",
+          "action": "Giảm tải tối đa các dạng toán quá dị biệt hoặc mang tính chất đánh đố đánh mất thời gian. Tập trung tối ưu hóa các câu hỏi lấy điểm 7, 8, 9 trong đề thi để đảm bảo lượng hành trang vừa vặn, vững chắc.",
+          "psycho": "Học tập trong không gian áp lực vừa phải; khích lệ tinh thần tự tin, tránh để học sinh rơi vào trạng thái quá tải, dồn ứ kiến thức."
+        },
+        {
+          "group": "Nhóm 3: Mất gốc, Yếu kém (Học sinh vào muộn)",
+          "action": "Áp dụng triệt để chiến lược 'Lùi một bước để tiến hai bước'. Dành 30% - 40% thời lượng bổ trợ lại toàn bộ nền tảng cốt lõi của lớp 4 (Tổng - Tỉ, Hiệu - Tỉ, Phân số) trước khi học kiến thức lớp 5.",
+          "psycho": "Mục tiêu thực tế: Đạt điểm số an toàn để xét tuyển/thi tuyển vào các trường đúng tuyến hoặc các trường tư thục vừa sức. Đòi hỏi sự kiên trì cao độ từ giáo viên và gia đình."
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "title": "Quy tắc 1: Tần suất tương tác và báo cáo thông tin chặt chẽ",
+      "content": "Giáo viên hoặc trợ giảng có trách nhiệm cập nhật kết quả học tập, chuyên cần và thái độ làm bài của học sinh tối thiểu 2 lần / tháng đến phụ huynh. Đối với các lớp thuộc Nhóm mục tiêu cao, việc nhận xét cần được thực hiện chi tiết sau từng buổi học."
+    },
+    {
+      "title": "Quy tắc 2: Siết chặt kỷ luật chuyên cần và tự học",
+      "content": "Hạn chế tối đa việc học sinh nghỉ học tự do. Mọi trường hợp vắng mặt đều phải được thông báo trước, đồng thời trung tâm có quy trình bắt buộc gửi tài liệu, giao bài tập về nhà hoặc hướng dẫn tự học bù để đảm bảo mạch kiến thức không bị đứt gãy."
+    },
+    {
+      "title": "Quy tắc 3: Đánh giá năng lực khách quan, nói không với 'điểm ảo'",
+      "content": "Các bài kiểm tra định kỳ tại trung tâm phải được thiết kế nghiêm túc, chấm điểm chính xác và trung thực. Trung tâm tuyệt đối không chạy theo việc làm đẹp điểm số để lấy lòng phụ huynh, mà dùng kết quả thực chất để kịp thời cải thiện lỗ hổng."
+    },
+    {
+      "title": "Quy tắc 4: Sắp xếp tham gia các kỳ thi phong trào hợp lý",
+      "content": "Không khuyến khích phụ huynh cho con chạy đua theo các kỳ thi giao lưu dày đặc quanh năm. Trung tâm chỉ định hướng, chọn lọc và hỗ trợ ôn tập từ 3 - 4 kỳ thi lớn và uy tín nhất trong năm (Ví dụ: IKMC, SASMO, ASMO...). Sự vừa vặn với năng lực mới là chìa khóa."
+    }
+  ]
+}

@@ -10,7 +10,7 @@ out/
 # Production
 build/
 dist/
-data/
+# data/
 
 # Environment
 .env

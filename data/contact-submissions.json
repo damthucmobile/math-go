@@ -1,0 +1,56 @@
+[
+  {
+    "id": "submission-1",
+    "name": "Test User",
+    "phone": "0900000000",
+    "email": "test@example.com",
+    "message": "Hello from verification",
+    "submittedAt": "2026-06-24T04:44:51.360Z",
+    "source": "/contact",
+    "status": "replied",
+    "updatedAt": "2026-06-24T16:33:14.798Z"
+  },
+  {
+    "id": "submission-2",
+    "name": "Dam van thuc",
+    "phone": "0987517891",
+    "email": "thucdv4@gmail.com",
+    "message": "test",
+    "submittedAt": "2026-06-24T04:55:34.834Z",
+    "source": "/contact",
+    "status": "replied",
+    "updatedAt": "2026-06-24T16:33:13.363Z"
+  },
+  {
+    "id": "submission-3",
+    "name": "test",
+    "phone": "987654321",
+    "email": "abc@gmail.com",
+    "message": "111",
+    "submittedAt": "2026-06-24T16:20:02.204Z",
+    "source": "/contact",
+    "status": "replied",
+    "updatedAt": "2026-06-24T16:33:30.373Z"
+  },
+  {
+    "id": "submission-4",
+    "name": "Debug",
+    "phone": "123",
+    "email": "debug@example.com",
+    "message": "hello",
+    "submittedAt": "2026-06-24T16:21:17.923Z",
+    "source": "/contact",
+    "status": "pending",
+    "updatedAt": "2026-06-25T01:58:25.945Z"
+  },
+  {
+    "id": "submission-5",
+    "name": "Debug",
+    "phone": "123",
+    "email": "debug@example.com",
+    "message": "hello",
+    "submittedAt": "2026-06-24T16:23:13.977Z",
+    "source": "/contact",
+    "status": "pending"
+  }
+]

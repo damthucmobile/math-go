@@ -1,0 +1,111 @@
+{
+  "title": "LỘ TRÌNH ĐÀO TẠO TOÁN QUỐC TẾ CHUYÊN SÂU",
+  "subtitle": "Chương trình chuẩn hóa ngôn ngữ, tư duy ứng dụng và chiến lược chinh phục chứng chỉ Cambridge & College Board",
+  "blocks": [
+    {
+      "id": "igcse-math",
+      "gradeName": "Chương Trình IGCSE Math",
+      "tagline": "Xây Dựng Nền Tảng Chuẩn Cambridge (Lớp 9 - Lớp 10)",
+      "duration": "1 buổi / tuần (150 phút / buổi)",
+      "coreGoal": "Thiết lập hệ thống thuật ngữ toán học bằng Tiếng Anh và xây dựng tư duy toán học ứng dụng toàn diện. Giúp học sinh làm quen với cấu trúc đề thi Cambridge IGCSE (Cả 2 cấp độ: Core và Extended), tối ưu hóa kỹ năng đọc hiểu đề bài dài và phân tích dữ liệu thực tế.\n\nVề Kiến thức: Làm chủ 4 cấu trúc cấu phần lớn: Số học (Number), Đại số & Đồ thị (Algebra & Graphs), Hình học không gian & Lượng giác (Geometry & Trigonometry), Xác suất & Thống kê (Probability & Statistics).\nVề Kỹ năng: Huấn luyện kỹ năng bấm và khai thác các tính toán phức tạp trên dòng máy tính khoa học chuyên dụng. Rèn luyện tư duy giải quyết trọn vẹn bài toán trắc nghiệm kết hợp tự luận ngắn, kỹ năng vẽ đồ thị chuẩn xác.\nĐịnh hướng đầu ra: Đảm bảo học sinh đạt thang điểm tuyệt đối A hoặc A* (Level 8-9) trong kỳ thi IGCSE chính thức, tạo bước đệm hoàn hảo để bước lên các chương trình tú tài nâng cao như A-Level hoặc IB.",
+      "systems": [
+        {
+          "name": "Nhánh Core Curriculum (Cơ bản vững gốc)",
+          "content": "GIÁO VIÊN DẠY GÌ: Giảng dạy chi tiết hệ thống từ vựng toán học Anh-Anh. Hướng dẫn các phương pháp tính toán đại số căn bản, quy tắc hình học phẳng và xác suất thực nghiệm cơ bản. Sửa chi tiết cách trình bày các bước giải tự luận để không bị trừ điểm oan.\nHỌC SINH HỌC GÌ: Học cách dịch đề bài Tiếng Anh sang tư duy toán học; học thuộc lòng bảng thuật ngữ chuyên ngành; thục luyện các dạng bài tập nhận biết và thông hiểu trong ngân hàng đề thi Past Papers."
+        },
+        {
+          "name": "Nhánh Extended Curriculum (Nâng cao bứt phá)",
+          "content": "GIÁO VIÊN DẠY GÌ: Đi sâu vào các chủ đề nâng cao thuộc hệ Extended như: Hàm số biến đổi phức tạp, Ma trận (Matrices), Vectơ không gian, Giải tích sơ khai (Biến thiên và Đạo hàm cơ bản). Dạy tư duy liên kết các mảng kiến thức khác nhau trong cùng một bài toán lớn (Structured Questions).\nHỌC SINH HỌC GÌ: Học cách xử lý các câu hỏi phân hóa điểm A/A*; học tư duy phản xạ giải toán tốc độ cao dưới áp lực phòng thi và làm chủ các dạng bài toán mô hình hóa kinh tế/vật lý phức tạp."
+        }
+      ],
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Mục tiêu Tuyệt đối (Cam kết Điểm A / A* - Extended)",
+          "action": "Tập trung cày quét toàn bộ kho đề Past Papers từ năm 2018 đến nay của cả hai hội đồng thi lớn (CAIE và Edexcel). Ép tiến độ làm bài bấm giờ nghiêm ngặt (Làm Paper 2 trong 35 phút, Paper 4 trong 100 phút). Sửa lỗi chi tiết đến từng dấu phẩy của bài làm.",
+          "psycho": "Khích lệ tinh thần tự nghiên cứu tài liệu nước ngoài. Giáo viên đóng vai trò định hướng chiến thuật giải nhanh và tối ưu hóa điểm số ở những câu hỏi mở."
+        },
+        {
+          "group": "Nhóm 2: Mục tiêu Đạt chuẩn (Điểm B / C - Khóa học hoàn thành mục tiêu học tập)",
+          "action": "Rà soát kỹ lưỡng các mảng kiến thức học sinh thường làm sai: Phân số, Tỉ số phần trăm, Biến đổi công thức đại số và Lượng giác cơ bản. Cho học sinh làm các dạng bài trọng tâm, lặp đi lặp lại để tạo phản xạ ăn điểm chắc chắn.",
+          "psycho": "Giảm bớt áp lực từ vựng chuyên ngành quá chuyên sâu, tập trung giúp học sinh hiểu bản chất logic của bài toán để không bị hoang mang khi đọc đề bài Tiếng Anh."
+        }
+      ]
+    },
+    {
+      "id": "sat-math",
+      "gradeName": "Chương Trình Luyện Thi SAT Math",
+      "tagline": "Chiến Thuật Bứt Phá Điểm Số Tuyệt Đối 800/800 Digital SAT",
+      "duration": "1 buổi / tuần (150 phút / buổi)",
+      "coreGoal": "Huấn luyện chiến thuật làm bài trắc nghiệm trên nền tảng máy tính (Digital SAT) theo form mới nhất của College Board. Mục tiêu tối thượng là giúp học sinh đạt mức điểm tiệm cận hoặc tuyệt đối (750 - 800/800) phần Math để cạnh tranh học bổng Đại học Mỹ hoặc xét tuyển thẳng các trường Đại học TOP đầu Việt Nam.\n\nVề Kiến thức: Quét sạch 4 phần cấu trúc cốt lõi của SAT: Tâm điểm Đại số (Heart of Algebra), Giải quyết vấn đề & Phân tích dữ liệu (Problem Solving and Data Analysis), Hộ chiếu lên Toán cao cấp (Passport to Advanced Math), và Các chủ đề bổ sung (Additional Topics bao gồm Hình học, Lượng giác, Số phức).\nVề Kỹ năng: Làm chủ phần mềm thi Bluebook, thuần thục tuyệt kỹ sử dụng ứng dụng máy tính đồ họa Desmos tích hợp trong phòng thi để giải toán siêu tốc (Tìm giao điểm, cực trị, giải hệ phương trình bằng đồ thị dưới 15 giây).\nĐịnh hướng đầu ra: Cam kết điểm số đầu ra theo lộ trình tăng trưởng vững chắc. Học sinh nắm vững mẹo loại trừ phương án bẫy, làm chủ thời gian làm bài (trung bình dưới 1 phút 15 giây cho một câu hỏi).",
+      "systems": [
+        {
+          "name": "Nhánh Chiến thuật Đại số & Desmos (Giải nhanh)",
+          "content": "GIÁO VIÊN DẠY GÌ: Dạy các thủ thuật biến đổi nhanh, mẹo thử đáp án (Backsolving), mẹo chọn số đại diện (Picking Numbers). Đặc biệt huấn luyện chuyên sâu phương pháp 'hack' điểm bằng máy tính đồ họa Desmos đối với các hệ phương trình, đồ thị bậc hai và hàm mũ.\nHỌC SINH HỌC GÌ: Học cách nhận diện nhanh các loại bẫy toán học của College Board; học thuộc lòng các hằng số và công thức giải nhanh; thực hành gõ phím và vẽ hàm số tốc độ cao trên phần mềm giả lập."
+        },
+        {
+          "name": "Nhánh Phân tích Dữ liệu & Toán Cao cấp (Vùng phân hóa)",
+          "content": "GIÁO VIÊN DẠY GÌ: Giảng giải bản chất các bài toán Thống kê nâng cao (Độ lệch chuẩn - Standard Deviation, Biên độ sai số - Margin of Error, Các phương pháp lấy mẫu khảo sát ngẫu nhiên). Dạy kỹ thuật xử lý các câu hỏi Hard mức độ khó cao ở cuối Module 2.\nHỌC SINH HỌC GÌ: Học cách đọc hiểu sâu các bảng biểu mật độ dữ liệu phức tạp; học cách phân biệt bản chất các loại đồ thị tăng trưởng tuyến tính và tăng trưởng mũ để không bị lừa bởi đề bài thực tế dài."
+        }
+      ],
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Mục tiêu Điểm số Tuyệt đối (750 - 800 / Săn học bổng Ivy League, VinUni, Fulbright...)",
+          "action": "Tập trung 100% thời lượng cho các câu hỏi phân hóa cực khó ở Module 2 của đề thi thực tế. Huấn luyện chiến thuật tiết kiệm thời gian tuyệt đối ở Module 1 để dồn sức cho Module 2. Tổ chức thi thử áp lực thời gian thực tế trên máy tính hàng tuần.",
+          "psycho": "Rèn luyện tinh thần thép và sự tập trung cao độ. Sửa triệt để tâm lý chủ quan làm nhanh dẫn đến sai ngớ ngẩn ở các câu hỏi thông hiểu cơ bản."
+        },
+        {
+          "group": "Nhóm 2: Mục tiêu Điểm số Khá (650 - 740 / Xét tuyển Đại học trong nước - Ngoại Thương, Bách Khoa...)",
+          "action": "Xây dựng bệ phóng vững chắc bằng cách ăn trọn vẹn điểm ở 3 mảng: Heart of Algebra, Passport to Advanced Math và Phần Hình học bổ sung. Đảm bảo đúng tuyệt đối các câu điền đáp án (Student-Produced Responses).",
+          "psycho": "Tạo tâm lý thoải mái, tự tin. Hướng dẫn học sinh buông bỏ hợp lý các câu hỏi quá dị biệt ở cuối Module 2 nếu vượt quá năng lực để tập trung rà soát lại các câu chắc chắn làm được."
+        }
+      ]
+    },
+    {
+      "id": "a-level-math",
+      "gradeName": "Chương Trình AS / A-Level Math",
+      "tagline": "Tư Duy Giải Tích Chuyên Sâu – Chinh Phục Đại Học TOP Đầu",
+      "duration": "1 - 2 buổi / tuần (Tăng cường theo Module lựa chọn)",
+      "coreGoal": "Giảng dạy chương trình toán tú tài nâng cao tương đương với năm nhất Đại học tại các nước phương Tây. Giúp học sinh tư duy bản chất toán học thuần túy, ứng dụng giải tích nâng cao và cơ học để chuẩn bị hành trang tốt nhất cho các ngành Kỹ thuật, Công nghệ thông tin, Kinh tế lượng tại các đại học danh tiếng thế giới.\n\nVề Kiến thức: Làm chủ toàn bộ cấu phần Toán thuần túy (Pure Mathematics P1, P3) bao gồm: chuỗi vô hạn, hàm số lượng giác nâng cao, vi phân và tích phân nâng cao (tích phân từng phần, đổi biến số phức tạp), phương trình vi phân và vectơ 3 chiều. Tích hợp thêm cấu phần ứng dụng Mechanics (Cơ học toán) hoặc Statistics (Thống kê ứng dụng).\nVề Kỹ năng: Phát triển năng lực chứng minh toán học thuần túy (Chứng minh bằng phản chứng, chứng minh bằng quy nạp). Thành thạo kỹ năng sử dụng dòng máy tính đồ họa Casio FX-CG50 để kiểm tra nghiệm tích phân và ma trận.\nĐịnh hướng đầu ra: Đạt điểm số xuất sắc A hoặc A* trong kỳ thi quốc tế chính thức của hội đồng Cambridge hoặc Pearson Edexcel, mở toang cánh cửa vào các trường đại học danh giá bậc nhất như Oxford, Cambridge, LSE, Imperial College London.",
+      "systems": [
+        {
+          "name": "Nhánh Pure Mathematics (Toán thuần túy cốt lõi)",
+          "content": "GIÁO VIÊN DẠY GÌ: Kiết thiết bản chất hình học của Đạo hàm và Tích phân. Dạy quy trình phân tích và giải các phương trình vi phân phức tạp, phương pháp biểu diễn số phức trên mặt phẳng Argand và phương pháp khai triển chuỗi nhị thức Newton tổng quát.\nHỌC SINH HỌC GÌ: Học cách tư duy trừu tượng cấp độ cao; học kỹ năng xử lý các bài toán chứng minh dài từ 2 đến 3 trang giấy; học thuộc lòng và vận dụng linh hoạt tập công thức tích phân nâng cao (Formula Booklet MF19)."
+        },
+        {
+          "name": "Nhánh Applied Mathematics (Toán ứng dụng Mechanics/Statistics)",
+          "content": "GIÁO VIÊN DẠY GÌ: Dạy cách liên kết kiến thức Vật lý cơ học vào toán học (Vectơ vận tốc, gia tốc, lực, ma sát, mô-men lực, định luật Newton). Hoặc dạy các mô hình phân phối thống kê cao cấp (Phân phối nhị thức, Phân phối chuẩn - Normal Distribution), kiểm định giả thuyết thống kê (Hypothesis Testing).\nHỌC SINH HỌC GÌ: Học cách mô hình hóa các hiện tượng chuyển động vật lý bằng phương trình toán học; học cách phân tích rủi ro và đưa ra kết luận kiểm định có căn cứ khoa học cho các bài toán kinh tế vĩ mô."
+        }
+      ],
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Mục tiêu Tuyệt đối (Điểm A* / Săn học bổng trực tiếp ngành STEM tại Anh, Úc, Singapore)",
+          "action": "Luyện tập các bộ đề tổng hợp nâng cao. Huấn luyện học sinh kỹ thuật tối ưu hóa các bước chứng minh để đạt điểm số tối đa từ các giám khảo Cambridge (Mark Scheme khắt khe). Đào sâu vào các câu hỏi tính toán tích phân và vi phân mức độ khó nhất.",
+          "psycho": "Rèn luyện bản lĩnh kiên trì, không nản lòng trước những bài toán chứng minh dài và có độ nhiễu thông tin cao. Tạo thói quen tự soát lại các điều kiện biên của bài toán."
+        },
+        {
+          "group": "Nhóm 2: Mục tiêu Đạt chuẩn (Điểm A / B - Đủ điều kiện quy đổi tín chỉ Đại học sớm)",
+          "action": "Tập trung ăn điểm tuyệt đối ở các cấu phần cốt lõi, dễ lấy điểm như: Hàm số, Dãy số, Vectơ và Hệ phương trình. Thực hành sử dụng máy tính đồ họa FX-CG50 để bấm kiểm tra nghiệm nhanh chóng, chống sai sót tính toán thủ công.",
+          "psycho": "Giúp học sinh giữ vững nhịp độ, chia nhỏ các chương học giải tích nặng thành các dạng bài nhỏ, củng cố sự tự tin qua từng tuần học."
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "title": "Quy tắc 1: Chuẩn hóa ngôn ngữ Anh - Anh / Anh - Mỹ 100%",
+      "content": "Toàn bộ bài giảng, slide tài liệu, bài tập về nhà và các bài kiểm tra tại phân nhánh Quốc tế sử dụng hoàn toàn Tiếng Anh chuyên ngành. Học sinh bị cấm sử dụng các cách ký hiệu hoặc thuật ngữ viết tắt không có trong từ điển toán học quốc tế để đảm bảo không bị trừ điểm khi đi chấm tập trung tại nước ngoài."
+    },
+    {
+      "title": "Quy tắc 2: Thành thạo công cụ máy tính Graphing Calculator",
+      "content": "Việc sử dụng máy tính cầm tay (Casio FX-580VNX, FX-CG50 hoặc TI-84) là bắt buộc và là một phần trong kỹ năng chấm điểm. Trung tâm thiết lập các buổi học chuyên đề riêng biệt chỉ để hướng dẫn mẹo tận dụng chức năng đồ thị của máy tính nhằm tăng tốc độ làm bài lên gấp đôi so với làm tự luận thuần túy."
+    },
+    {
+      "title": "Quy tắc 3: Chiến lược ôn tập dựa trên ma trận Mark Scheme",
+      "content": "Học sinh được giáo viên hướng dẫn cách đọc và phân tích cấu trúc chấm điểm (Mark Scheme) của giám khảo quốc tế. Hiểu rõ dòng nào được tính điểm phương pháp (Method Marks - M), dòng nào được tính điểm đáp số (Accuracy Marks - A) để tối đa hóa điểm số ngay cả khi không giải ra kết quả cuối cùng."
+    },
+    {
+      "title": "Quy tắc 4: Khảo thí định kỳ chuẩn khảo thí quốc tế",
+      "content": "Hệ thống đề thi thử tại trung tâm được trích xuất trực tiếp từ kho đề thi bảo mật của Cambridge và College Board qua các năm. Bài thi được tổ chức nghiêm ngặt, rọc phách và chấm điểm chuẩn theo barem quốc tế để phản ánh chính xác nhất năng lực thực tế của học sinh trước kỳ thi thật."
+    }
+  ]
+}

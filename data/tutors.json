@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Thầy Nguyễn Văn A",
+    "title": "Chuyên luyện thi Đại học",
+    "role": "Chuyên luyện thi Đại học",
+    "experience": "15+ Năm Kinh nghiệm",
+    "quote": "Môn Toán không khó, chỉ cần tìm đúng phương pháp để mở cánh cửa tư duy.",
+    "description": "Cựu trưởng bộ môn Toán tại trường THPT Chuyên trọng điểm quốc gia. Chuyên gia về Giải tích nâng cao và hình thức thi trắc nghiệm đại học.",
+    "imageUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80",
+    "levels": ["Trung học Phổ thông"],
+    "tags": ["Giải tích", "Đại số", "Trung học Phổ thông"],
+    "stat1Value": "15+",
+    "stat1Label": "Năm kinh nghiệm",
+    "stat2Value": "5000+",
+    "stat2Label": "Học sinh đỗ đạt",
+    "badges": [
+      { "label": "Học kèm 1-1", "iconName": "User" },
+      { "label": "Lớp học nhỏ", "iconName": "Users" }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Cô Trần Thị B",
+    "title": "Huấn luyện viên Học sinh giỏi môn Toán",
+    "role": "Huấn luyện viên Học sinh giỏi môn Toán",
+    "experience": "8 Năm Kinh nghiệm",
+    "quote": "Giúp học sinh yêu thích Toán bằng cách biến mỗi bài học thành một trò chơi khám phá.",
+    "description": "Giảng viên đạt nhiều giải thưởng lớn, chuyên bồi dưỡng phương pháp giải toán tư duy đột phá và các chuyên đề hình học khó môn chuyên.",
+    "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&auto=format&fit=crop&q=80",
+    "levels": ["Trung học Cơ sở", "Trung học Phổ thông"],
+    "tags": ["Hình học", "Số học", "Trung học Cơ sở"],
+    "stat1Value": "10+",
+    "stat1Label": "Năm giảng dạy",
+    "stat2Value": "3000+",
+    "stat2Label": "Phụ huynh tin tưởng",
+    "badges": [
+      { "label": "Tiểu học", "iconName": "BookOpen" },
+      { "label": "Tâm lý học sinh", "iconName": "Sparkles" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Thầy Lê Hoàng C",
+    "title": "Chuyên gia Toán Tiểu học",
+    "role": "Chuyên gia Toán Tiểu học",
+    "experience": "5 Năm Kinh nghiệm",
+    "quote": "Dạy Toán bằng cách biến mỗi bài học thành một trò chơi khám phá cho học sinh nhỏ tuổi.",
+    "description": "Chuyên xây dựng nền tảng tư duy vững chắc cho học sinh nhỏ tuổi. Áp dụng phương pháp trực quan sinh động và các bài toán thực tế.",
+    "imageUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&auto=format&fit=crop&q=80",
+    "levels": ["Tiểu học"],
+    "tags": ["Số học", "Toán nền tảng", "Tiểu học"],
+    "stat1Value": "5+",
+    "stat1Label": "Năm kinh nghiệm",
+    "stat2Value": "1800+",
+    "stat2Label": "Học sinh theo học",
+    "badges": [
+      { "label": "Toán tư duy", "iconName": "Brain" },
+      { "label": "Học qua trò chơi", "iconName": "Sparkles" }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "GS. Đặng Minh D",
+    "title": "Chuyên gia Xác suất Thống kê",
+    "role": "Chuyên gia Xác suất Thống kê",
+    "experience": "30+ Năm Kinh nghiệm",
+    "quote": "Toán học tốt là tư duy logic được rèn luyện từ những nền tảng đúng đắn.",
+    "description": "Giáo sư ưu tú với hàng chục năm nghiên cứu, giảng dạy Xác suất Thống kê cấp Đại học. Chuyên luyện đề chuyên sâu nâng cao tư duy logic.",
+    "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&auto=format&fit=crop&q=80",
+    "levels": ["Đại học"],
+    "tags": ["Thống kê", "Xác suất", "Đại học"],
+    "stat1Value": "30+",
+    "stat1Label": "Năm giảng dạy",
+    "stat2Value": "900+",
+    "stat2Label": "Học viên đại học",
+    "badges": [
+      { "label": "Đại học", "iconName": "GraduationCap" },
+      { "label": "Nghiên cứu", "iconName": "BookOpen" }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Cô Phạm Ngọc E",
+    "title": "Chuyên gia Hình học Không gian",
+    "role": "Chuyên gia Hình học Không gian",
+    "experience": "12 Năm Kinh nghiệm",
+    "quote": "Hình học trở nên dễ hiểu khi học sinh nhìn thấy bản chất của mỗi hình khối.",
+    "description": "Nổi tiếng với cách đơn giản hóa các mô hình không gian phức tạp thông qua giáo cụ trực quan. Giúp học sinh bứt phá điểm số hình học.",
+    "imageUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=80",
+    "levels": ["Trung học Cơ sở", "Trung học Phổ thông"],
+    "tags": ["Hình học", "Lượng giác", "Trung học Phổ thông"],
+    "stat1Value": "12+",
+    "stat1Label": "Năm giảng dạy",
+    "stat2Value": "2500+",
+    "stat2Label": "Bài toán giải mẫu",
+    "badges": [
+      { "label": "Hình học", "iconName": "Shapes" },
+      { "label": "Giáo cụ trực quan", "iconName": "Sparkles" }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Thầy Vũ Minh F",
+    "title": "Luyện thi Đại số & Chứng chỉ SAT",
+    "role": "Luyện thi Đại số & Chứng chỉ SAT",
+    "experience": "20 Năm Kinh nghiệm",
+    "quote": "Phương pháp giải nhanh và tư duy chiến thuật chính là chìa khóa cho kỳ thi quốc tế.",
+    "description": "Bậc thầy về phương pháp giải nhanh và mẹo phòng thi trắc nghiệm. Đóng góp lớn giúp học sinh nâng cao điểm số SAT/ACT ngoạn mục.",
+    "imageUrl": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80",
+    "levels": ["Trung học Phổ thông"],
+    "tags": ["Toán SAT", "Đại số", "Toán Quốc tế"],
+    "stat1Value": "20+",
+    "stat1Label": "Năm giảng dạy",
+    "stat2Value": "1200+",
+    "stat2Label": "Học sinh quốc tế",
+    "badges": [
+      { "label": "SAT/ACT", "iconName": "BookOpen" },
+      { "label": "Chiến thuật làm bài", "iconName": "Sparkles" }
+    ]
+  }
+]

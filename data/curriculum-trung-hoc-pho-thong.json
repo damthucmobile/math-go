@@ -1,0 +1,126 @@
+{
+  "title": "LỘ TRÌNH ĐÀO TẠO TOÁN TRUNG HỌC PHỔ THÔNG",
+  "subtitle": "Khung chương trình Đạităng cường, luyện thi chiến lược và định hướng bứt phá điểm số  học",
+  "blocks": [
+    {
+      "id": "lop-10",
+      "gradeName": "Khối Lớp 10",
+      "tagline": "Khởi Đầu Vững Chắc – Thích Nghi Phương Pháp Mới",
+      "duration": "1 buổi / tuần (150 phút / buổi)",
+      "coreGoal": "Xây dựng bước chuyển đổi phương pháp luận từ cấp 2 lên cấp 3. Giai đoạn này không hướng đến mẹo giải nhanh mà tập trung tối đa vào việc hiểu rõ bản chất định nghĩa, thiết lập tư duy liên kết hình học - đại số thông qua công cụ vectơ, và làm quen với cấu trúc câu hỏi đúng/sai, trả lời ngắn của chương trình giáo dục mới.\n\nVề Kiến thức: Làm chủ tư duy logic của Mệnh đề - Tập hợp; thành thạo kỹ năng khảo sát và vẽ đồ thị Hàm số bậc hai; vận dụng thuần thục các hệ thức lượng trong tam giác và hệ thống 4 phép toán Vectơ cốt lõi.\nVề Kỹ năng: Rèn luyện khả năng lập luận toán học mạch lạc, phân tích và chuyển đổi bài toán thực tế (bài toán tối ưu hóa chi phí, quy hoạch tuyến tính bằng hệ bất phương trình bậc nhất hai ẩn) thành ngôn ngữ toán học.\nĐịnh hướng đầu ra: Giúp học sinh đạt điểm số tối thiểu từ 8.0+ trở lên đối với các bài kiểm tra định kỳ trên lớp, kiến tạo một bộ hồ sơ học bạ (GPA) xuất sắc ngay từ năm đầu cấp nhằm tối ưu hóa cơ hội xét tuyển Đại học sớm sau này.",
+      "systems": [
+        {
+          "name": "Nhánh Cơ bản (Vững học bạ - Chắc nền tảng)",
+          "content": "GIÁO VIÊN DẠY GÌ: Giảng giải tường minh các khái niệm công cụ mới (Vectơ, Tam thức bậc hai, Đại lượng thống kê). Hướng dẫn từng bước tự luận chuẩn quy trình của Bộ Giáo dục, tập trung sửa các lỗi sai bản chất như: quên tìm điều kiện xác định, kết hợp nghiệm sai trên trục số.\nHỌC SINH HỌC GÌ: Học cách chuyển đổi ngôn ngữ từ lời văn sang ký hiệu toán học; học kỹ năng giải toán hệ bất phương trình hai ẩn; học cách tính toán và phân tích các số đặc trưng đo xu thế trung tâm của mẫu số liệu để lấy trọn điểm bài tập thực tế."
+        },
+        {
+          "name": "Nhánh Định hướng ĐGNL / ĐGTD / Thi Chuyên",
+          "content": "GIÁO VIÊN DẠY GÌ: Dạy phương pháp mô hình hóa toán học các bài toán tối ưu chi phí, bài toán quy hoạch tuyến tính phức tạp. Cung cấp tư duy khai thác tính chất đối xứng của hàm số, các bài toán đếm ứng dụng thực tế sâu và hệ thống tư duy logic dự đoán quy luật.\nHỌC SINH HỌC GÌ: Học tư duy phản biện, cách giải quyết các bài toán tích hợp liên môn (Toán - Lý, Toán - Kinh tế); học cách lập luận phân tích các câu hỏi trắc nghiệm định dạng Đúng/Sai phức tạp đòi hỏi hiểu bản chất sâu sắc thay vì bấm máy Casio."
+        }
+      ],
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Học sinh Khá / Giỏi (Mục tiêu giữ vững phong độ 9.0+, săn học bổng, xét tuyển sớm trường TOP)",
+          "action": "Tăng cường giao các bài tập tích hợp, bài toán thực tế mức độ Vận dụng cao. Hướng dẫn kỹ thuật biến đổi đại số nâng cao liên quan đến tham số m trong phương trình/bất phương trình bậc hai. Thử thách học sinh bằng các câu hỏi trích từ đề thi ĐGNL của các Đại học lớn.",
+          "psycho": "Khơi dậy tinh thần tự học, thử thách tính kiên trì. Giáo viên đóng vai trò cố vấn, thúc đẩy tư duy tìm tòi nhiều cách giải cho một bài toán."
+        },
+        {
+          "group": "Nhóm 2: Học sinh Trung bình / Khá (Mục tiêu đạt 7.5 - 8.5 trên lớp, xây dựng học bạ an toàn)",
+          "action": "Siết chặt tiến độ làm bài tập về nhà. Tập trung tối đa vào các chuyên đề trọng tâm: Vectơ, Hàm số bậc hai và Hệ thức lượng. Tổ chức rà soát lỗi sai định kỳ sau mỗi chương học bằng các bài mini-test trắc nghiệm form mới.",
+          "psycho": "Động viên tạo động lực và nếp kỷ luật. Giúp học sinh vượt qua tâm lý chủ quan đầu cấp (nghĩ rằng lớp 10 chưa cần học nặng) để không bị hổng kiến thức."
+        },
+        {
+          "group": "Nhóm 3: Học sinh Yếu / Mất gốc hoặc từ cấp 2 lên bị ngợp (Mục tiêu lấy lại gốc, đạt điểm an toàn 6.5 - 7.0)",
+          "action": "Áp dụng phác đồ phụ đạo 'Cầm tay chỉ việc'. Dành 30% thời lượng bổ trợ lại các kiến thức cốt lõi cấp 2 (Giải hệ phương trình, biến đổi đại số cơ bản, định lý hình học phẳng). Giáo viên sửa lỗi trình bày từng bước, chia nhỏ bài toán lớn thành các câu hỏi phụ.",
+          "psycho": "Giải tỏa áp lực sợ Toán cấp 3. Tạo dựng lại sự tự tin cho học sinh bằng những bài tập vừa sức, khen ngợi kịp thời khi học sinh có tiến bộ nhỏ nhất."
+        }
+      ]
+    },
+    {
+      "id": "lop-11",
+      "gradeName": "Khối Lớp 11",
+      "tagline": "Trọng Tâm Khó Nhất – Đột Phá Hình Không Gian",
+      "duration": "1 buổi / tuần (150 phút / buổi)",
+      "coreGoal": "Chinh phục giai đoạn nặng nhất và phân hóa mạnh nhất của cấu trúc Toán THPT. Trung tâm đặt mục tiêu tối thượng là xóa bỏ hoàn toàn 'nỗi sợ hình không gian' bằng phương pháp tư duy trực quan hóa và xây dựng nền tảng giải tích cốt lõi phục vụ trực tiếp cho các kỳ thi đánh giá năng lực lớn.\n\nVề Kiến thức: Nắm vững toàn bộ các công thức biến đổi Lượng giác; làm chủ tư duy đếm của Tổ hợp - Xác suất; hiểu thấu đáo bản chất của Dãy số, Cấp số cộng, Cấp số nhân và tiệm cận khái niệm vi phân qua Giới hạn (Lim) - Đạo hàm. Đặc biệt, làm chủ các quan hệ Song song và Vuông góc trong không gian.\nVề Kỹ năng: Phát triển năng lực tưởng tượng đa chiều, biết cách dựng thêm yếu tố phụ (kẻ thêm đường, dựng mặt phẳng phụ) để giải quyết các bài toán tính góc và khoảng cách trong không gian. Bắt đầu tích hợp kỹ năng bấm máy tính Casio hỗ trợ giải toán lượng giác và xác suất tốc độ cao.\nĐịnh hướng đầu ra: Đảm bảo học sinh không bị tụt lại phía sau ở năm học bản lề. 100% học sinh hình thành tư duy phản xạ tự nhiên khi đọc đề bài hình học không gian, tạo đà tâm lý tự tin tuyệt đối trước khi bước vào chương trình lớp 12.",
+      "systems": [
+        {
+          "name": "Nhánh Cơ bản (Vượt qua nỗi sợ)",
+          "content": "GIÁO VIÊN DẠY GÌ: Dạy cách chuyển giao từ hình phẳng sang hình không gian bằng các mô hình 3D trực quan (Geogebra). Dạy quy trình 3 bước xác định giao tuyến, giao điểm, góc và khoảng cách. Cung cấp các công thức đạo hàm căn bản và quy tắc đếm cơ bản.\nHỌC SINH HỌC GÌ: Học cách vẽ hình không gian đúng quy ước (nét đứt, nét liền); học cách nhìn hình và chứng minh lập luận hình học dựa vào hệ thống định lý; học thuộc lòng bảng đạo hàm và thành thạo kỹ năng tính xác suất của các biến cố thông thường."
+        },
+        {
+          "name": "Nhánh Nâng cao (Mục tiêu bứt phá điểm 9+)",
+          "content": "GIÁO VIÊN DẠY GÌ: Dạy các chuyên đề cực trị lượng giác, bài toán đếm nâng cao liên quan đến hình học, xác suất hình học. Giảng dạy các bổ đề hình học không gian phức tạp (định lý Menelaus, Ceva trong không gian), bài toán tiếp tuyến hàm số chứa tham số và ứng dụng đạo hàm tìm giá trị lớn nhất/nhỏ nhất sớm.\nHỌC SINH HỌC GÌ: Học cách thiết lập tư duy sơ đồ ngược để giải toán khoảng cách; học cách liên kết kiến thức Đại số và Hình học để xử lý các câu hỏi tích hợp tư duy cao trong đề thi thử Đại học."
+        }
+      ],
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Mục tiêu Chinh phục điểm 9.0+ / Đạt kết quả xuất sắc các kỳ thi ĐGNL, ĐGTD năm sau",
+          "action": "Đẩy mạnh các chuyên đề vận dụng cao về Tổ hợp - Xác suất phức tạp và Hình học không gian mức độ 3, 4. Huấn luyện học sinh cách đọc đồ thị đạo hàm, các bài toán dãy số giới hạn vô hạn. Giao đề tổng hợp kiến thức lớp 10 + 11 định kỳ.",
+          "psycho": "Rèn luyện tính cẩn thận, khắc phục triệt để thói quen làm tắt dẫn đến sai sót. Kích thích tư duy độc lập giải quyết các bài toán lạ, cấu trúc đề mới."
+        },
+        {
+          "group": "Nhóm 2: Mục tiêu Đạt điểm Khá / Giỏi trên lớp (7.5 - 8.8 / Đảm bảo nền móng vững chắc cho lớp 12)",
+          "action": "Tập trung thục luyện các bài toán tính toán Đạo hàm, giải phương trình Lượng giác cơ bản và các bài toán chứng minh Vuông góc/Song song trong không gian. Hướng dẫn kỹ thuật Casio bổ trợ giải nhanh phương trình, dãy số để tối ưu thời gian làm trắc nghiệm.",
+          "psycho": "Giữ vững nhịp độ học tập ổn định, giải tỏa tâm lý 'ngợp' khi bước vào phần hình học không gian bằng cách chia nhỏ các dạng bài từ dễ đến trung bình."
+        },
+        {
+          "group": "Nhóm 3: Học sinh đuối, mất gốc Hình không gian hoặc Đại số (Mục tiêu chống liệt, đạt điểm trung bình khá 6.0 - 7.0)",
+          "action": "Bao vây và xử lý dứt điểm vùng kiến thức hổng. Giảm tải các bài toán hình khối quá phức tạp, tập trung cho học sinh làm đi làm lại các bài toán tìm giao tuyến, giao điểm cơ bản, tính đạo hàm bằng công thức SGK. Tăng cường thời lượng kiểm tra miệng và chữa bài tập chi tiết tại lớp.",
+          "psycho": "Đập tan nỗi sợ bộ môn. Giáo viên kiên nhẫn đồng hành, sử dụng vật mẫu trực quan (hộp phấn, kim tự tháp mô hình) để học sinh lấy lại cảm giác không gian và động lực học tập."
+        }
+      ]
+    },
+    {
+      "id": "lop-12",
+      "gradeName": "Khối Lớp 12",
+      "tagline": "Luyện Thi Chiến Thực – Chinh Phục Cổng Trường Đại Học",
+      "duration": "1 - 2 buổi / tuần (Tăng cường luyện đề giai đoạn cuối)",
+      "coreGoal": "Hoàn thành toàn bộ khối lượng kiến thức lý thuyết lớp 12 trước tháng 1 hoặc tháng 2 để tối ưu hóa thời gian cho chiến dịch tổng ôn và luyện đề thực chiến. Giai đoạn này tập trung hoàn thiện cả tư duy toán học thuần túy lẫn chiến thuật phòng thi để đạt mục tiêu điểm số tối đa trong kỳ thi Tốt nghiệp THPT và các kỳ thi tuyển sinh riêng.\n\nVề Kiến thức: Khảo sát thấu đáo các tính chất Hàm số và đồ thị; làm chủ các hàm số lũy thừa, Mũ và Logarit; thành thạo công cụ tính toán của Nguyên hàm - Tích phân và Số phức. Ứng dụng thành thạo hệ tọa độ Oxyz để giải quyết bài toán hình học.\nVề Kỹ năng: Huấn luyện kỹ nghệ xử lý đề thi trắc nghiệm đỉnh cao bao gồm: phản xạ nhận diện dạng bài dưới 5 giây, kỹ thuật Casio giải nhanh (bấm tích phân, tìm tiệm cận, dò nghiệm hàm đặc trưng), và các phương pháp toán học hiện đại như Ghép trục, Sơ đồ V, Cô lập tham số m, hay Oxyz hóa hình học không gian cổ điển.\nĐịnh hướng đầu ra: Đạt mục tiêu điểm số cam kết theo từng nhóm năng lực khi thi Tốt nghiệp THPT (9.0+ đối với nhóm TOP đầu; 7.5 - 8.8 đối với nhóm công lập tầm trung). Cung cấp đủ bộ kỹ năng đọc hiểu dữ liệu và tư duy logic để tham gia ứng tuyển thẳng bằng các kỳ thi Đánh giá năng lực của ĐHQG hoặc Đánh giá tư duy của Đại học Bách Khoa.",
+      "systems": [
+        {
+          "name": "Nhánh Cơ bản (Vững học bạ - Chắc nền tảng)",
+          "content": "GIÁO VIÊN DẠY GÌ: Dạy cách nhận diện nhanh 3 dạng đồ thị hàm số kinh điển, công thức logarit cốt lõi và các nguyên hàm cơ bản. Hướng dẫn kỹ thuật bấm máy Casio giải quyết nhanh gọn các câu hỏi nhận biết - thông hiểu dưới 30 giây để tối ưu thời gian.\nHỌC SINH HỌC GÌ: Học thuộc lòng bảng công thức mũ-logarit, nguyên hàm; học cách xác định nhanh tọa độ điểm, vectơ trong không gian Oxyz và thục luyện quy trình giải bài toán trắc nghiệm không để sai sót ở vùng 35 câu đầu."
+        },
+        {
+          "name": "Nhánh Định hướng ĐGNL / ĐGTD / Thi Chuyên",
+          "content": "GIÁO VIÊN DẠY GÌ: Giảng dạy các tư duy toán học hiện đại cao cấp: Kỹ thuật ghép trục trong tương giao hàm hợp, phương pháp sơ đồ V, phương pháp dồn chất nguyên hàm, và tư duy tọa độ hóa (Oxyz hóa) để xử lý các bài toán hình học không gian cực trị phức tạp.\nHỌC SINH HỌC GÌ: Học cách tư duy đa chiều để giải quyết câu hỏi vận dụng cao (VDC) chiếm điểm 9, 10; học chiến thuật phân bổ thời gian làm đề thi trắc nghiệm áp lực cao và kỹ năng loại trừ phương án nhiễu thông minh."
+        }
+      ],
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Mục tiêu Trường TOP 1 (Bách Khoa, Ngoại Thương, Kinh Tế Quốc Dân, Y Hà Nội... / Điểm thi 9.0+)",
+          "action": "Tập trung huấn luyện các phương pháp giải toán đỉnh cao: Ghép trục, sơ đồ V, cô lập tham số m, dồn chất, phương pháp tọa độ hóa hình không gian (Oxyz hóa). Cày quét đề thi thử của các Sở Giáo dục và các trường chuyên lớn trên toàn quốc.",
+          "psycho": "Rèn luyện bản lĩnh phòng thi, chiến thuật làm bài trắc nghiệm (phân bổ thời gian 30 câu đầu làm trong 20 phút, dành thời gian cho câu VDC). Kiểm soát tâm lý, tránh 'sai ngu' ở các câu hỏi dễ."
+        },
+        {
+          "group": "Nhóm 2: Mục tiêu Đại học Công lập Tầm trung (Điểm thi 7.5 - 8.8)",
+          "action": "Luyện chắc chắn 35 - 40 câu đầu tiên trong ma trận đề thi. Làm chủ kỹ thuật sử dụng máy tính Casio để giải nhanh (bấm máy tính tích phân, tìm nghiệm phức, đạo hàm, tiệm cận). Đảm bảo không được phép sai sót ở vùng kiến thức nhận biết - thông hiểu.",
+          "psycho": "Xây dựng tâm lý tự tin, 'ăn chắc điểm'. Khích lệ học sinh làm đến đâu đúng đến đó, tối ưu hóa điểm số dựa trên năng lực thực tế."
+        },
+        {
+          "group": "Nhóm 3: Mục tiêu Xét học bạ / Đỗ Tốt nghiệp an toàn",
+          "action": "Học tập trung vào các dạng toán nhận biết công thức cơ bản: Nhận diện đồ thị hàm số, công thức tính thể tích khối đa diện, công thức Logarit, tính nguyên hàm cơ bản. Bỏ qua hoàn toàn các câu vận dụng cao để tránh lãng phí thời gian.",
+          "psycho": "Xóa bỏ áp lực thi cử đè nặng, động viên tinh thần học tập kiên trì, nắm chắc phần cơ bản để đạt mục tiêu tốt nghiệp và xét tuyển vào các trường phù hợp."
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "title": "Quy tắc 1: Quản lý ngân hàng đề thi trắc nghiệm chuẩn hóa",
+      "content": "Tất cả các bài kiểm tra định kỳ tại trung tâm dành cho cấp 3 phải tuân thủ đúng định dạng form đề mới nhất của Bộ GD&ĐT. Hệ thống phần mềm chấm trắc nghiệm bằng máy quét (OMR) được áp dụng để trả điểm và phân tích phổ điểm cho phụ huynh ngay sau buổi học."
+    },
+    {
+      "title": "Quy tắc 2: Tối ưu hóa công cụ Casio kết hợp tự luận",
+      "content": "Trung tâm giảng dạy song song hai kỹ nghệ: Tư duy bản chất tự luận để giải quyết các câu hỏi lắt léo trong đề ĐGNL/ĐGTD, kết hợp với tuyệt kỹ bấm máy tính cầm tay (Casio) để tối ưu tốc độ làm bài trong đề thi trắc nghiệm đại trà."
+    },
+    {
+      "title": "Quy tắc 3: Thi thử định kỳ chuẩn phòng thi thật",
+      "content": "Bắt đầu từ học kỳ 2 lớp 12, trung tâm tổ chức các đợt thi thử quy mô lớn vào Chủ Nhật hàng tuần. Học sinh được đánh số báo danh, chia phòng thi, đảo đề trắc nghiệm và áp đặt thời gian nghiêm ngặt để rèn luyện thói quen và áp lực phòng thi thực tế."
+    },
+    {
+      "title": "Quy tắc 4: Tư vấn hướng nghiệp và chiến thuật chọn nguyện vọng",
+      "content": "Bên cạnh việc dạy kiến thức, trung tâm hỗ trợ phân tích phổ điểm thi thử của học sinh để tư vấn chiến lược nộp hồ sơ xét tuyển học bạ, đăng ký kỳ thi đánh giá năng lực hoặc sắp xếp thứ tự nguyện vọng Đại học một cách thông minh, giúp tối đa hóa cơ hội trúng tuyển của học sinh."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Demo",
+    "email": "demo@example.com",
+    "message": "hello",
+    "receivedAt": "2026-06-24T04:50:11.402Z",
+    "source": "/api/contact-receiver"
+  },
+  {
+    "name": "Dam van thuc",
+    "phone": "0987517891",
+    "email": "thucdv4@gmail.com",
+    "message": "test",
+    "submittedAt": "2026-06-24T04:55:34.834Z",
+    "source": "/api/contact-receiver",
+    "receivedAt": "2026-06-24T04:55:34.843Z"
+  }
+]

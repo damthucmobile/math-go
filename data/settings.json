@@ -1,0 +1,37 @@
+{
+  "siteTitle": "MathGo",
+  "tagline": "Chinh phục môn Toán cùng lộ trình cá nhân hóa",
+  "logoUrl": "",
+  "announcementText": "",
+  "announcementUrl": "",
+  "header": {
+    "showLogo": true,
+    "showNav": true,
+    "customHtml": "<a href=\"/register\" class=\"inline-flex items-center justify-center rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-600\">Register Now</a>"
+  },
+  "footer": {
+    "text": "Trung tâm bồi dưỡng kiến thức toán học hàng đầu, đồng hành cùng học sinh trên con đường chinh phục tri thức.",
+    "showCopyright": true,
+    "copyrightText": "© 2024 MathMastery Tutoring Center. All rights reserved."
+  },
+  "navigation": {
+    "items": [
+      {
+        "label": "Courses",
+        "url": "/courses"
+      },
+      {
+        "label": "Tutors",
+        "url": "/tutors"
+      },
+      {
+        "label": "Testimonials",
+        "url": "/testimonials"
+      },
+      {
+        "label": "Contact",
+        "url": "/contact"
+      }
+    ]
+  }
+}

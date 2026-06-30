@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "title": "Chúng tôi luôn sẵn sàng hỗ trợ bạn",
+  "subtitle": "Gửi thông tin liên hệ, đặt câu hỏi về lộ trình học, gia sư hoặc khóa đào tạo. Đội ngũ tư vấn sẽ phản hồi trong vòng 24h.",
+  "buttonLabel": "Gửi email ngay",
+  "buttonHref": "mailto:contact@MathGo.edu.vn",
+  "formTitle": "Hãy để chúng tôi giúp bạn bắt đầu",
+  "formSubtitle": "Nhập thông tin cơ bản, và chúng tôi sẽ liên hệ bạn sớm nhất có thể.",
+  "email": "contact@MathGo.edu.vn",
+  "phone": "0123 456 789",
+  "address": "Hà Nội, Việt Nam",
+  "workingHours": "Thứ 2 - Thứ 7: 08:00 - 20:00\nChủ nhật: Nghỉ",
+  "ctaTitle": "Gặp ngay chuyên viên",
+  "ctaDescription": "Bạn có thể gọi ngay hoặc gửi email để nhận tư vấn cá nhân hoá ngay hôm nay.",
+  "ctaButtonLabel": "Email ngay",
+  "ctaButtonHref": "mailto:contact@MathGo.edu.vn",
+  "submitUrl": "http://localhost:3001/api/contact-receiver",
+  "submitMethod": "POST",
+  "successMessage": "Cảm ơn bạn! Chúng tôi đã nhận được tin nhắn và sẽ phản hồi sớm.",
+  "errorMessage": "Xin lỗi, có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau."
+}

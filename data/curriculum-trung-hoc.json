@@ -1,0 +1,82 @@
+{
+  "title": "LỘ TRÌNH ĐÀO TẠO TOÁN TRUNG HỌC CƠ SỞ",
+  "subtitle": "Khung chương trình bổ trợ, phân tách năng lực và chiến lược chinh phục bước ngoặt cấp 2",
+  "blocks": [
+    {
+      "id": "lop-6-7",
+      "gradeName": "Khối Lớp 6 & 7",
+      "tagline": "Vượt Qua Bước Ngoặt – Khởi Đầu Tư Duy Trừu Tượng",
+      "duration": "1 buổi / tuần (120 - 150 phút / buổi)",
+      "coreGoal": "Giúp học sinh làm quen với phương pháp học tập mới ở cấp 2. Chuyển đổi từ tư duy trực quan (sơ đồ đoạn thẳng) sang tư duy trừu tượng (tập hợp số, chữ thay số, các bước biến đổi đại số bài bản và lập luận hình học có căn cứ).",
+      "systems": [
+        {
+          "name": "Nhánh Cơ bản (Vững nền tảng)",
+          "content": "Tập trung làm chủ các phép tính trên tập hợp số nguyên, số hữu tỉ; quy tắc dấu ngoặc, chuyển vế. Phần hình học rèn cách sử dụng các dụng cụ đo, vẽ hình chuẩn xác và viết giả thiết - kết luận ngắn gọn. Đập tan nỗi sợ 'Toán cấp 2' ngay từ học kỳ 1."
+        },
+        {
+          "name": "Nhánh Nâng cao (Định hướng Chuyên/CLC)",
+          "content": "Bồi dưỡng sớm các chuyên đề toán số học nâng cao (Tính chất chia hết, số nguyên tố, đồng dư thức, cấu tạo số) và các bài toán hình học tính toán phức tạp. Khơi dậy tư duy phản biện và khả năng lập luận logic đa chiều."
+        }
+      ]
+    },
+    {
+      "id": "lop-8",
+      "gradeName": "Khối Lớp 8",
+      "tagline": "Trọng Tâm Bản Lề – Quyết Định Toàn Cấp",
+      "duration": "1 buổi / tuần (150 phút / buổi)",
+      "coreGoal": "Đây là năm học nặng nhất và dễ mất gốc nhất của cấp 2. Trung tâm đặt mục tiêu tối thượng: Học sinh phải thuộc lòng và vận dụng linh hoạt 7 Hằng đẳng thức đáng nhớ, thành thạo Phân tích đa thức thành nhân tử và tư duy Tam giác đồng dạng.",
+      "systems": [
+        {
+          "name": "Nhánh Cơ bản (Chống mất gốc)",
+          "content": "Luyện tập liên tục, kiểm tra khắt khe kỹ năng biến đổi đại số, giải phương trình bậc nhất và phân thức. Về hình học, tập trung rèn phương pháp chứng minh tứ giác đặc biệt (hình chữ nhật, hình thoi, hình vuông) và làm quen với sơ đồ suy luận ngược trong chứng minh hình."
+        },
+        {
+          "name": "Nhánh Nâng cao (Mục tiêu 9+ / Thi Chuyên)",
+          "content": "Học sâu các kỹ thuật nâng cao: Bất đẳng thức (Cơ bản đến nâng cao như Cauchy, Bunhiacopski), cực trị đại số, giải phương trình nghiệm nguyên. Hình học tập trung vào các bài toán bổ đề tam giác đồng dạng, tính chất diện tích phức tạp."
+        }
+      ]
+    },
+    {
+      "id": "lop-9",
+      "gradeName": "Khối Lớp 9",
+      "tagline": "Chặng Nước Rút Thực Chiến – Chinh Phục Phòng Thi 10+",
+      "duration": "1 - 2 buổi / tuần (Tùy giai đoạn tăng tốc)",
+      "coreGoal": "Giai đoạn dồn toàn lực cho mục tiêu thi đỗ vào lớp 10 THPT công lập, lớp chọn hoặc trường chuyên. Hoàn thành sớm chương trình cốt lõi (Căn thức bậc hai, Hàm số bậc nhất/bậc hai, Hệ phương trình, Đường tròn hình học) trước tháng 3 để dành 3 tháng cuối luyện đề.",
+      "matrixTable": [
+        {
+          "group": "Nhóm 1: Mục tiêu Chuyên / Trường TOP Đầu (Ams, Chuyên Sư Phạm, Chuyên KHTN, Chuyên Nguyễn Huệ...)",
+          "action": "Tách lớp chuyên đề sâu. Cày quét các dạng đề thi chuyên các tỉnh thành trong 5 năm gần nhất. Huấn luyện chiến thuật lấy điểm tuyệt đối câu đại số và xử lý câu phân hóa (Bất đẳng thức/Hình học cấu trúc động). Yêu cầu kỷ luật thép, không nghỉ học tự do.",
+          "psycho": "Giảm áp lực thành tích tiêu cực. Giáo viên đóng vai trò huấn luyện viên tâm lý, giúp học sinh kiểm soát phòng thi, tránh lỗi trình bày cẩu thả làm mất điểm đáng tiếc."
+        },
+        {
+          "group": "Nhóm 2: Mục tiêu Công lập Đại trà / Lớp Chọn (Điểm thi 8.0 - 9.0)",
+          "action": "Luyện đề cấu trúc chuẩn Sở Giáo dục hàng tuần. Đóng băng các lỗi sai kinh điển ở câu rút gọn biểu thức, hàm số bậc nhất và ý 1-2 bài hình đường tròn. Đảm bảo ăn trọn vẹn điểm ở những phần thi này.",
+          "psycho": "Tạo tâm lý tự tin, làm đến đâu chắc đến đó. Không cho học sinh sa đà vào các câu hình quá khó mà bỏ quên việc soát lại bài tính toán căn thức cơ bản."
+        },
+        {
+          "group": "Nhóm 3: Học sinh Yếu, Trung bình (Mục tiêu Cứu vớt / Đỗ Tốt nghiệp Công lập vừa sức)",
+          "action": "Học theo phác đồ 'Học trọng tâm - Bỏ câu khó'. Dành 100% thời gian cày nát các dạng bài chắc chắn có trong đề thi: Rút gọn biểu thức bậc thấp, giải hệ phương trình, bài toán thực tế (giải bài toán bằng cách lập pt), và ý đầu bài hình.",
+          "psycho": "Động viên tinh thần bền bỉ, kiên nh trì. Sát sao kèm cặp từng bước biến đổi nhỏ để học sinh không buông xuôi trước áp lực thi cử."
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "title": "Quy tắc 1: Kiểm tra đầu giờ và trả bài chi tiết",
+      "content": "Khác với cấp 1, học sinh cấp 2 phải có thói quen làm bài tập về nhà đầy đủ. 15 phút đầu giờ luôn có bài kiểm tra nhanh (Quiz/Mini-test) để đánh giá mức độ tiếp thu bài cũ. Điểm số gửi trực tiếp cho phụ huynh qua hệ thống SMS/Zalo ngay trong ngày."
+    },
+    {
+      "title": "Quy tắc 2: Chuẩn hóa quy trình trình bày (Tự luận)",
+      "content": "Thi vào 10 chủ yếu là tự luận. Trung tâm nghiêm cấm việc học sinh làm tắt, bỏ bước hoặc viết chữ cẩu thả. Giáo viên có trách nhiệm gạch chân và trừ điểm nghiêm khắc các lỗi thiếu điều kiện xác định (ĐKXĐ), thiếu đơn vị hoặc lập luận không căn cứ."
+    },
+    {
+      "title": "Quy tắc 3: Cam kết đồng hành và phụ đạo miễn phí",
+      "content": "Đối với học sinh có điểm kiểm tra định kỳ dưới trung bình (hoặc sụt giảm phong độ đột ngột), trung tâm sẽ sắp xếp các buổi phụ đạo (1 kèm 3 hoặc 1 kèm 5) hoàn toàn miễn phí trước giờ học chính thức để bù đắp kiến thức hổng kịp thời."
+    },
+    {
+      "title": "Quy tắc 4: Chiến lược luyện đề khoa học, chống quá tải",
+      "content": "Giai đoạn luyện đề lớp 9 chỉ bắt đầu khi học sinh đã nắm chắc lý thuyết nền tảng. Không cho học sinh làm đề tràn lan theo phong trào khi chưa vững kỹ năng cơ bản. Định hướng chọn trường thi dựa trên kết quả trung bình của 5 bài thi thử thực chiến tại trung tâm."
+    }
+  ]
+}
